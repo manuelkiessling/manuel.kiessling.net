@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Authors on Develop Build Deploy</title>
+    <link>https://develop-build-deploy.com/tags/authors/</link>
+    <description>Recent content in Authors on Develop Build Deploy</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 17 Jan 2018 16:13:00 +0100</lastBuildDate>
+    
+	<atom:link href="https://develop-build-deploy.com/tags/authors/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Five Pillars of a healthy Continuous Delivery setup</title>
+      <link>https://develop-build-deploy.com/tutorials/the-five-pillars-of-a-healthy-continuous-delivery-setup/</link>
+      <pubDate>Wed, 17 Jan 2018 16:13:00 +0100</pubDate>
+      
+      <guid>https://develop-build-deploy.com/tutorials/the-five-pillars-of-a-healthy-continuous-delivery-setup/</guid>
+      <description>Introduction The goal of this project is to teach you how to build successful Continuous Delivery setups for your software products. The goal of this post is to create a shared understanding of the different practices and principles that together are the foundation for Continuous Delivery setups that are stable, maintainable, and adaptable.
+I call these the Five Pillars of a healthy Continuous Delivery setup.
+These pillars are:
+ Infrastructure-as-Code Immutable Servers Zero-Downtime Blue-Green Deployment Software Tests Software-based database Migrations  This is not an ordered list.</description>
+    </item>
+    
+  </channel>
+</rss>
