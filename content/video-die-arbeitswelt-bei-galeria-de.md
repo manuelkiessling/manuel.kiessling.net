@@ -5,6 +5,7 @@ title: "Video: Die E-Commerce-Welt bei GALERIA Kaufhof"
 description: "Das Personalmarketing der GALERIA Kaufhof GmbH hat einen wie ich finde sehr ansprechend gemachten Film zur Arbeitswelt im E-Commerce Bereich des Unternehmens drehen lassen. Mit dabei meine Kollegen Beate Radics, Rico Pfaus, und ich."
 authors: ["manuelkiessling"]
 slug: 2016/01/07/video-die-arbeitswelt-bei-galeria-de
+lang: de
 ---
 
 <p>
