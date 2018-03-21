@@ -2,13 +2,13 @@
 date: 2016-05-16T16:13:00+01:00
 lastmod: 2016-05-16T16:13:00+01:00
 title: "Scala Play2: Tolerant JSON body parsing with dedicated error handling"
-description: 'For one of my current projects, I needed to gain full control over the request-body-to-case-class-object transformation of my Scala Play2 controller action. Here’s the solution I came up with.'
+description: "For one of my current projects, I needed to gain full control over the request-body-to-case-class-object transformation of my Scala Play2 controller action. Here's the solution I came up with."
 authors: ["manuelkiessling"]
 slug: 2016/05/16/scala-play2-tolerant-json-body-parsing-with-dedicated-error-handling
 ---
 
 <p>
-I&#8217;m currently rewriting a Scala Play2 based web service that employs the following body parser:
+I'm currently rewriting a Scala Play2 based web service that employs the following body parser:
 </p>
 
 <p>
@@ -27,7 +27,7 @@ Not shown here is the implicit <code class="inline">Reads</code> that takes care
 </p>
 
 <p>
-As you can see, the existing code took care of handling the incoming Json in a tolerant manner &#8211; that is, it didn&#8217;t bail out if the media type of the body is not <code class="inline">application/json</code>, which is what Play does per default, but which is not what we want in this case because clients send requests with a more specific media type to this webservice.
+As you can see, the existing code took care of handling the incoming Json in a tolerant manner &#8211; that is, it didn't bail out if the media type of the body is not <code class="inline">application/json</code>, which is what Play does per default, but which is not what we want in this case because clients send requests with a more specific media type to this webservice.
 </p>
 
 <p>
@@ -35,7 +35,7 @@ In case that the Json object to case class transformation fails, the body parser
 </p>
 
 <p>
-Another case is implicitly covered, too &#8211; if the request body isn&#8217;t even Json to begin with (e.g. because a <code class="inline">{</code> is missing, as in <code class="inline">"foo":"bar"}</code>), then <code class="inline">parse.tolerantJson</code> fails, resulting in a failure response, too.
+Another case is implicitly covered, too &#8211; if the request body isn't even Json to begin with (e.g. because a <code class="inline">{</code> is missing, as in <code class="inline">"foo":"bar"}</code>), then <code class="inline">parse.tolerantJson</code> fails, resulting in a failure response, too.
 </p>
 
 <p>
@@ -43,7 +43,7 @@ However, the latter case is handled by Play2, resulting in a generic HTML error 
 </p>
 
 <p>
-The solution turned out to be quite simple (which didn&#8217;t stop me from taking several hours to come up with it) &#8211; by parsing the Json myself using the <code class="inline">parse.tolerantText</code> body parser, I gained full control over the body parsing process, which allowed me to react to errors in both steps in the process &#8211; the text-to-json transformation as well as the json-to-case-class-object transformation:
+The solution turned out to be quite simple (which didn't stop me from taking several hours to come up with it) &#8211; by parsing the Json myself using the <code class="inline">parse.tolerantText</code> body parser, I gained full control over the body parsing process, which allowed me to react to errors in both steps in the process &#8211; the text-to-json transformation as well as the json-to-case-class-object transformation:
 </p>
 
 <p>

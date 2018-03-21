@@ -1,8 +1,8 @@
 ---
 date: 2016-07-11T16:13:00+01:00
 lastmod: 2016-07-11T16:13:00+01:00
-title: "How Cassandra’s inner workings relate to performance"
-description: 'At Galeria.de, we learned the hard way that it’s critical to understand the inner workings of the distributed masterless database Cassandra if one wants to experience good performance during reads and writes. This post describes some of the details of how Cassandra works under the hood, and shows how understanding these details helps to anticipate which use patterns work well and which don’t.'
+title: "How Cassandra's inner workings relate to performance"
+description: "At Galeria.de, we learned the hard way that it's critical to understand the inner workings of the distributed masterless database Cassandra if one wants to experience good performance during reads and writes. This post describes some of the details of how Cassandra works under the hood, and shows how understanding these details helps to anticipate which use patterns work well and which don't."
 authors: ["manuelkiessling"]
 slug: 2016/07/11/how-cassandras-inner-workings-relate-to-performance
 ---
@@ -11,31 +11,31 @@ slug: 2016/07/11/how-cassandras-inner-workings-relate-to-performance
 
 <h2 id="about">About</h2>
 
-<p>At Galeria.de, we learned the hard way that it’s critical to understand the inner workings of the distributed
+<p>At Galeria.de, we learned the hard way that it's critical to understand the inner workings of the distributed
 masterless database Cassandra if one wants to experience good performance during reads and writes. This post describes
 some of the details of how Cassandra works under the hood, and shows how understanding these details helps to anticipate
-which use patterns work well and which don’t.</p>
+which use patterns work well and which don't.</p>
 
 <h2 id="network-and-node-storage-architecture">Network and node storage architecture</h2>
 
 <p>Roughly speaking, there are two main areas within the Cassandra architecture that play a deciding role with regards to
 query performance &#8211; the network of nodes that form the database cluster, and the local storage on each of those nodes.</p>
 
-<p>Efficient queries must be efficient network-wise as well as storage I/O wise. Let’s dig into both areas and see how
+<p>Efficient queries must be efficient network-wise as well as storage I/O wise. Let's dig into both areas and see how
 things work under the hood. If we understand the inner workings of both, we should be prepared to anticipate why certain
 table-structure/query combinations are efficient and some are not.</p>
 
 <h3 id="the-network">The network</h3>
 
 <p>A production Cassandra setup always consists of multiple nodes, where a node is one Cassandra server process on one
-system. All nodes are connected via the network. There isn’t any kind of “master” node &#8211; all nodes are created equal.</p>
+system. All nodes are connected via the network. There isn't any kind of “master” node &#8211; all nodes are created equal.</p>
 
 <p>Logically, the data in a cluster is organized into keyspaces, which contain tables. Tables contain rows, and rows have
 columns.</p>
 
 <p>Physically, the content of a table row is always stored on the hard drive of at least one node in the cluster, and,
 depending on how the keyspace has been defined upon creation, this row content is replicated to 0 or more other nodes
-in the cluster. If all of this doesn’t make sense now, it will once you’ve read this post.</p>
+in the cluster. If all of this doesn't make sense now, it will once you've read this post.</p>
 
 <p>In this post, we always assume that our setup is a cluster of 5 nodes, numbered 1 to 5. A 5 node Cassandra cluster is
 visualized as follows:</p>
@@ -84,7 +84,7 @@ coordinator for this query.</p>
 <h4 id="step-2-mapping-the-partition-key-value-to-a-cluster-node">Step 2: Mapping the partition key value to a cluster node</h4>
 <p>The first thing the coordinator node needs to do upon receiving the insert query is to find out where in the cluster the
 row data for this INSERT needs to be persisted. Because <code class="inline">username</code> is the first (and in this case only) part of the
-primary key, it acts as the partition key. The value of the partition key column is what’s used by the coordinator to
+primary key, it acts as the partition key. The value of the partition key column is what's used by the coordinator to
 determine the first node onto which to store the row. To do so, a hash function &#8211; the so-called <em>partitioner</em> &#8211; is
 applied on the value, and the result is a token. This token then tells the cluster about the target node, because each
 node is responsible for a certain range of tokens. Assumed that tokens would run from 0 to 49 (in reality, the token
@@ -95,7 +95,7 @@ range is much larger), we can visualize the tokens-to-nodes mapping as follows:<
 <p>That is, node 3 holds those rows of table “users” in keyspace “galeria” for which the value of column “username” results
 in a hash function token from 20 to 29.</p>
 
-<p>For example, let’s just make up that the username column value “jdoe” would result in token value 17. This means that
+<p>For example, let's just make up that the username column value “jdoe” would result in token value 17. This means that
 the cluster must store the according row at least on node 2.</p>
 
 <h4 id="step-3-determine-replication-nodes">Step 3: Determine replication nodes</h4>
@@ -106,7 +106,7 @@ replicas of the row are stored on the next nodes clockwise in the ring &#8211; i
 
 <p>Note that the replication of the write in question happens on all three nodes (2, 3, and 4) simultaneously, and not
 one-after-the-other. This detail is important because it explains why Cassandra is relatively optimistic regarding the
-to-disk-sync of a node’s commit log (see chapter “The node storage” for more on this).</p>
+to-disk-sync of a node's commit log (see chapter “The node storage” for more on this).</p>
 
 <p>As said, the replica order is based on the logical structure of the cluster &#8211; the cluster sees itself as an ordered ring
 structure, where each node has a “neighbour” node that comes “after” it in the ring.</p>
@@ -121,7 +121,7 @@ coordinator.</p>
 
 <h3 id="the-node-storage">The node storage</h3>
 
-<p>Let’s “zoom in” on our node 2 and have a look at what happens in terms of its local storage when it receives the write
+<p>Let's “zoom in” on our node 2 and have a look at what happens in terms of its local storage when it receives the write
 request from the coordinator node as a result of the INSERT query issued by the client. As noted, the same operations
 happen on nodes 3 and 4 simultaneously.</p>
 
@@ -133,7 +133,7 @@ persisting the row data on a node:</p>
 <p>Why are there three different storage mechanisms combined in order to persist data and make data retrievable? The reason
 is that only the interplay of these three mechanisms gives us a database that will, if used correctly, allow for
 efficient data writes, efficient data reads, as well as durable storage of large amounts of data &#8211; which is great
-because we certainly want a database that handles our INSERTs quickly, answers our SELECTs fast, doesn’t loose any of
+because we certainly want a database that handles our INSERTs quickly, answers our SELECTs fast, doesn't loose any of
 our data while doing so, and stores more data than what fits into expensive and therefore limited memory.</p>
 
 <p>So, looks like we have four important qualities that we want to have covered on the storage level: fast writes, fast
@@ -152,7 +152,7 @@ way).</p>
 are stored on disk in a structure that allows to quickly locate a desired data element (but writing data into this
 structure is slow).</p>
 
-<p>If we want to cover all four qualities, all three mechanisms need to be combined. Let’s see how this works in practice.</p>
+<p>If we want to cover all four qualities, all three mechanisms need to be combined. Let's see how this works in practice.</p>
 
 <h4 id="the-commit-log">The commit log</h4>
 <p>The first step taken storage-wise is to write the row data of our INSERT into the commit log.</p>
@@ -167,7 +167,7 @@ disk &#8211; per default, this happens every 10 seconds, but the node immediatel
 to 10 seconds during which, in case of a server crash, the data is not persisted on the harddrive of the crashing server
 node, although the coordinator will think it is.</p>
 
-<p>What in theory sounds highly problematic in terms of data durability isn’t a big deal in practice. Cassandra assumes
+<p>What in theory sounds highly problematic in terms of data durability isn't a big deal in practice. Cassandra assumes
 that data is always replicated, and two participating server nodes crashing within the same 10 seconds window is very
 unlikely.</p>
 
@@ -185,7 +185,7 @@ disk I/O. To circumvent this, SSTables are <em>never</em> updated &#8211; instea
 only written to once, and are then immutable (read-only) &#8211; new, additional SSTables are created to cover new row data or
 updates to existing row data.</p>
 
-<p>Let’s close the circle: If row data cannot be retrieved from the commit log efficiently, and data isn’t put into
+<p>Let's close the circle: If row data cannot be retrieved from the commit log efficiently, and data isn't put into
 SSTables immediately, then another data structure is required in order to answer read requests <em>immediately</em> (as soon as
 the data is written to the node) <strong>and</strong> <em>efficiently</em>.</p>
 
@@ -218,11 +218,11 @@ MemTable does the job.</p>
 
 <p>And thus, right after appending the INSERT data to the commit log, the node puts the same row data into the MemTable
 structure. At this point, the data is both durable (commit log) and efficiently retrieveable (MemTable), and thus, the
-data node can acknowledge the write to the coordinator node: Thanks, I have the data, and I’m able to provide it quickly
+data node can acknowledge the write to the coordinator node: Thanks, I have the data, and I'm able to provide it quickly
 if anyone asks.</p>
 
 <h4 id="the-sstables">The SSTables</h4>
-<p>As already mentioned, this situation is fine for the moment, but without the third mechanism &#8211; SSTables &#8211; we’d quickly
+<p>As already mentioned, this situation is fine for the moment, but without the third mechanism &#8211; SSTables &#8211; we'd quickly
 run into problems once the node has to hold more data than the size of its memory allows.</p>
 
 <p>SSTables certainly are the most interesting data structure of the three. A new SSTable is created whenever the MemTable
@@ -230,7 +230,7 @@ reaches a certain size (at which point it is considered “full”).</p>
 
 <p>As said, SSTables are immutable, and this results in a certain fragmentation of row data.</p>
 
-<p>Let’s assume we would issue the following three write statements, spread over a longer period of time:</p>
+<p>Let's assume we would issue the following three write statements, spread over a longer period of time:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>INSERT INTO users (username, firstname, lastname) VALUES ('jdoe', '', '');
 
@@ -242,7 +242,7 @@ UPDATE users SET firstname = 'John B.' WHERE username = 'jdoe';
 </code></pre>
 </div>
 
-<p>Let’s further assume that between each of these operations, a lot of other CQL operations took place, and thus, between
+<p>Let's further assume that between each of these operations, a lot of other CQL operations took place, and thus, between
 these three operations, the MemTable of the target node became full several times and has been flushed into new
 SSTables. Our row data is now distributed as follows:</p>
 
@@ -259,7 +259,7 @@ SSTable 4: Row data has been stored under partition key 'jdoe', with firstname =
 </div>
 
 <p>Now imagine we would like to retrieve the full row data via
-<code class="inline">SELECT firstname, lastname FROM users WHERE username = 'jdoe'</code>. It’s not enough to look into the newest SSTable,
+<code class="inline">SELECT firstname, lastname FROM users WHERE username = 'jdoe'</code>. It's not enough to look into the newest SSTable,
 because it only knows about the latest data change for the row. Cassandra has to go through all SSTables, and must put
 together the full set of latest row data, while also resolving multiple updates to the same column using the timestamp
 of the write event: In our case, the correct <em>firstname</em> value is <code class="inline">John B.</code> in SSTable 4, making the value stored in
@@ -303,7 +303,7 @@ nodes has to scan a lot through many SSTables to retrieve the requested informat
 onto multiple nodes, in order to light the burden each node shoulder &#8211; that is, after all, one of the main reasons
 for choosing a database that is distributed and therefore horizontally scalable.</p>
 
-<p>That’s why so-called <em>hotspots</em> can be a problem. Imagine if our primary key is a column holding the day of week, as
+<p>That's why so-called <em>hotspots</em> can be a problem. Imagine if our primary key is a column holding the day of week, as
 follows:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>CREATE TABLE logins (
@@ -368,7 +368,7 @@ INSERT INTO products (name, color) VALUES ('Jacket', 'blue');
 </code></pre>
 </div>
 
-<p>Now let’s compare these two queries:</p>
+<p>Now let's compare these two queries:</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>SELECT * FROM products WHERE name IN ('Towel', 'Jacket') AND color = 'red';
 
@@ -386,7 +386,7 @@ is two rows, the red towel and the red jacket.</p>
 <p>But in fact, the second query is about 10x as complex as the first one when it comes to query execution. We can even
 visualize this. Here is a screenshot showing the output of the statement trace for both queries (you get the tracing
 output for all following queries by issueing <code class="inline">TRACING ON</code> on the CQL shell). The statement trace lists all network and
-disk operations that need to be run in order to satisfy the query. I’ve taken screenshots of both text outputs, pasted
+disk operations that need to be run in order to satisfy the query. I've taken screenshots of both text outputs, pasted
 them next to each other, and rotated the image by 90 degree. The output for the first query is on top, the output for
 the second is beneath it.</p>
 
@@ -396,7 +396,7 @@ the second is beneath it.</p>
 network and disk operations compared to the first. Why is this?</p>
 
 <p>We have a keyspace with a replication factor of <code class="inline">1</code>, that is, the row data for one partition key is stored on one node
-in the cluster. I’ve run both queries on a 3-node cluster. The first query specifically asks for two partition key
+in the cluster. I've run both queries on a 3-node cluster. The first query specifically asks for two partition key
 values &#8211; thanks to the hash algorithm, the coordinator node can calculate which nodes it needs to connect to, and on
 those nodes, the index of the SSTables leads to the row data without unneccessary disk seek overhead.</p>
 
