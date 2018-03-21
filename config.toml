@@ -32,7 +32,7 @@ gopher = "" # used in 404 template ( Generator: https://gopherize.me )
 [params.copyright]
 prefix = ""
 holder = "Manuel Kiessling"
-startYear = "2017"
+startYear = "2000"
 suffix = ""
 
 [params.settings]
@@ -40,7 +40,7 @@ suffix = ""
 dateFormat = "2006, Jan 02"
 listDateFormat = "2006, Jan 02"
 hideEntryNavigation = ["page"] # boolean / array of sections
-recentPostsLength = 4
+recentPostsLength = 999
 hideSocialMenu = false
 showReadingTime = true
 noTermCloudShuffle = false
@@ -60,8 +60,8 @@ titleSeparator = "•"
 
 [params.social]
 email = "manuel@kiessling.net"
-github = "DevelopBuildDeploy"
-twitter = "DevBuildDeploy"
+github = "manuelkiessling"
+twitter = "manuelkiessling"
 
 [params.social.config]
 platforms = ["github","twitter","email"]

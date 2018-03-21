@@ -44,6 +44,16 @@ p.site-description {
     font-style: normal;
 }
 
+h3.list-item-title a {
+    font-weight: bold;
+}
+
+.list-item-description {
+    color: #777;
+    font-size: .875em;
+    margin-top: .875em;
+}
+
 .list-item .meta span > time {
     color: #777;
 }
@@ -82,6 +92,12 @@ footer.entry-footer-container {
     border: none;
 }
 
+code.inline {
+    background-color: rgba(64, 224, 208, 0.25);
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+}
+
 span.filename.beforecode {
     font-family: Menlo,Consolas,Monaco,Ubuntu Mono,Liberation Mono,Lucida Console,monospace;;
     color: #777;
@@ -93,4 +109,5 @@ span.filename.beforecode {
 
 pre {
     margin-top: -22px;
+    font-size: 0.675em;
 }

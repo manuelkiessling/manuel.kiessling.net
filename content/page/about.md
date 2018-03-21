@@ -1,10 +1,14 @@
 ---
 title: About
-description: Why Develop, Build, Deploy - Repeat! exists
+description: 
 menu: main
 weight: -210
 ---
 
-The goal of *Develop, Build, Deploy - Repeat!* is to teach software developers and systems administrators how to build successful Continuous Delivery setups for software products - setups that are stable, maintainable, and adaptable.
+![A photograph of Manuel Kiessling](http://www.gravatar.com/avatar/8b50d5d8199a12f00cfbfd1061e224a9.png?s=240)
 
-To achieve this goal, this project will regularly release educational material in the form of blog posts, tutorials, books, and video courses.
+This is the homepage and blog of Manuel Kiessling.
+
+I'm a software architect, test driven developer, linux admin, agilist, [book author](https://leanpub.com/u/manuelkiessling), and father of two.
+
+Follow me on Twitter: [@manuelkiessling](http://twitter.com/manuelkiessling)
