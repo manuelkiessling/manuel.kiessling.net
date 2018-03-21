@@ -111,3 +111,7 @@ pre {
     margin-top: -22px;
     font-size: 0.675em;
 }
+
+.entry-content a {
+    border-bottom: .125em dotted #bdbdbd;
+}
