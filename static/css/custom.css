@@ -121,5 +121,10 @@ pre {
 }
 
 .entry-content a {
-    border-bottom: .125em dotted #bdbdbd;
+    border-bottom: none;
+    text-decoration: underline;
+}
+
+h3 a {
+    text-decoration: none !important;
 }

@@ -3,3 +3,48 @@ title: Home
 menu: main
 weight: -270
 ---
+
+<section id="other-publications" class="home-section">
+    <header>
+        <h2 class="home-section-title title">Other publications</h2>
+    </header>
+
+    <div class="list-container">
+        <ul class="list">
+
+            <li class="list-item">
+                <div class="list-item-header">
+                    <h3 class="list-item-title">
+                        <a href="https://develop-build-deploy.com">Develop, Build, Deploy - Repeat!</a>
+                    </h3>
+                    <p class="list-item-description">
+                        Your resource on Continuous Delivery: Infrastructure-as-Code, Immutable Servers, Zero-Downtime Blue/Green deployment, Software Tests and Database Migrations.
+                    </p>
+                </div>
+            </li>
+
+            <li class="list-item">
+                <div class="list-item-header">
+                    <h3 class="list-item-title">
+                        <a href="https://www.nodebeginner.org/web-development-beginner-tutorial/">The Web Development Beginner Tutorial</a>
+                    </h3>
+                    <p class="list-item-description">
+                        Learn software development for the web - from the ground up.
+                    </p>
+                </div>
+            </li>
+
+            <li class="list-item">
+                <div class="list-item-header">
+                    <h3 class="list-item-title">
+                        <a href="https://www.nodebeginner.org">The Node Beginner Book</a>
+                    </h3>
+                    <p class="list-item-description">
+                        The aim of this book is to get you started with developing applications with Node.js, teaching you everything you need to know about "advanced" JavaScript along the way. It goes way beyond your typical "Hello World" tutorial.
+                    </p>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</section>
