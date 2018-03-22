@@ -5,8 +5,8 @@ copyright = ""
 
 theme = "minimo"
 
-disqusShortname = ""
-googleAnalytics = ""
+disqusShortname = "thelogbookofmanuelkiessling"
+googleAnalytics = "UA-2127388-5"
 
 Paginate = 5
 preserveTaxonomyNames = true
@@ -32,7 +32,7 @@ gopher = "" # used in 404 template ( Generator: https://gopherize.me )
 [params.copyright]
 prefix = ""
 holder = "Manuel Kiessling"
-startYear = "2000"
+startYear = "1998"
 suffix = ""
 
 [params.settings]
@@ -75,6 +75,16 @@ tag = "tags"
 page = "/:slug/"
 
 [[menu.main]]
+name = "Projects"
+weight = 1
+identifier = "Projects"
+url = "https://github.com/manuelkiessling"
+[[menu.main]]
+name = "Books"
+weight = 2
+identifier = "Books"
+url = "https://leanpub.com/u/manuelkiessling"
+
 
 [blackfriday]
 hrefTargetBlank = true

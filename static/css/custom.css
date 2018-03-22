@@ -33,9 +33,10 @@ h1.title {
 
 .site-title-minified {
     color: #fff;
-    margin-top: 2em;
-    margin-bottom: -2em;
+    margin-top: 0.605em;
+    margin-bottom: 1em;
     font-weight: lighter;
+    font-size: 2em;
 }
 
 p.site-description {

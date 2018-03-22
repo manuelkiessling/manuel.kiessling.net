@@ -1,7 +1,3 @@
-{{ if eq .Kind "home" }}
-{{ else }}
-<p class='site-title-minified'>{{ .Site.Title }}</p>
-{{ end }}
 <nav id='main-menu' class='main-menu-container' aria-label='{{ i18n "mainMenu" }}'>
     <ul class='main-menu'>
         {{ range .Site.Menus.main }}
@@ -14,3 +10,7 @@
         {{ end }}
     </ul>
 </nav>
+{{ if eq .Kind "home" }}
+{{ else }}
+<p class='site-title-minified'>{{ .Site.Title }}</p>
+{{ end }}
