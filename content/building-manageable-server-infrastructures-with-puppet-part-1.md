@@ -5,6 +5,7 @@ title: "Building manageable server infrastructures with Puppet: Part 1"
 description: "With this series I would like to provide a comprehensive hands-on tutorial that explains step-by-step how to build an automated and centrally managed Linux server infrastructure using Puppet. Part 1 of the series explains in great detail how to set up a virtual machine infrastructure which allows to create a realistic Puppet server-client setup."
 authors: ["manuelkiessling"]
 slug: 2014/03/26/building-manageable-server-infrastructures-with-puppet-part-1
+canonical: https://develop-build-deploy.com/archived/building-manageable-server-infrastructures-with-puppet-part-1/
 ---
 
 <h2>About</h2>

@@ -5,6 +5,7 @@ title: "Building manageable server infrastructures with Puppet: Part 3"
 description: "Part 3 of the series shows how to extend the first simple manifest developed in the previous part into a more complex one, and how to structure it into a generic and reusable module."
 authors: ["manuelkiessling"]
 slug: 2014/03/26/building-manageable-server-infrastructures-with-puppet-part-3
+canonical: https://develop-build-deploy.com/archived/building-manageable-server-infrastructures-with-puppet-part-3/
 ---
 
 <h2>About</h2>
