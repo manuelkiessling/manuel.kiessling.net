@@ -128,3 +128,11 @@ pre {
 h3 a {
     text-decoration: none !important;
 }
+
+.floatright {
+    float: right;
+}
+
+.ml-5 {
+    margin-left: 2em;
+}
