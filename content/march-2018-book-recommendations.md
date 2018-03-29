@@ -20,7 +20,7 @@ What if in our conflicts with others there is something we want more than soluti
 
 [Showstopper!](https://www.amazon.com/Show-Stopper-Breakneck-Generation-Microsoft/dp/0029356717) is a vivid account of the creation of Microsoft Windows NT, perhaps the most complex software project ever undertaken. It is also a portrait of David Cutler, NT's brilliant and, at times, brutally aggressive chief architect.
 
-Cutler surely ranks as one of the most impressive software engineers the field has ever produced. After leading the team that created the VMS operating system for Digital's VAX computer line--an accomplishment that most would regard as a lifetime achievement--he went on to conceive and lead the grueling multi-year project that ultimately produced Windows NT. Both admired and feared by his team, Cutler would let nothing stand in the way of realizing his design and often clashed with his programmers, senior Microsoft management, and even Gates himself.
+Cutler surely ranks as one of the most impressive software engineers the field has ever produced. After leading the team that created the VMS operating system for Digital's VAX computer line – an accomplishment that most would regard as a lifetime achievement – he went on to conceive and lead the grueling multi-year project that ultimately produced Windows NT. Both admired and feared by his team, Cutler would let nothing stand in the way of realizing his design and often clashed with his programmers, senior Microsoft management, and even Gates himself.
 
 
 ## The Practicing Mind
