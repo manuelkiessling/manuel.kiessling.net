@@ -6,7 +6,8 @@
 
     <header class='list-item-header'>
       <h3 class='list-item-title'>
-        <a href='{{ .Permalink | relURL }}'>
+        <a href='{{ .Permalink | relURL }}' hreflang='{{ if and (isset .Params "lang") (eq .Params.lang "de") }}de{{ end }}'>
+          {{ if and (isset .Params "lang") (eq .Params.lang "de") }}<img src="/images/255px-Flag_of_Germany.svg.png" width="27" style="padding-right: 6px;">{{ end }}
           {{- .Title -}}
         </a>
       </h3>
