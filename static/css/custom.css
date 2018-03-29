@@ -100,7 +100,7 @@ footer.entry-footer-container {
     border: none;
 }
 
-code.inline {
+code.inline, p code, li code {
     background-color: rgba(64, 224, 208, 0.25);
     padding-left: 0.4em;
     padding-right: 0.4em;

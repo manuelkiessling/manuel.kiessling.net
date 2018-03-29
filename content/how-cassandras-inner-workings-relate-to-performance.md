@@ -5,6 +5,7 @@ title: "How Cassandra's inner workings relate to performance"
 description: "At Galeria.de, we learned the hard way that it's critical to understand the inner workings of the distributed masterless database Cassandra if one wants to experience good performance during reads and writes. This post describes some of the details of how Cassandra works under the hood, and shows how understanding these details helps to anticipate which use patterns work well and which don't."
 authors: ["manuelkiessling"]
 slug: 2016/07/11/how-cassandras-inner-workings-relate-to-performance
+canonical: http://blog.kaufhof.io/tutorials/2016/02/29/how-cassandras-inner-workings-relate-to-performance
 ---
 
 <em>This is a cross post from the <a href="http://galeria-kaufhof.github.io/tutorials/2016/02/29/how-cassandras-inner-workings-relate-to-performance">GALERIA Kaufhof Technology Blog</a>.</em>
