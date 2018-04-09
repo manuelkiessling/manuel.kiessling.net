@@ -1,7 +1,7 @@
 ---
 date: 2012-10-22T16:13:00+01:00
 lastmod: 2012-10-22T16:13:00+01:00
-title: "Bash: Skriptausgaben mit Zeitstempel versehen"
+title: "Window Maker unter Ubuntu 12.10 Quantal Quetzal"
 description: " Privat benutze ich ein sehr einfaches aber praktisches Acer Aspire One 722, dies ist ein günstiges 11,6 Zoll Netbook mit einer 1GHz AMD CPU. Das System ist nicht gerade ein Rennpferd, aber das muss es für meine Ansprüche auch nicht sein – im Wesentlichen beschränken sich 95% meiner Nutzung auf Browser und Konsole, letztere in Form des wunderbaren Guake. Als Betriebssystem verwende ich aktuell Ubuntu 12.10 Quantal Quetzal, und hier liegt das Problem: Unity ist einfach zu schwergewichtig, um auf diesem schmalbrüstigen Rechner Spaß zu machen, und die leichtgewichtigen Alternativen wie Xubuntu oder Lubuntu habe ich als wenig stabil erlebt. Meine Wahl fiel daher auf das etwas angestaubte, aber schön einfache Window Maker, welches sich an der GUI des NextSTEP Betriebssystems orientiert."
 authors: ["manuelkiessling"]
 slug: 2012/10/22/window-maker-unter-ubuntu-12-10-quantal-quetzal
