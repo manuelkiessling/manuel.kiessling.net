@@ -10,7 +10,7 @@ lang: de
 
 <h2 id="ber-diesen-artikel">Über diesen Artikel</h2>
 
-<p>Im Kontext des <a href="http://galeria-kaufhof.github.io">GALERIA Kaufhof Technology Blogs</a> stellt der vorliegende Artikel ein Update und eine Erweiterung des <a href="http://galeria-kaufhof.github.io/general/2014/09/20/jump-ein-technologiesprung-bei-galeria-kaufhof/">Beitrags von September 2014</a> dar.</p>
+<p>Im Kontext des <a href="https://galeria-kaufhof.github.io">GALERIA Kaufhof Technology Blogs</a> stellt der vorliegende Artikel ein Update und eine Erweiterung des <a href="https://galeria-kaufhof.github.io/general/2014/09/20/jump-ein-technologiesprung-bei-galeria-kaufhof/">Beitrags von September 2014</a> dar.</p>
 
 <p>Schon damals existierte ein klar definiertes Set an Vorgaben, welches den Rahmen für Makro- und Mikroarchitekturfragen
 gesteckt hat und das Projekt in Hinblick auf Fragen der System- und Softwarearchitektur leitet.</p>

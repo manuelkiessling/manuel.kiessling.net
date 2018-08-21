@@ -8,7 +8,7 @@ slug: 2015/03/01/transformieren-und-validieren-von-json-requests-in-play2
 lang: de
 ---
 
-<p><em>Dies ist ein Crosspost vom <a href="http://galeria-kaufhof.github.io/tutorials/2015/03/01/transformieren-und-validieren-von-json-requests-in-play2/">Galeria Kaufhof Technology Blog</a></em>.</p>
+<p><em>Dies ist ein Crosspost vom <a href="https://galeria-kaufhof.github.io/tutorials/2015/03/01/transformieren-und-validieren-von-json-requests-in-play2/">Galeria Kaufhof Technology Blog</a></em>.</p>
 
 <p>Als Anfänger in der Arbeit mit Scala stehe ich aktuell vor der Aufgabe, eine einfache Webservice API in Play2 zu
 realisieren.</p>

@@ -5,7 +5,7 @@ menu: main
 weight: -210
 ---
 
-![A photograph of Manuel Kiessling](http://www.gravatar.com/avatar/8b50d5d8199a12f00cfbfd1061e224a9.png?s=240)
+![A photograph of Manuel Kiessling](https://www.gravatar.com/avatar/8b50d5d8199a12f00cfbfd1061e224a9.png?s=240)
 
 This is the homepage and blog of Manuel Kiessling.
 

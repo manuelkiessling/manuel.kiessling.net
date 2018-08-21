@@ -8,7 +8,7 @@ slug: 2016/07/11/how-cassandras-inner-workings-relate-to-performance
 canonical: http://blog.kaufhof.io/tutorials/2016/02/29/how-cassandras-inner-workings-relate-to-performance
 ---
 
-<em>This is a cross post from the <a href="http://galeria-kaufhof.github.io/tutorials/2016/02/29/how-cassandras-inner-workings-relate-to-performance">GALERIA Kaufhof Technology Blog</a>.</em>
+<em>This is a cross post from the <a href="https://galeria-kaufhof.github.io/tutorials/2016/02/29/how-cassandras-inner-workings-relate-to-performance">GALERIA Kaufhof Technology Blog</a>.</em>
 
 <h2 id="about">About</h2>
 
@@ -41,7 +41,7 @@ in the cluster. If all of this doesn't make sense now, it will once you've read 
 <p>In this post, we always assume that our setup is a cluster of 5 nodes, numbered 1 to 5. A 5 node Cassandra cluster is
 visualized as follows:</p>
 
-<p><img width="50%" src="http://galeria-kaufhof.github.io/assets/images/cassandra/Cassandra cluster.svg" /></p>
+<p><img width="50%" src="/images/Cassandra cluster.svg" /></p>
 
 <p>Note that this is a logical visualization, not a network diagram &#8211; in reality each node talks to all other nodes in the
 cluster, not only to its neighbours.</p>
@@ -91,7 +91,7 @@ applied on the value, and the result is a token. This token then tells the clust
 node is responsible for a certain range of tokens. Assumed that tokens would run from 0 to 49 (in reality, the token
 range is much larger), we can visualize the tokens-to-nodes mapping as follows:</p>
 
-<p><img width="50%" src="http://galeria-kaufhof.github.io/assets/images/cassandra/Cassandra cluster with tokens.svg" /></p>
+<p><img width="50%" src="/images/Cassandra cluster with tokens.svg" /></p>
 
 <p>That is, node 3 holds those rows of table “users” in keyspace “galeria” for which the value of column “username” results
 in a hash function token from 20 to 29.</p>
@@ -129,7 +129,7 @@ happen on nodes 3 and 4 simultaneously.</p>
 <p>While the final goal is to have the data stored in a so-called <em>SSTable</em> on disk, several moving parts are involved in
 persisting the row data on a node:</p>
 
-<p><img width="50%" src="http://galeria-kaufhof.github.io/assets/images/cassandra/Cassandra node storage.svg" /></p>
+<p><img width="50%" src="/images/Cassandra node storage.svg" /></p>
 
 <p>Why are there three different storage mechanisms combined in order to persist data and make data retrievable? The reason
 is that only the interplay of these three mechanisms gives us a database that will, if used correctly, allow for
@@ -391,7 +391,7 @@ disk operations that need to be run in order to satisfy the query. I've taken sc
 them next to each other, and rotated the image by 90 degree. The output for the first query is on top, the output for
 the second is beneath it.</p>
 
-<p><img width="50%" src="http://galeria-kaufhof.github.io/assets/images/cassandra/tracing.gif" /></p>
+<p><img width="50%" src="/images/tracing.gif" /></p>
 
 <p>Although no detail information is visible at this scale, we can clearly see how the second query required way more
 network and disk operations compared to the first. Why is this?</p>

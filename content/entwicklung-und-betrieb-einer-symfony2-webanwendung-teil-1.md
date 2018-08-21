@@ -11,7 +11,7 @@ lang: de
 <h2 id="ber-diesen-artikel">Über diesen Artikel</h2>
 
 <p>
-<em>Dies ist ein Crosspost vom <a href="http://galeria-kaufhof.github.io/tutorials/2015/10/27/entwicklung-und-betrieb-einer-symfony2-webanwendung-teil-1/">GALERIA Kaufhof Technology Blog</a></em>.
+<em>Dies ist ein Crosspost vom <a href="https://galeria-kaufhof.github.io/tutorials/2015/10/27/entwicklung-und-betrieb-einer-symfony2-webanwendung-teil-1/">GALERIA Kaufhof Technology Blog</a></em>.
 </p>
 
 <p>Vor kurzem standen wir vor der Herausforderung, eine kleine Onlineanwendung für eine zeitlich begrenzte Rabattaktion zu realisieren, die keinerlei Verbindung mit dem Galeria.de Webshop hatte.</p>

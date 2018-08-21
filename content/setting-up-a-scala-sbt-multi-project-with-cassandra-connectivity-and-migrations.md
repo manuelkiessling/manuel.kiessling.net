@@ -7,7 +7,7 @@ authors: ["manuelkiessling"]
 slug: 2015/01/19/setting-up-a-scala-sbt-multi-project-with-cassandra-connectivity-and-migrations
 ---
 
-<p>This is a cross-post from <a href="http://galeria-kaufhof.github.io/tutorials/2015/01/14/setting-up-a-scala-sbt-multi-project-with-cassandra-connectivity-and-migrations/">the official Galeria Kaufhof Technology Blog</a></p>
+<p>This is a cross-post from <a href="https://galeria-kaufhof.github.io/tutorials/2015/01/14/setting-up-a-scala-sbt-multi-project-with-cassandra-connectivity-and-migrations/">the official Galeria Kaufhof Technology Blog</a></p>
 <p><em>I have learned the following through the great support and advice of my coworkers Jens Müller and
 <a href="https://twitter.com/martin_grotzke">Martin Grotzke</a>.</em></p>
 
