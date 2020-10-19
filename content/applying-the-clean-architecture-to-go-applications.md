@@ -32,7 +32,7 @@ To do so, I will guide you through the creation of a simple yet complete Go appl
 </p>
 
 <p>
-The application is a very (very!) rudimentary but working online shopping system which allows to retrieve a list of items, belonging to an order, through an HTTP web service. You can find the source code of the final application, including some unit tests, at <a href="https://github.com/ManuelKiessling/go-cleanarchitecture">https://github.com/ManuelKiessling/go-cleanarchitecture</a>.
+The application is a very (very!) rudimentary but working online shopping system which allows to retrieve a list of items, belonging to an order, through an HTTP web service. You can find the source code of the final application, including some unit tests, at <a href="https://github.com/manuelkiessling/go-cleanarchitecture">https://github.com/manuelkiessling/go-cleanarchitecture</a>.
 </p>
 
 <p>

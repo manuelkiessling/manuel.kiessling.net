@@ -243,7 +243,7 @@ Player = {
 </p>
 
 <p>
-<a href="http://wp-content/uploads/2012/03/html5_canvas_javascript_tutorial_game_screenshot.jpg"><img src="http://wp-content/uploads/2012/03/html5_canvas_javascript_tutorial_game_screenshot-300x259.jpg" alt="" title="html5 canvas javascript tutorial game screenshot" class="aligncenter size-medium wp-image-548" height="259" width="300"></a>
+<a href="/images/html5_canvas_javascript_tutorial_game_screenshot.jpg"><img src="/images/html5_canvas_javascript_tutorial_game_screenshot-300x259.jpg" alt="" title="html5 canvas javascript tutorial game screenshot" class="aligncenter size-medium wp-image-548" height="259" width="300"></a>
 </p>
 
 <p>
@@ -282,7 +282,7 @@ Player = {
 </p>
 
 <p>
-  <img src="http://wp-content/uploads/2012/03/player2.png" alt="" title="html5 canvas javascript tutorial spaceship" class="aligncenter size-full wp-image-555" height="256" width="256">
+  <img src="/images/player2.png" alt="" title="html5 canvas javascript tutorial spaceship" class="aligncenter size-full wp-image-555" height="256" width="256">
 </p>
 
 <p>

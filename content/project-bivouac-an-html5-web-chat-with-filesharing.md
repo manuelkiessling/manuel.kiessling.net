@@ -16,7 +16,7 @@ Some weeks ago I started working on a new open source software, called <a href="
 </p>
 
 <p>
-<img src="http://wp-content/uploads/2012/03/bivouac_screenshots.png" alt="" title="bivouac - Screenshots" class="alignnone size-full wp-image-488" height="300" width="850">
+<img src="/images/bivouac_screenshots.png" alt="" title="bivouac - Screenshots" class="alignnone size-full wp-image-488" height="300" width="850">
 </p>
 
 <p>

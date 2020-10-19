@@ -1,5 +1,5 @@
 baseURL = "https://manuel.kiessling.net"
-title = "The Log Book of Manuel Kiessling"
+title = "The Log Book of Manuel Kießling"
 # for smart copyright line, leave this blank and check [params.copyright]
 copyright = ""
 
@@ -31,7 +31,7 @@ gopher = "" # used in 404 template ( Generator: https://gopherize.me )
 
 [params.copyright]
 prefix = ""
-holder = "Manuel Kiessling"
+holder = "Manuel Kießling"
 startYear = "1998"
 suffix = ""
 

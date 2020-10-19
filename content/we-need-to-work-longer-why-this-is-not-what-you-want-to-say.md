@@ -75,5 +75,5 @@ This of course is a lot harder than just asking them to work longer – but this
 </p>
 
 <p>
-  <em>Manuel Kiessling is currently working at <a href="http://news.myhammer.de/unternehmen/jobs">MyHammer AG</a>, a company that puts a lot of effort into continuously improving by 300%.</em>
+  <em>Manuel Kießling is currently working at <a href="http://news.myhammer.de/unternehmen/jobs">MyHammer AG</a>, a company that puts a lot of effort into continuously improving by 300%.</em>
 </p>

@@ -17,7 +17,7 @@ Once stable, it will allow users to easily collect and visualize different types
 The main application is build on <a href="http://rubyonrails.org/">Rails</a>, the server used for data collection is written in <a href="http://nodejs.org/">node.js</a>, the web interface makes heavy use of <a href="http://jquery.com/">jQuery</a> and uses <a href="http://raphaeljs.com/">Raphaël</a> to create SVG graphs. Mass data is saved in a SQL db, other data is stored using <a href="http://couchdb.apache.org/">CouchDB</a>.
 </p>
 <p>
-The project’s code is hosted on Github at <a href="https://github.com/ManuelKiessling/PlatformHealthViewer">https://github.com/ManuelKiessling/PlatformHealthViewer</a>.
+The project’s code is hosted on Github at <a href="https://github.com/manuelkiessling/PlatformHealthViewer">https://github.com/manuelkiessling/PlatformHealthViewer</a>.
 </p>
 <p>
 This video is a short introduction to the current alpha version of the project. A funny voice and lots of grammatical shortcomings are included for free:

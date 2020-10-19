@@ -12,7 +12,7 @@ This here is just me, bragging about myself. You have been warned.
 </p>
 
 <p>
-<a href="/images/manuel_kiessling_myhammer_fai.jpg"><img src="/images/manuel_kiessling_myhammer_fai.jpg" alt="Manuel Kiessling in front of the very first MyHammer FAI server cluster" title="Manuel Kiessling in front of the very first MyHammer FAI server cluster" class="alignnone size-medium wp-image-434" width="300" height="225"></a>
+<a href="/images/manuel_kiessling_myhammer_fai.jpg"><img src="/images/manuel_kiessling_myhammer_fai.jpg" alt="Manuel Kießling in front of the very first MyHammer FAI server cluster" title="Manuel Kießling in front of the very first MyHammer FAI server cluster" class="alignnone size-medium wp-image-434" width="300" height="225"></a>
 </p>
 
 <p>

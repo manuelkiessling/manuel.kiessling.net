@@ -18,7 +18,7 @@ Sobald es einen stabilen Zustand erreicht, wird dieses Tool das Sammeln und Visu
 Die Applikation basiert in erster Linie auf <a href="http://rubyonrails.org/">Rails</a>, der HTTP Server für die Datenanlieferung ist in <a href="http://nodejs.org/">node.js</a> geschrieben, die Weboberfläche nutzt sehr ausgiebig <a href="http://jquery.com/">jQuery</a> und für die Erzeugung von SVG Graphen die <a href="http://raphaeljs.com/">Raphaël</a> Bibliothek. Massendaten werden in SQL gespeichert, weitere Daten liegen in einer <a href="http://couchdb.apache.org/">CouchDB</a>.
 </p>
 <p>
-Der Projektcode ist auf Github abrufbar unter <a href="https://github.com/ManuelKiessling/PlatformHealthViewer">https://github.com/ManuelKiessling/PlatformHealthViewer</a>.
+Der Projektcode ist auf Github abrufbar unter <a href="https://github.com/manuelkiessling/PlatformHealthViewer">https://github.com/manuelkiessling/PlatformHealthViewer</a>.
 </p>
 <p>
 Das folgende Video ist eine kurze Einführung zur aktuellen Alphaversion des Projekts. Es enthält außerdem eine lustige Sprecherstimme und eine sehr kreative Interpretation der englischen Grammatik.

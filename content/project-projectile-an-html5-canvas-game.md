@@ -11,8 +11,8 @@ slug: 2012/03/19/project-projectile-an-html5-canvas-game
   Some days ago my son asked me how computer games are made. I couldn’t really explain it very well in terms he understood (he’s 5 years old), but I wanted to show it to him. Thus I started working with him on a 2D space shooter written in JavaScript, using the canvas element of HTML5. The result is playable at <em><a href="http://manuel.kiessling.net/projectile/">http://manuel.kiessling.net/projectile/</a></em>.
 </p>
 <p>
-  <a href="http://manuel.kiessling.net/projectile/"><img src="http://wp-content/uploads/2012/03/projectile_screenshot.png" alt="" title="projectile Screenshot" class="aligncenter size-full wp-image-513" height="239" width="446"></a>
+  <a href="http://manuel.kiessling.net/projectile/"><img src="/images/projectile_screenshot.jpg" alt="" title="projectile Screenshot" class="aligncenter size-full wp-image-513" height="239" width="446"></a>
 </p>
 <p>
-  The project source code is hosted at <a href="https://github.com/ManuelKiessling/projectile">https://github.com/ManuelKiessling/projectile</a>
+  The project source code is hosted at <a href="https://github.com/manuelkiessling/projectile">https://github.com/manuelkiessling/projectile</a>
 </p>
