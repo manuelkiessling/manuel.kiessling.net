@@ -8,7 +8,7 @@ slug: 2020/10/23/single-sign-on-and-resource-separation-on-aws
 lang: en
 ---
 
-Most AWS projects start small, with just a single AWS account that contains all the resources and services to build, deploy, and run the project. Up to a certain point, that is okay. And even with just one account, resources can be isolated from each other - for example, you can run the EC2 instances of your preproduction stage in another VPC than the instances of your production stage.
+Most AWS projects start small, with just a single AWS account that contains all the resources and services to build, deploy, and run the project. Up to a certain point, this is just fine. And even with just one account, resources can be isolated from each other - for example, you can run the EC2 instances of your preproduction stage in another VPC than the instances of your production stage.
 
 But the best practices recommended by AWS suggest a more thorough isolation: Put everything that belongs together in one AWS account, and everything that does not belong together with it into another one. Thus, for example, one dedicated AWS account for preproduction, another one for production. Getting from preproduction into production, either by mistake or maliciously, becomes near-impossible.
 
