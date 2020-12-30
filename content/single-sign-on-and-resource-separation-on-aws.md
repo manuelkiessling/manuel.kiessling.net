@@ -4,7 +4,7 @@ lastmod: 2020-12-29T12:50:00+01:00
 title: "Single Sign-On and Resource Separation on AWS"
 description: "This tutorial explains a battle-tested solution to keep resources and services of different projects on AWS securely separated – while still providing convenient single sign-on with clean and manageable access rights management."
 authors: ["manuelkiessling"]
-slug: 2020/10/23/single-sign-on-and-resource-separation-on-aws
+slug: 2020/12/29/single-sign-on-and-resource-separation-on-aws
 lang: en
 ---
 
