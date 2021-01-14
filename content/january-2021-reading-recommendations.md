@@ -1,10 +1,11 @@
 ---
-date: 2021-01-14T21:46:00+02:00
-lastmod: 2021-01-14T21:46:00+02:00
+date: 2021-01-14T09:46:00+02:00
+lastmod: 2021-01-14T09:46:00+02:00
 title: "January 2021 Reading Recommendations"
 description: "My favorite reads of the past few months."
 authors: ["manuelkiessling"]
 slug: 2021/01/14/january-2021-reading-recommendations
+lang: en
 ---
 
 ## The Rise and Fall of American Growth: The U.S. Standard of Living Since the Civil War
@@ -71,3 +72,12 @@ Many people believe that only an ecological catastrophe will change humanity’s
 In [The Once and Future World](https://www.hmhbooks.com/shop/books/the-once-and-future-world/9780544104600), MacKinnon invites us to remember nature as it was, to reconnect to nature in a meaningful way, and to remake a wilder world everywhere. He goes looking for landscapes untouched by human hands. He revisits a globe exuberant with life, where lions roam North America and ten times more whales swim in the sea. He shows us that the vestiges of lost nature surround us every day: buy an avocado at the grocery store and you have a seed designed to pass through the digestive tracts of huge animals that have been driven extinct.
 
 The Once and Future World is a call for an “age of rewilding,” from planting milkweed for butterflies in our own backyards to restoring animal migration routes that span entire continents. We choose the natural world that we live in—a choice that also decides the kind of people we are.
+
+
+## The Dream Machine
+
+{{< figure src="/images/january-2021-reading-recommendations/the-dream-machine-cover.jpg" width="100" class="floatright ml-5" >}}
+
+**Very special recommendation**
+
+I cannot overstate what an incredible book this is. It's sold mainly as a biography of J. C. R. Licklider, and Licklider certainly is a very relevant and interesting person – but in the course of this book I realized that gladly, it is so much more: an extensive and vivid history of personal computing. [The Dream Machine](https://press.stripe.com/#the-dream-machine) is one of the best non-fiction books I've ever read, period.
