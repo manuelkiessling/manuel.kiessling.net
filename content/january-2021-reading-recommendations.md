@@ -10,7 +10,7 @@ lang: en
 
 ## The Rise and Fall of American Growth: The U.S. Standard of Living Since the Civil War
 
-{{< figure src="/images/january-2021-reading-recommendations/the-rise-and-fall-of-american-growth-cover.jpg" width="100" class="floatright ml-5" >}}
+[{{< figure src="/images/january-2021-reading-recommendations/the-rise-and-fall-of-american-growth-cover.jpg" width="100" class="floatright ml-5" >}}](https://press.princeton.edu/books/paperback/9780691175805/the-rise-and-fall-of-american-growth)
 
 In the century after the Civil War, an economic revolution improved the American standard of living in ways previously unimaginable. Electric lighting, indoor plumbing, motor vehicles, air travel, and television transformed households and workplaces. But has that era of unprecedented growth come to an end?
 
@@ -21,7 +21,7 @@ A critical voice in the most pressing debates of our time, [The Rise and Fall of
 
 ## The Tangled Tree: A Radical New History of Life
 
-{{< figure src="/images/january-2021-reading-recommendations/the-tangled-tree-cover.jpg" width="100" class="floatright ml-5" >}}
+[{{< figure src="/images/january-2021-reading-recommendations/the-tangled-tree-cover.jpg" width="100" class="floatright ml-5" >}}](https://www.simonandschuster.com/books/The-Tangled-Tree/David-Quammen/9781476776637)
 
 Our understanding of the [‘tree of life’](https://www.simonandschuster.com/books/The-Tangled-Tree/David-Quammen/9781476776637), with powerful implications for human genetics, human health and our own human nature, has recently completely changed.
 
@@ -34,7 +34,7 @@ Quammen explains how molecular studies of evolution have brought startling recog
 
 ## Private Empire: ExxonMobil and American Power
 
-{{< figure src="/images/january-2021-reading-recommendations/private-empire-cover.jpg" width="100" class="floatright ml-5" >}}
+[{{< figure src="/images/january-2021-reading-recommendations/private-empire-cover.jpg" width="100" class="floatright ml-5" >}}](https://www.penguinrandomhouse.com/books/303537/private-empire-by-steve-coll/)
 
 In this, the first hard-hitting examination of ExxonMobil—the largest and most powerful private corporation in the United States—Steve Coll reveals the true extent of its power.
 
@@ -45,14 +45,14 @@ A penetrating, news-breaking study, [Private Empire](https://www.penguinrandomho
 
 ## I, Pencil: My Family Tree as Told to Leonard E. Read
 
-{{< figure src="/images/january-2021-reading-recommendations/i-pencil-cover.jpg" width="100" class="floatright ml-5" >}}
+[{{< figure src="/images/january-2021-reading-recommendations/i-pencil-cover.jpg" width="100" class="floatright ml-5" >}}](https://www.econlib.org/library/Essays/rdPncl.html)
 
 In ["I, Pencil,"](https://www.econlib.org/library/Essays/rdPncl.html) Leonard E. Read beautifully illustrates the marvelous interconnectivity of the global marketplace in this classic essay told from the viewpoint of a common pencil–an item nearly everyone uses, but no single person can make alone.
 
 
 ## Superforecasting: The Art and Science of Prediction
 
-{{< figure src="/images/january-2021-reading-recommendations/superforecasting-cover.jpg" width="100" class="floatright ml-5" >}}
+[{{< figure src="/images/january-2021-reading-recommendations/superforecasting-cover.jpg" width="100" class="floatright ml-5" >}}](https://www.amazon.com/Superforecasting-Science-Prediction-Philip-Tetlock/dp/0804136718)
 
 Everyone would benefit from seeing further into the future, whether buying stocks, crafting policy, launching a new product, or simply planning the week’s meals. Unfortunately, people tend to be terrible forecasters. As Wharton professor Philip Tetlock showed in a landmark 2005 study, even experts’ predictions are only slightly better than chance. However, an important and underreported conclusion of that study was that some experts do have real foresight, and Tetlock has spent the past decade trying to figure out why. What makes some people so good? And can this talent be taught?
 
@@ -65,7 +65,7 @@ Superforecasting offers the first demonstrably effective way to improve our abil
 
 ## The Once and Future World: Nature As It Was, As It Is, As It Could Be
 
-{{< figure src="/images/january-2021-reading-recommendations/the-once-and-future-world-cover.jpg" width="100" class="floatright ml-5" >}}
+[{{< figure src="/images/january-2021-reading-recommendations/the-once-and-future-world-cover.jpg" width="100" class="floatright ml-5" >}}](https://www.hmhbooks.com/shop/books/the-once-and-future-world/9780544104600)
 
 Many people believe that only an ecological catastrophe will change humanity’s troubled relationship with the natural world. In fact, as J.B. MacKinnon argues in this unorthodox look at the disappearing wilderness, we are living in the midst of a disaster thousands of years in the making—and we hardly notice it. We have forgotten what nature can be and adapted to a diminished world of our own making.
 
@@ -76,7 +76,7 @@ The Once and Future World is a call for an “age of rewilding,” from planting
 
 ## The Dream Machine
 
-{{< figure src="/images/january-2021-reading-recommendations/the-dream-machine-cover.jpg" width="100" class="floatright ml-5" >}}
+[{{< figure src="/images/january-2021-reading-recommendations/the-dream-machine-cover.jpg" width="100" class="floatright ml-5" >}}](https://press.stripe.com/#the-dream-machine)
 
 **Very special recommendation**
 
@@ -85,14 +85,14 @@ I cannot overstate what an incredible book this is. It's sold mainly as a biogra
 
 ## Designing Data-Intensive Applications
 
-{{< figure src="/images/january-2021-reading-recommendations/designing-data-intensive-applications-cover.jpg" width="100" class="floatright ml-5" >}}
+[{{< figure src="/images/january-2021-reading-recommendations/designing-data-intensive-applications-cover.jpg" width="100" class="floatright ml-5" >}}](https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/)
 
 If you build software applications for a living, ["Designing Data-Intensive Applications"](https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/) is a must-read.
 
 
 ## Failure Is Not an Option: Mission Control From Mercury to Apollo 13 and Beyond
 
-{{< figure src="/images/january-2021-reading-recommendations/failure-is-not-an-option-cover.jpg" width="100" class="floatright ml-5" >}}
+[{{< figure src="/images/january-2021-reading-recommendations/failure-is-not-an-option-cover.jpg" width="100" class="floatright ml-5" >}}](https://www.simonandschuster.com/books/Failure-Is-Not-an-Option/Gene-Kranz/9780743214476)
 
 Gene Kranz was present at the creation of America’s manned space program and was a key player in it for three decades. As a flight director in NASA’s Mission Control, Kranz witnessed firsthand the making of history. He participated in the space program from the early days of the Mercury program to the last Apollo mission, and beyond. He endured the disastrous first years when rockets blew up and the United States seemed to fall further behind the Soviet Union in the space race. He helped to launch Alan Shepard and John Glenn, then assumed the flight director’s role in the Gemini program, which he guided to fruition. With his teammates, he accepted the challenge to carry out President John F. Kennedy’s commitment to land a man on the Moon before the end of the 1960s.
 
@@ -103,7 +103,7 @@ A fascinating firsthand account by a veteran mission controller of one of Americ
 
 ## Young Stalin
 
-{{< figure src="/images/january-2021-reading-recommendations/young-stalin-cover.jpg" width="100" class="floatright ml-5" >}}
+[{{< figure src="/images/january-2021-reading-recommendations/young-stalin-cover.jpg" width="100" class="floatright ml-5" >}}](https://www.penguinrandomhouse.com/books/116186/young-stalin-by-simon-sebag-montefiore/)
 
 This revelatory account unveils how Stalin became Stalin, examining his shadowy journey from obscurity to power—from master historian Simon Sebag Montefiore.
 
@@ -112,6 +112,28 @@ Based on ten years of research, Young Stalin—companion to the prizewinning Sta
 
 ## Mountains Beyond Mountains: The Quest of Dr. Paul Farmer, a Man Who Would Cure the World
 
-{{< figure src="/images/january-2021-reading-recommendations/mountains-beyond-mountains-cover.jpg" width="100" class="floatright ml-5" >}}
+[{{< figure src="/images/january-2021-reading-recommendations/mountains-beyond-mountains-cover.jpg" width="100" class="floatright ml-5" >}}](https://www.penguinrandomhouse.com/books/92351/mountains-beyond-mountains-by-tracy-kidder/)
 
 In medical school, Paul Farmer found his life’s calling: to cure infectious diseases and to bring the lifesaving tools of modern medicine to those who need them most. Tracy Kidder’s magnificent account shows how one person can make a difference in solving global health problems through a clear-eyed understanding of the interaction of politics, wealth, social systems, and disease. Profound and powerful, [Mountains Beyond Mountains](https://www.penguinrandomhouse.com/books/92351/mountains-beyond-mountains-by-tracy-kidder/) takes us from Harvard to Haiti, Peru, Cuba, and Russia as Farmer changes people’s minds through his dedication to the philosophy that “the only real nation is humanity.”
+
+
+## The Soul of A New Machine
+
+[{{< figure src="/images/january-2021-reading-recommendations/the-soul-of-a-new-machine-cover.jpg" width="100" class="floatright ml-5" >}}](https://www.amazon.com/Soul-New-Machine-Tracy-Kidder/dp/0316491977)
+
+Computers have changed since 1981, when The Soul of a New Machine first examined the culture of the computer revolution. What has not changed is the feverish pace of the high-tech industry, the go-for-broke approach to business that has caused so many computer companies to win big (or go belly up), and the cult of pursuing mind-bending technological innovations.
+
+[The Soul of a New Machine](https://www.amazon.com/Soul-New-Machine-Tracy-Kidder/dp/0316491977) is an essential chapter in the history of the machine that revolutionized the world in the twentieth century.
+
+
+## The Box: How the Shipping Container Made the World Smaller and the World Economy Bigger
+
+[{{< figure src="/images/january-2021-reading-recommendations/the-box-cover.jpg" width="100" class="floatright ml-5" >}}](https://press.princeton.edu/books/paperback/9780691170817/the-box)
+
+In April 1956, a refitted oil tanker carried fifty-eight shipping containers from Newark to Houston. From that modest beginning, container shipping developed into a huge industry that made the boom in global trade possible. The Box tells the dramatic story of the container's creation, the decade of struggle before it was widely adopted, and the sweeping economic consequences of the sharp fall in transportation costs that containerization brought about.
+
+But the container didn't just happen. Its adoption required huge sums of money, both from private investors and from ports that aspired to be on the leading edge of a new technology. It required years of high-stakes bargaining with two of the titans of organized labor, Harry Bridges and Teddy Gleason, as well as delicate negotiations on standards that made it possible for almost any container to travel on any truck or train or ship. Ultimately, it took McLean's success in supplying U.S. forces in Vietnam to persuade the world of the container's potential.
+
+Drawing on previously neglected sources, economist Marc Levinson shows how the container transformed economic geography, devastating traditional ports such as New York and London and fueling the growth of previously obscure ones, such as Oakland. By making shipping so cheap that industry could locate factories far from its customers, the container paved the way for Asia to become the world's workshop and brought consumers a previously unimaginable variety of low-cost products from around the globe.
+
+Published in hardcover on the fiftieth anniversary of the first container voyage, this is the first comprehensive history of the shipping container. Now with a new chapter, [The Box](https://press.princeton.edu/books/paperback/9780691170817/the-box) tells the dramatic story of how the drive and imagination of an iconoclastic entrepreneur turned containerization from an impractical idea into a phenomenon that transformed economic geography, slashed transportation costs, and made the boom in global trade possible.
