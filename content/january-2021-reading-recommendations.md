@@ -81,3 +81,37 @@ The Once and Future World is a call for an “age of rewilding,” from planting
 **Very special recommendation**
 
 I cannot overstate what an incredible book this is. It's sold mainly as a biography of J. C. R. Licklider, and Licklider certainly is a very relevant and interesting person – but in the course of this book I realized that gladly, it is so much more: an extensive and vivid history of personal computing. [The Dream Machine](https://press.stripe.com/#the-dream-machine) is one of the best non-fiction books I've ever read, period.
+
+
+## Designing Data-Intensive Applications
+
+{{< figure src="/images/january-2021-reading-recommendations/designing-data-intensive-applications-cover.jpg" width="100" class="floatright ml-5" >}}
+
+If you build software applications for a living, ["Designing Data-Intensive Applications"](https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/) is a must-read.
+
+
+## Failure Is Not an Option: Mission Control From Mercury to Apollo 13 and Beyond
+
+{{< figure src="/images/january-2021-reading-recommendations/failure-is-not-an-option-cover.jpg" width="100" class="floatright ml-5" >}}
+
+Gene Kranz was present at the creation of America’s manned space program and was a key player in it for three decades. As a flight director in NASA’s Mission Control, Kranz witnessed firsthand the making of history. He participated in the space program from the early days of the Mercury program to the last Apollo mission, and beyond. He endured the disastrous first years when rockets blew up and the United States seemed to fall further behind the Soviet Union in the space race. He helped to launch Alan Shepard and John Glenn, then assumed the flight director’s role in the Gemini program, which he guided to fruition. With his teammates, he accepted the challenge to carry out President John F. Kennedy’s commitment to land a man on the Moon before the end of the 1960s.
+
+Kranz recounts these thrilling historic events and offers new information about the famous flights. What appeared as nearly flawless missions to the Moon were, in fact, a series of hair-raising near misses. When the space technology failed, as it sometimes did, the controllers’ only recourse was to rely on their skills and those of their teammates. He reveals behind-the-scenes details to demonstrate the leadership, discipline, trust, and teamwork that made the space program a success.
+
+A fascinating firsthand account by a veteran mission controller of one of America’s greatest achievements, [Failure is Not an Option](https://www.simonandschuster.com/books/Failure-Is-Not-an-Option/Gene-Kranz/9780743214476) reflects on what has happened to the space program and offers his own bold suggestions about what we ought to be doing in space now.
+
+
+## Young Stalin
+
+{{< figure src="/images/january-2021-reading-recommendations/young-stalin-cover.jpg" width="100" class="floatright ml-5" >}}
+
+This revelatory account unveils how Stalin became Stalin, examining his shadowy journey from obscurity to power—from master historian Simon Sebag Montefiore.
+
+Based on ten years of research, Young Stalin—companion to the prizewinning Stalin: The Court of the Red Tsar—is a brilliant prehistory of the USSR, a chronicle of the Revolution, and an intimate biography.  Montefiore tells the story of a charismatic, darkly turbulent boy born into poverty, scarred by his upbringing but possessed of unusual talents. Admired as a romantic poet and trained as a priest, he found his true mission as a murderous revolutionary. Here is the dramatic story of his friendships and hatreds, his many love affairs, his complicated relationship with the Tsarist secret police, and how he became the merciless politician who shaped the Soviet Empire in his own brutal image. Described by The New York Times as "a meticulously researched, autoritative biography," [Young Stalin](https://www.penguinrandomhouse.com/books/116186/young-stalin-by-simon-sebag-montefiore/) is essential reading for anyone interested in Russian history.
+
+
+## Mountains Beyond Mountains: The Quest of Dr. Paul Farmer, a Man Who Would Cure the World
+
+{{< figure src="/images/january-2021-reading-recommendations/mountains-beyond-mountains-cover.jpg" width="100" class="floatright ml-5" >}}
+
+In medical school, Paul Farmer found his life’s calling: to cure infectious diseases and to bring the lifesaving tools of modern medicine to those who need them most. Tracy Kidder’s magnificent account shows how one person can make a difference in solving global health problems through a clear-eyed understanding of the interaction of politics, wealth, social systems, and disease. Profound and powerful, [Mountains Beyond Mountains](https://www.penguinrandomhouse.com/books/92351/mountains-beyond-mountains-by-tracy-kidder/) takes us from Harvard to Haiti, Peru, Cuba, and Russia as Farmer changes people’s minds through his dedication to the philosophy that “the only real nation is humanity.”
