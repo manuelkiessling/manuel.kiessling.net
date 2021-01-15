@@ -8,6 +8,8 @@ slug: 2021/01/14/january-2021-reading-recommendations
 lang: en
 ---
 
+# Books
+
 ## The Rise and Fall of American Growth: The U.S. Standard of Living Since the Civil War
 
 [{{< figure src="/images/january-2021-reading-recommendations/the-rise-and-fall-of-american-growth-cover.jpg" width="100" class="floatright ml-5" >}}](https://press.princeton.edu/books/paperback/9780691175805/the-rise-and-fall-of-american-growth)
@@ -137,3 +139,122 @@ But the container didn't just happen. Its adoption required huge sums of money, 
 Drawing on previously neglected sources, economist Marc Levinson shows how the container transformed economic geography, devastating traditional ports such as New York and London and fueling the growth of previously obscure ones, such as Oakland. By making shipping so cheap that industry could locate factories far from its customers, the container paved the way for Asia to become the world's workshop and brought consumers a previously unimaginable variety of low-cost products from around the globe.
 
 Published in hardcover on the fiftieth anniversary of the first container voyage, this is the first comprehensive history of the shipping container. Now with a new chapter, [The Box](https://press.princeton.edu/books/paperback/9780691170817/the-box) tells the dramatic story of how the drive and imagination of an iconoclastic entrepreneur turned containerization from an impractical idea into a phenomenon that transformed economic geography, slashed transportation costs, and made the boom in global trade possible.
+
+
+# Online articles
+
+[The Paradox of Abundance](https://perell.com/note/the-paradox-of-abundance/)
+
+[The Plague Year](https://www.newyorker.com/magazine/2021/01/04/the-plague-year)
+
+[The Lab-Leak Hypothesis](https://nymag.com/intelligencer/article/coronavirus-lab-escape-theory.html)
+
+[The Incredibly True Story of Renting a Friend in Tokyo](https://getpocket.com/explore/item/the-incredibly-true-story-of-renting-a-friend-in-tokyo)
+
+[The Confessions of Marcus Hutchins, the Hacker Who Saved the Internet](https://www.wired.com/story/confessions-marcus-hutchins-hacker-who-saved-the-internet/)
+
+[How Offshore Oddsmakers Made a Killing off Gullible Trump Supporters](https://slate.com/news-and-politics/2020/12/trump-betting-markets-sportsbooks-offshore-2020-election-gambling.html)
+
+[Why Markets Boomed in a Year of Human Misery](https://www.nytimes.com/2021/01/01/upshot/why-markets-boomed-2020.html)
+
+[What Happened to the Democrats Who Never Accepted Bush’s Election](https://www.politico.com/news/magazine/2020/12/19/2004-kerry-election-fraud-2020-448604)
+
+[Reading, That Strange and Uniquely Human Thing](https://nautil.us/issue/94/evolving/reading-that-strange-and-uniquely-human-thing)
+
+[Schulden müssen kommende Generationen nicht belasten](https://www.faz.net/aktuell/wirtschaft/schulden-muessen-kommende-generationen-nicht-belasten-17120418.html)
+
+[We’ve Got Depression All Wrong. It’s Trying to Save Us.](https://www.psychologytoday.com/us/blog/shouldstorm/202012/we-ve-got-depression-all-wrong-it-s-trying-save-us)
+
+[A Game Designer’s Analysis Of QAnon](https://medium.com/curiouserinstitute/a-game-designers-analysis-of-qanon-580972548be5)
+
+[Colonels of Truth – The tumultuous true story of the life of a fast food icon](https://www.damninteresting.com/colonels-of-truth/)
+
+[The English Word That Hasn’t Changed in Sound or Meaning in 8,000 Years](https://nautil.us/blog/the-english-word-that-hasnt-changed-in-sound-or-meaning-in-8000-years)
+
+[How Science Beat the Virus](https://www.theatlantic.com/magazine/archive/2021/01/science-covid-19-manhattan-project/617262/)
+
+[It Is Expensive to Be Poor](https://www.theatlantic.com/business/archive/2014/01/it-is-expensive-to-be-poor/282979/)
+
+[America’s hollow middle class](https://www.vox.com/the-goods/22166381/hollow-middle-class-american-dream)
+
+[Everything We’ve Learned About Modern Economic Theory Is Wrong](https://www.bloomberg.com/news/articles/2020-12-11/everything-we-ve-learned-about-modern-economic-theory-is-wrong)
+
+[Fruits and Vegetables Are Trying to Kill You](https://nautil.us/issue/15/turbulence/fruits-and-vegetables-are-trying-to-kill-you)
+
+[In Conversation: Penn Jillette](https://www.vulture.com/2018/08/penn-jillette-in-conversation.html)
+
+[Thirty-six Thousand Feet Under the Sea](https://www.newyorker.com/magazine/2020/05/18/thirty-six-thousand-feet-under-the-sea)
+
+[The Great Buenos Aires Bank Heist](https://www.gq.com/story/the-great-buenos-aires-bank-heist)
+
+[How to Buy Gifts That People Actually Want](https://www.willpatrick.co.uk/articles/how-to-buy-gifts-that-people-actually-want)
+
+[Out of the ashes – It took a lot of fossil fuels to forge our industrial world. Now they’re almost gone. Could we do it again without them?](https://aeon.co/essays/could-we-reboot-a-modern-civilisation-without-fossil-fuels)
+
+[Der Corona-Crash: Was tun?](https://www.gerd-kommer-invest.de/corona-crash/)
+
+[The Billionaire Who Wanted To Die Broke... Is Now Officially Broke](https://www.forbes.com/sites/stevenbertoni/2020/09/15/exclusive-the-billionaire-who-wanted-to-die-brokeis-now-officially-broke/)
+
+[IBM Apologizes For Firing Computer Pioneer For Being Transgender...52 Years Later](https://www.forbes.com/sites/jeremyalicandri/2020/11/18/ibm-apologizes-for-firing-computer-pioneer/?sh=2277d3f867d5)
+
+[What Trump Showed Us About America](https://www.politico.com/news/magazine/2020/11/19/roundup-what-trump-showed-us-about-america-435762)
+
+[Huawei, 5G, and the Man Who Conquered Noise](https://www.wired.com/story/huawei-5g-polar-codes-data-breakthrough/)
+
+[How To Legally Own Another Person](https://medium.com/incerto/how-to-legally-own-another-person-4145a1802bf6)
+
+[This Will Change Your Life – Why the grandiose promises of multilevel marketing and QAnon conspiracy theories go hand in hand](https://www.theatlantic.com/technology/archive/2020/10/why-multilevel-marketing-and-qanon-go-hand-hand/616885/)
+
+[Monica Lewinsky: Shame and Survival](https://archive.vanityfair.com/article/2014/6/1/shame-and-survival)
+
+[The Tragedy of the "Tragedy of the Commons"](https://blogs.scientificamerican.com/voices/the-tragedy-of-the-tragedy-of-the-commons/)
+
+[Particle Physicists Continue To Make Empty Promises](http://backreaction.blogspot.com/2020/10/particle-physicists-continue-to-make.html)
+
+[Everything Was Fake but Her Wealth](https://www.smithsonianmag.com/history/everything-was-fake-but-her-wealth-4621153/)
+
+[Where Will Everyone Go?](https://features.propublica.org/climate-migration/model-how-climate-refugees-move-across-continents/)
+
+[When France extorted Haiti – the greatest heist in history](https://theconversation.com/when-france-extorted-haiti-the-greatest-heist-in-history-137949)
+
+[Lady Death: Lyudmila Pavlichenko, the Greatest Female Sniper of All Time](https://www.mentalfloss.com/article/565151/retrobituaries-lyudmila-pavlichenko)
+
+[ Fight the Ship – Death and valor on a warship doomed by its own Navy](https://features.propublica.org/navy-accidents/uss-fitzgerald-destroyer-crash-crystal/)
+
+[Paul Krugman Reviews ‘The Rise and Fall of American Growth’ by Robert J. Gordon](https://www.nytimes.com/2016/01/31/books/review/the-powers-that-were.html)
+
+[The West Has a Resentment Epidemic](https://foreignpolicy.com/2019/09/18/the-west-has-a-resentment-epidemic-populism/)
+
+[A Long Talk With Anthony Fauci’s Boss About the Pandemic, Vaccines, and Faith](https://nymag.com/intelligencer/2020/07/anthony-faucis-boss-on-why-things-could-be-much-better-soon.html)
+
+[The Pitchforks Are Coming… For Us Plutocrats](https://www.politico.com/magazine/story/2014/06/the-pitchforks-are-coming-for-us-plutocrats-108014)
+
+[How to Defeat Drought](https://foreignpolicy.com/2018/04/09/how-to-defeat-drought-israel-south-africa-cape-town-water/)
+
+[How a 19th Century Math Genius Taught Us the Best Way to Hold a Pizza Slice](https://aatishb.com/2014/09/05/curvature-and-strength/)
+
+[Keanu Reeves Is Too Good for This World](https://www.newyorker.com/culture/culture-desk/keanu-reeves-is-too-good-for-this-world)
+
+[The Day the Music Burned](https://www.nytimes.com/2019/06/11/magazine/universal-fire-master-recordings.html)
+
+[The Money Farmers: How Oligarchs and Populists Milk the E.U. for Millions](https://www.nytimes.com/2019/11/03/world/europe/eu-farm-subsidy-hungary.html)
+
+**Very special recommendation:** [Mother Earth Mother Board](https://www.wired.com/1996/12/ffglass/)
+
+# Noteworthy online discussions
+
+["I think the 2020 experience has taught us a bit more about people."](https://news.ycombinator.com/item?id=25371394)
+
+["It's very worth remembering that the abundance of Silicon Valley is fragile, and temporary."](https://news.ycombinator.com/item?id=24802345)
+
+["First off, you can have both. Green new deal doesn't ban reactors or anything."](https://news.ycombinator.com/item?id=24747057)
+
+["I read an article once about how the amount of work to get into the top tier in a single area is astronomical, but the amount of work to become top tier in a combination of 2-3 fields is attainable by almost anyone."](https://news.ycombinator.com/item?id=24262337)
+
+["Here's my little Wirecard story..."](https://news.ycombinator.com/item?id=24223511)
+
+["But what are you sacrificing in return for your “perseverance”?"](https://news.ycombinator.com/item?id=23932795)
+
+["If you like that you’ll enjoy the story of Edmar Bacha who squashed an 80% inflation rate."](https://news.ycombinator.com/item?id=23900866)
+
+["Many things are so much less efficient now, though."](https://news.ycombinator.com/item?id=23809913)
