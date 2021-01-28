@@ -5,8 +5,8 @@ copyright = ""
 
 theme = "minimo"
 
-disqusShortname = "thelogbookofmanuelkiessling"
-googleAnalytics = "UA-2127388-5"
+disqusShortname = ""
+googleAnalytics = ""
 
 Paginate = 5
 preserveTaxonomyNames = true

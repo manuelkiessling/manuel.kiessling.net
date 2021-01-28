@@ -5,7 +5,7 @@ menu: main
 weight: -210
 ---
 
-{{< figure src="https://www.gravatar.com/avatar/8b50d5d8199a12f00cfbfd1061e224a9.png?s=960" width="240" alt="A photograph of Manuel Kießling">}}
+{{< figure src="/images/manuel-kiessling.jpg" width="240" alt="A photograph of Manuel Kießling">}}
 
 This is the homepage and blog of Manuel Kießling.
 
