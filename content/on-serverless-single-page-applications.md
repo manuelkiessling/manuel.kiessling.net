@@ -23,3 +23,26 @@ As if that wasn't enough, I'm also the guy with this tweet:
 Now, I wouldn't say that what I wrote back then was wrong (who am I to criticize people on Twitter?), but...
 
 Part of this is "know your enemy": I have no problem disliking something passionately, but I hate the feeling that maybe I hate something for the wrong reasons or because I'm not well-informed enough about it.
+
+
+Prerequisites:
+
+- AWS CLI
+- Terraform 0.15
+- NVM
+
+- create AWS account
+- create IAM user with AdministratorAccess policy (or more fine-grained)
+- note on best practice: https://manuel.kiessling.net/2020/12/29/single-sign-on-and-resource-separation-on-aws/
+- create project folder
+- create infrastructure/terraform/main.tf
+- variables.tf -> change to UNIQUE project name!
+- s3.tf
+- aws configure with API credentials
+- terraform init
+- terraform apply
+- create "fake" zipfiles
+- aws s3 cp ./rest_apis_default.zip s3://kiessling-rtla-backend-rest-apis/initial/
+- aws s3 cp ./dynamodb_workers_wordcounter.zip s3://kiessling-rtla-backend-dynamodb-workers/initial/
+- npx create-react-app react-typescript-lambda-demo --template redux-typescript
+- Add .nvmrc
