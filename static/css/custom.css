@@ -136,3 +136,12 @@ h3 a {
 .ml-5 {
     margin-left: 2em;
 }
+
+blockquote {
+    font-size: 1em;
+    font-style: normal;
+    margin: 0 0 1.5em;
+    padding-left: 1em;
+    border-left: .2em solid #FF8C00;
+    color: #888;
+}
