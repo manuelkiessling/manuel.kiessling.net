@@ -94,7 +94,33 @@ If these look encouraging, we can start by setting up the AWS credentials on the
 
 Log into your AWS account on https://console.aws.amazon.com, and afterwards, head over to "My Security Credentials" at https://console.aws.amazon.com/iam/home#/security_credentials.
 
-Under the "Access keys for CLI, SDK, & API access" headline, hit the "Create access key" button.
+Under the "Access keys for CLI, SDK, & API access" headline, hit the "Create access key" button. This gives you an Access key ID and a Secret access key. Keep the page open in order to copy-and-paste these in the next step.
+
+Open your terminal application and run `aws configure` and paste the key ID and access key, like this:
+
+    > aws configure
+    AWS Access Key ID [****************]: AKIAUCFPZVBYGKDEGPNF
+    AWS Secret Access Key [****************]: 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
+    Default region name []: us-east-1
+    Default output format []: text
+
+Make sure to set the default region to `us-east-1` and the output format to `text`.
+
+
+# Terraforming the infrastructure
+
+We can now start to build our AWS infrastructure. To do so, create a project directory and open it in your favourite programming editor or IDE.
+
+Within the project folder, create a subfolder `infrastructure`, and in this subfolder, create file `main.tf`.
+
+Put the following HCL code into this file:
+
+    provider "aws" {
+      region = "us-east-1"
+    }
+
+This tells Terraform that we want it to be able to talk to AWS in region "us-east-1".
+
 
 
 - create AWS account
