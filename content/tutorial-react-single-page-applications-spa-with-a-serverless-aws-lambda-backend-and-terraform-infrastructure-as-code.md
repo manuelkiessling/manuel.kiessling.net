@@ -112,3 +112,6 @@ Under the "Access keys for CLI, SDK, & API access" headline, hit the "Create acc
 - aws s3 cp ./dynamodb_workers_wordcounter.zip s3://kiessling-rtla-backend-dynamodb-workers/initial/
 - npx create-react-app react-typescript-lambda-demo --template redux-typescript
 - Add .nvmrc
+
+
+- Ansatz bewerten auf den Dimensionen UX, DX, RX (Rollout Experience), HX (Hosting Experience, mit Verweis auf Machtlosigkeit zB CloudFront S3 DNS Problem)
