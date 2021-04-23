@@ -128,9 +128,16 @@ Next, create file `variables.tf` with this content:
       default = "PLEASE-CHANGE-ME"
     }
 
+    variable "deployment_number" {
+      type    = string
+      default = "initial"
+    }
+
 While an AWS account is mostly an isolated thing, some resources like S3 bucket names must be globally unique. Therefore, our project needs its own, unique name which we can then use when naming these kinds of resources.
 
 This means that you MUST change the `PLEASE-CHANGE-ME` part of this file into something that is guaranteed to be unique; for example, your name and something weird, like `default = "john-doe-frumbazel"`.
+
+The `deployment_number` variable will be explained later.
 
 At this point, we can run Terraform for the first time, in order to initialize the project. It should look like this:
 
@@ -200,6 +207,154 @@ Our application will have a frontend (React) and a backend (Node.js), and the co
 We therefore define these buckets with Terraform, using the resource statement `aws_s3_bucket`. As said, each bucket needs to have a globally unique name, which is why we prepend our unique `project_name` variable to their names.
 
 An additional resource, `aws_s3_bucket_public_access_block`, ensures that the frontend code is accessible from the outside (CloudFront will need to access the files in order to serve them to the user's browser), while the backend code should be treated as confidential, and any public access will be denied. Internally, AWS Lambda will still be able to load these code files.
+
+Well, simply declaring these resources in a Terraform file doesn't create them, so let's do this now by running `terraform apply`:
+
+    > terraform apply
+
+    Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+      + create
+
+    Terraform will perform the following actions:
+
+      # aws_s3_bucket.backend will be created
+      # aws_s3_bucket.frontend will be created
+      # aws_s3_bucket_public_access_block.backend will be created
+      # aws_s3_bucket_public_access_block.frontend will be created
+
+    Plan: 4 to add, 0 to change, 0 to destroy.
+
+    Do you want to perform these actions?
+      Terraform will perform the actions described above.
+      Only 'yes' will be accepted to approve.
+
+      Enter a value: yes
+
+    aws_s3_bucket.backend: Creating...
+    aws_s3_bucket.frontend: Creating...
+    aws_s3_bucket.backend: Creation complete after 8s [id=efiuheruk-backend]
+    aws_s3_bucket_public_access_block.backend: Creating...
+    aws_s3_bucket.frontend: Creation complete after 9s [id=efiuheruk-frontend]
+    aws_s3_bucket_public_access_block.frontend: Creating...
+    aws_s3_bucket_public_access_block.backend: Creation complete after 1s [id=efiuheruk-backend]
+    aws_s3_bucket_public_access_block.frontend: Creation complete after 1s [id=efiuheruk-frontend]
+
+    Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
+
+Note that I have removed a lot of lines from the actual output to make it more readable.
+
+Next up is DynamoDB. We will use this simple AWS NoSQL database for storing the data of our application, namely the "notes" that the application allows its users to create.
+
+We only need a single table, and the Terraform code for this (which belongs in file `dynamodb.tf`) is straight-forward:
+
+    resource "aws_dynamodb_table" "notes" {
+      name           = "notes"
+      billing_mode   = "PROVISIONED"
+      read_capacity  = 1
+      write_capacity = 1
+      hash_key       = "id"
+
+      attribute {
+        name = "id"
+        type = "S"
+      }
+    }
+
+At this point we have a place for our frontend and backend code files, and a database table where the backend can store its data.
+
+Our backend code is supposed to run on AWS Lambda, and we can now define the Lambda function for this. To do so, create file `lambda.tf` with the following content:
+
+    resource "aws_lambda_function" "rest_api" {
+      function_name = "rest_api"
+
+      s3_bucket = aws_s3_bucket.backend.bucket
+      s3_key    = "${var.deployment_number}/rest_api.zip"
+
+      handler = "index.handler"
+      runtime = "nodejs14.x"
+
+      role = aws_iam_role.lambda_rest_api.arn
+    }
+
+Every Lambda function assumes an AWS IAM Role when running, which gives the function an identity within the AWS user and access management system that can be used to determine what access rights the function has during its run time. This is important whenever Lambda function codes needs to talk to other AWS resources, like our DynamoDB database table.
+
+In the HCL code above, we refer to this role on the last line. Let's make sure that this role exists by adding the following code to file `lambda.tf`:
+
+    resource "aws_iam_role" "lambda_rest_api" {
+      name = "lambda_rest_api"
+
+      assume_role_policy = <<EOF
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Action": "sts:AssumeRole",
+          "Principal": {
+            "Service": "lambda.amazonaws.com"
+          },
+          "Effect": "Allow",
+          "Sid": ""
+        }
+      ]
+    }
+    EOF
+
+    }
+
+The role itself is just an empty hull that gives our Lambda an identity, and does not, by itself, define any access rights. This is achieved by attaching IAM policies to the role. First and foremost, we need to attach a predefined policy which provides the most basic access rights that every Lambda function needs to work at all. This is achieved with the following definition:
+
+    data "aws_iam_policy" "AWSLambdaBasicExecutionRole" {
+      arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+    }
+
+    resource "aws_iam_role_policy_attachment" "AWSLambdaBasicExecutionRole_to_lambda_rest_api" {
+      policy_arn = data.aws_iam_policy.AWSLambdaBasicExecutionRole.arn
+      role = aws_iam_role.lambda_rest_api.name
+    }
+
+The code above references the existing policy using an HCL `data` block, which creates a references that can be used in the `aws_iam_role_policy_attachment` resource block, attaching the policy to the role.
+
+We also need to create and attach our own policy, which defines the access rights that will allow the Lambda function to operate on the DynamoDB table we have created earlier:
+
+    resource "aws_iam_policy" "dynamodb_default" {
+      policy = <<EOF
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "VisualEditor0",
+                "Effect": "Allow",
+                "Action": [
+                    "dynamodb:PutItem",
+                    "dynamodb:GetItem",
+                    "dynamodb:Query",
+                    "dynamodb:GetRecords",
+                    "dynamodb:Scan"
+                ],
+                "Resource": [
+                    "${aws_dynamodb_table.notes.arn}"
+                ]
+            }
+        ]
+    }
+    EOF
+    }
+
+    resource "aws_iam_role_policy_attachment" "dynamodb_default_to_lambda_rest_api" {
+      policy_arn = aws_iam_policy.dynamodb_default.arn
+      role = aws_iam_role.lambda_rest_api.name
+    }
+
+At this point, we have a problem. On line 5 of file `lambda.tf`, we refer to a ZIP file within our backend S3 bucket:
+
+      s3_key = "${var.deployment_number}/rest_api.zip"
+
+As you can see, this makes use of the `deployment_number` variable we defined earlier - it will allow us to easily deploy backend code changes later on.
+
+The problem right now is that there is no file `rest_api.zip` at this location, and AWS would therefore not be able to apply our Terraform code.
+
+It won't be a problem later when our backend code base exists - but for the moment, we need to fake that, by creating a dummy ZIP file and placing it at the referenced location manually.
+
 
 
 
