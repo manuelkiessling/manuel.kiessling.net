@@ -121,6 +121,87 @@ Put the following HCL code into this file:
 
 This tells Terraform that we want it to be able to talk to AWS in region "us-east-1".
 
+Next, create file `variables.tf` with this content:
+
+    variable "project_name" {
+      type    = string
+      default = "PLEASE-CHANGE-ME"
+    }
+
+While an AWS account is mostly an isolated thing, some resources like S3 bucket names must be globally unique. Therefore, our project needs its own, unique name which we can then use when naming these kinds of resources.
+
+This means that you MUST change the `PLEASE-CHANGE-ME` part of this file into something that is guaranteed to be unique; for example, your name and something weird, like `default = "john-doe-frumbazel"`.
+
+At this point, we can run Terraform for the first time, in order to initialize the project. It should look like this:
+
+    > terraform init
+
+    Initializing the backend...
+
+    Initializing provider plugins...
+    - Finding latest version of hashicorp/aws...
+    - Installing hashicorp/aws v3.37.0...
+    - Installed hashicorp/aws v3.37.0 (signed by HashiCorp)
+
+    Terraform has created a lock file .terraform.lock.hcl to record the provider
+    selections it made above. Include this file in your version control repository
+    so that Terraform can guarantee to make the same selections by default when
+    you run "terraform init" in the future.
+
+    Terraform has been successfully initialized!
+
+    You may now begin working with Terraform. Try running "terraform plan" to see
+    any changes that are required for your infrastructure. All Terraform commands
+    should now work.
+
+    If you ever set or change modules or backend configuration for Terraform,
+    rerun this command to reinitialize your working directory. If you forget, other
+    commands will detect it and remind you to do so if necessary.
+
+With this, Terraform is prepared to do some real work, so let's give it something to work on. We start by defining our S3 setup, in file `s3.tf`:
+
+    resource "aws_s3_bucket" "frontend" {
+      bucket        = "${var.project_name}-frontend"
+      force_destroy = "false"
+      website {
+        index_document = "index.html"
+        error_document = "error.html"
+      }
+      acl = "public-read"
+    }
+
+    resource "aws_s3_bucket_public_access_block" "frontend" {
+      bucket = aws_s3_bucket.frontend.id
+
+      block_public_acls       = false
+      block_public_policy     = false
+      ignore_public_acls      = false
+      restrict_public_buckets = false
+    }
+
+
+    resource "aws_s3_bucket" "backend" {
+      bucket        = "${var.project_name}-backend"
+      force_destroy = "false"
+      acl           = "private"
+    }
+
+    resource "aws_s3_bucket_public_access_block" "backend" {
+      bucket = aws_s3_bucket.backend.id
+
+      block_public_acls       = true
+      block_public_policy     = true
+      ignore_public_acls      = true
+      restrict_public_buckets = true
+    }
+
+Our application will have a frontend (React) and a backend (Node.js), and the code for these needs to be made available to the user's browser (frontend) and to AWS Lambda (backend). This is achieved by putting the code into an S3 bucket, one for the frontend code and one for the backend code.
+
+We therefore define these buckets with Terraform, using the resource statement `aws_s3_bucket`. As said, each bucket needs to have a globally unique name, which is why we prepend our unique `project_name` variable to their names.
+
+An additional resource, `aws_s3_bucket_public_access_block`, ensures that the frontend code is accessible from the outside (CloudFront will need to access the files in order to serve them to the user's browser), while the backend code should be treated as confidential, and any public access will be denied. Internally, AWS Lambda will still be able to load these code files.
+
+
 
 
 - create AWS account
