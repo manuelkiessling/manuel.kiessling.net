@@ -10,9 +10,9 @@ lang: en
 
 # About
 
-I've recently taken part in building [LogBuddy.io](https://logbuddy.io), in the role of principal software and systems engineer.
+One of my current tasks at Joboo.de is to define an architecture and tech stack for our most complex web UIs, where our existing Symfony & Twig solution just won't cut it.
 
-The project not only scratched one of my own itches (how do I get the log output of [my bash-based Continuous Delivery tool](https://github.com/manuelkiessling/simplecd/) into a web browser?), I also wanted to use it as an excuse to finally build my first software-and-systems project that was 100% serverless in the backend and 100% an SPA on the frontend.
+In order to experiment in a wholesome way, I used this as an excuse to finally build my first software-and-systems project that was 100% serverless in the backend and 100% an SPA on the frontend.
 
 After all, that's how all great software projects start: with [CV Driven Development](https://www.clairecodes.com/blog/2019-05-15-cv-driven-development/)!
 
@@ -22,7 +22,7 @@ As if that wasn't enough, I'm also the guy with [this tweet](https://twitter.com
 
 Now, I wouldn't say that what I wrote back then was wrong (who am I to criticize people on Twitter?), but let's say that I'm well aware of the limitations of the stack described above.
 
-And part of this is driven by a "know your enemy" attitude: I have no problem disliking something passionately, but I really don't want to dislike it for the wrong reasons or because I'm not well-informed enough.
+And admittedly, part of this was driven by a "know your enemy" attitude: I have no problem disliking something passionately, but I really don't want to dislike it for the wrong reasons or because I'm not well-informed enough.
 
 I was sure that there are plenty of very valid reasons to use an SPA + serverless architecture, and I wanted to finally embrace it for good, making it part of my toolbox.
 
@@ -353,8 +353,66 @@ As you can see, this makes use of the `deployment_number` variable we defined ea
 
 The problem right now is that there is no file `rest_api.zip` at this location, and AWS would therefore not be able to apply our Terraform code.
 
-It won't be a problem later when our backend code base exists - but for the moment, we need to fake that, by creating a dummy ZIP file and placing it at the referenced location manually.
+It won't be a problem later when our backend code base exists - but for the moment, we need to fake that, by creating a dummy ZIP file and placing it at the referenced location manually, like so:
 
+    > zip rest_api.zip main.tf
+    adding: main.tf (stored 0%)
+    > aws s3 cp rest_api.zip s3://PLEASE-CHANGE-ME-backend/initial/rest_api.zip
+    upload: ./rest_api.zip to s3://PLEASE-CHANGE-ME-backend/initial/rest_api.zip
+
+Of course, you need to change the `PLEASE-CHANGE-ME` part the same way you changed it in file `variables-tf`, in order to end up with the correct S3 bucket name.
+
+Once this is done, you are able to successfully start another run of `terraform apply` and set up the Lambda function.
+
+Afterwards, our Lambda function exists, but it exists in isolation, and cannot be triggered from the outside. We therefore need to connect it to an AWS resource which is able to trigger it. In our case, the Lambda function will wrap our backend REST API implementation, and therefore, it should be triggered whenever our frontend code makes an HTTP request to the API.
+
+On AWS, HTTP calls can trigger Lambda functions by making an HTTP endpoint available through API Gateway. The Terraform HCL code for this, in file `api-gateway.tf`, looks like this:
+
+    resource "aws_apigatewayv2_api" "default" {
+      name = "default-api"
+      protocol_type = "HTTP"
+    }
+
+    resource "aws_apigatewayv2_stage" "default_api" {
+      api_id = aws_apigatewayv2_api.default.id
+      name   = "api"
+      auto_deploy = true
+
+      default_route_settings {
+        throttling_burst_limit = 10
+        throttling_rate_limit  = 10
+      }
+    }
+
+    resource "aws_apigatewayv2_integration" "lambda_rest_api" {
+      api_id           = aws_apigatewayv2_api.default.id
+      integration_type = "AWS_PROXY"
+
+      integration_method = "POST"
+      integration_uri    = aws_lambda_function.rest_api.invoke_arn
+    }
+
+    resource "aws_apigatewayv2_route" "proxy" {
+      api_id    = aws_apigatewayv2_api.default.id
+      route_key = "ANY /{proxy+}"
+
+      target = "integrations/${aws_apigatewayv2_integration.lambda_rest_api.id}"
+    }
+
+    resource "aws_lambda_permission" "rest_api" {
+      statement_id  = "AllowAPIGatewayInvoke"
+      action        = "lambda:InvokeFunction"
+      function_name = aws_lambda_function.rest_api.function_name
+      principal     = "apigateway.amazonaws.com"
+
+      source_arn = "${aws_apigatewayv2_api.default.execution_arn}/*/*"
+    }
+
+This defines a very simple API Gateway setup, where every HTTP request is always forwarded to our Lambda function without further ado. We also define an API Gateway stage named "api" - we do this to make the API Gateway setup handle HTTP requests that aim at the `/api` path of the API URL - this way, we can serve our frontend at `/` and the API at `/api` of the same domain (CloudFront will take care of that in a moment), and thus, don't need to separate frontend and backend over two different domains.
+
+This spares us from building a more complicated setup where the frontend at https://foo.com will request the API at https://bar.com, which would require a relatively involved CORS setup.
+
+We need to allow API Gateway to access our Lambda function - the `aws_lambda_permission` resource takes care of that.
 
 
 
