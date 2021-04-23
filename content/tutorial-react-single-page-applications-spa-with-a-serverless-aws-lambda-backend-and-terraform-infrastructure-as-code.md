@@ -347,7 +347,7 @@ We also need to create and attach our own policy, which defines the access right
 
 At this point, we have a problem. On line 5 of file `lambda.tf`, we refer to a ZIP file within our backend S3 bucket:
 
-      s3_key = "${var.deployment_number}/rest_api.zip"
+    s3_key = "${var.deployment_number}/rest_api.zip"
 
 As you can see, this makes use of the `deployment_number` variable we defined earlier - it will allow us to easily deploy backend code changes later on.
 
@@ -357,10 +357,11 @@ It won't be a problem later when our backend code base exists - but for the mome
 
     > zip rest_api.zip main.tf
     adding: main.tf (stored 0%)
+
     > aws s3 cp rest_api.zip s3://PLEASE-CHANGE-ME-backend/initial/rest_api.zip
     upload: ./rest_api.zip to s3://PLEASE-CHANGE-ME-backend/initial/rest_api.zip
 
-Of course, you need to change the `PLEASE-CHANGE-ME` part the same way you changed it in file `variables-tf`, in order to end up with the correct S3 bucket name.
+Of course, you need to change the `PLEASE-CHANGE-ME` part the same way you changed it in file `variables.tf`, in order to end up with the correct S3 bucket name.
 
 Once this is done, you are able to successfully start another run of `terraform apply` and set up the Lambda function.
 
@@ -412,8 +413,155 @@ This defines a very simple API Gateway setup, where every HTTP request is always
 
 This spares us from building a more complicated setup where the frontend at https://foo.com will request the API at https://bar.com, which would require a relatively involved CORS setup.
 
-We need to allow API Gateway to access our Lambda function - the `aws_lambda_permission` resource takes care of that.
+We also need to allow API Gateway to access our Lambda function - the `aws_lambda_permission` resource takes care of that.
 
+At this point, you can run `terraform apply` again.
+
+We have now reached the final step of defining and building the infrastructure. What's left is to integrate all the parts from the browser's perspective - we need a web address and a system which serves both the frontend code and the API endpoint at this address, again in a serverless way (meaning we don't want to build our own VM with Nginx or Apache, for example). AWS CloudFront is the obvious choice for this - it will act as a reverse proxy in front of both API Gateway and S3.
+
+This is achieved by the following Terraform definitions, in file `cloudfront.tf`:
+
+    resource "aws_cloudfront_distribution" "default" {
+      enabled  = true
+      price_class = "PriceClass_All"
+
+      origin {
+        domain_name = "${aws_s3_bucket.frontend.id}.s3-website-${aws_s3_bucket.frontend.region}.amazonaws.com"
+        origin_id   = "s3-${aws_s3_bucket.frontend.id}"
+
+        custom_origin_config {
+          http_port                = 80
+          https_port               = 443
+          origin_keepalive_timeout = 5
+          origin_protocol_policy   = "http-only"
+          origin_read_timeout      = 30
+          origin_ssl_protocols     = ["TLSv1.2"]
+        }
+      }
+
+      default_cache_behavior {
+        allowed_methods        = ["GET", "HEAD", "OPTIONS"]
+        cached_methods         = ["GET", "HEAD", "OPTIONS"]
+        target_origin_id       = "s3-${aws_s3_bucket.frontend.id}"
+        viewer_protocol_policy = "redirect-to-https"
+        compress               = true
+        forwarded_values {
+          query_string = true
+          cookies {
+            forward = "all"
+          }
+          headers = ["Access-Control-Request-Headers", "Access-Control-Request-Method", "Origin"]
+        }
+      }
+
+
+      origin {
+        domain_name = replace(
+          replace(
+            aws_apigatewayv2_stage.default_api.invoke_url,
+            "https://",
+            ""
+          ),
+          "/api",
+          ""
+        )
+        origin_id = "api-gateway-default"
+        custom_origin_config {
+          http_port              = 80
+          https_port             = 443
+          origin_protocol_policy = "https-only"
+          origin_ssl_protocols   = ["TLSv1.2"]
+        }
+      }
+
+
+      ordered_cache_behavior {
+        allowed_methods = ["GET", "HEAD", "OPTIONS", "POST", "PUT", "DELETE", "PATCH"]
+        cached_methods  = ["GET", "HEAD", "OPTIONS"]
+        path_pattern = "api*"
+        target_origin_id = "api-gateway-default"
+        viewer_protocol_policy = "https-only"
+        cache_policy_id = aws_cloudfront_cache_policy.api_gateway_optimized.id
+        origin_request_policy_id = aws_cloudfront_origin_request_policy.api_gateway_optimized.id
+      }
+
+
+      restrictions {
+        geo_restriction {
+          restriction_type = "none"
+        }
+      }
+
+      viewer_certificate {
+        cloudfront_default_certificate = true
+      }
+
+      is_ipv6_enabled = true
+    }
+
+    resource "aws_cloudfront_cache_policy" "api_gateway_optimized" {
+      name        = "ApiGatewayOptimized"
+
+      default_ttl = 0
+      max_ttl     = 0
+      min_ttl     = 0
+
+      parameters_in_cache_key_and_forwarded_to_origin {
+        cookies_config {
+          cookie_behavior = "none"
+        }
+
+        headers_config {
+          header_behavior = "none"
+        }
+        query_strings_config {
+          query_string_behavior = "none"
+        }
+      }
+    }
+
+    resource "aws_cloudfront_origin_request_policy" "api_gateway_optimized" {
+      name    = "ApiGatewayOptimized"
+
+      cookies_config {
+        cookie_behavior = "none"
+      }
+
+      headers_config {
+        header_behavior = "whitelist"
+        headers {
+          items = ["Accept-Charset", "Accept", "User-Agent", "Referer"]
+        }
+      }
+
+      query_strings_config {
+        query_string_behavior = "all"
+      }
+    }
+
+As you can see, two origins are defined, one pointing at the "frontend" S3 bucket, and the other at the Lambda function's invoke URL. By adding an ordered cache behavior, we can direct every request beginning with `/api` at the Lambda origin, while everything else is served from the S3 bucket.
+
+After running `terraform apply` once again, our infrastructure is complete. Note that creating the CloudFront distribution may take several minutes.
+
+But "where" is our infrastructure? We didn't define our own domain name - but every CloudFront distribution comes with it's own domain name ending on `.cloudfront.net`.
+
+To see this domain name, we can use Terraform's output capability. Simply create file `outputs.tf`, with the following content:
+
+    output "cloudfront_domain_name" {
+      value = aws_cloudfront_distribution.default.domain_name
+    }
+
+Then, run `terraform refresh`, and the result will look like this:
+
+    > terraform refresh
+    aws_dynamodb_table.notes: Refreshing state... [id=notes]
+    aws_cloudfront_origin_request_policy.api_gateway_optimized: Refreshing state... [id=c53def6c-7e89-4104-bc93-7ad928c0da16]
+    aws_apigatewayv2_api.default: Refreshing state... [id=yp1vyzyv18]
+    (...truncated more lines like this...)
+
+    Outputs:
+
+    cloudfront_domain_name = "d1q0chr074j2ha.cloudfront.net"
 
 
 
