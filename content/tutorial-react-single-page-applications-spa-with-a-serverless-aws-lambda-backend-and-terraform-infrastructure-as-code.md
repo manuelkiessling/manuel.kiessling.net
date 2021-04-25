@@ -361,6 +361,8 @@ It won't be a problem later when our backend code base exists - but for the mome
     > aws s3 cp rest_api.zip s3://PLEASE-CHANGE-ME-backend/initial/rest_api.zip
     upload: ./rest_api.zip to s3://PLEASE-CHANGE-ME-backend/initial/rest_api.zip
 
+    > rm rest_api.zip
+
 Of course, you need to change the `PLEASE-CHANGE-ME` part the same way you changed it in file `variables.tf`, in order to end up with the correct S3 bucket name.
 
 Once this is done, you are able to successfully start another run of `terraform apply` and set up the Lambda function.
@@ -565,7 +567,7 @@ Then, run `terraform refresh`, and the result will look like this:
 
 Note that the first part of the domain name will of course be different in your case.
 
-You can already open this domain in your browser, but that will result in an error. The way we defined the infrastructure, opening `http://d1q0chr074j2ha.cloudfront.net/` will first result in a redirect to `https://d1q0chr074j2ha.cloudfront.net` (see file `cloudfront.tf`, line 63, `viewer_protocol_policy = "redirect-to-https"`), and then CloudFront will try to serve file `index.html` from the frontend S3 bucket. This file does not yet exist, and will be created only late in the process when we build and upload our React app for the first time.
+You can already open this domain in your browser, but you will be greeted with a "404 Not Found" error message. The way we defined the infrastructure, opening `http://d1q0chr074j2ha.cloudfront.net/` will first result in a redirect to `https://d1q0chr074j2ha.cloudfront.net` (see file `cloudfront.tf`, line 63, `viewer_protocol_policy = "redirect-to-https"`), and then CloudFront will try to serve file `index.html` from the frontend S3 bucket. This file does not yet exist, and will be created only late in the process when we build and upload our React app for the first time.
 
 We will first create and deploy the backend code for the REST API served at `https://d1q0chr074j2ha.cloudfront.net/api`, though.
 
@@ -586,7 +588,7 @@ It's now time to initialize the backend project via NPM:
     package name: (backend)
     version: (1.0.0)
     description:
-    entry point: (index.js) src/index.js
+    entry point: (index.js) src/index.ts
     test command:
     git repository:
     keywords:
@@ -598,7 +600,7 @@ It's now time to initialize the backend project via NPM:
       "name": "backend",
       "version": "1.0.0",
       "description": "",
-      "main": "src/index.js",
+      "main": "src/index.ts",
       "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
       },
@@ -625,6 +627,109 @@ As we are going to write our backend code as a Node.js project for the AWS platf
       run `npm fund` for details
 
     found 0 vulnerabilities
+
+Next, create file `src/index.ts`, with a bare minimum implementation that will output the event data which API Gateway passes to our Lambda function upon invocation:
+
+    import { APIGatewayProxyHandler } from 'aws-lambda';
+
+    const AWS = require('aws-sdk');
+    AWS.config.update({ region: 'us-east-1' });
+
+    export const handler: APIGatewayProxyHandler = async (event) => {
+        return {
+            statusCode: 200,
+            body: JSON.stringify(event, null, 2),
+        };
+    }
+
+This shows how Lambda is designed: AWS services like API Gateway can invoke a piece of code, the Lambda function, whenever a defined event occurs. In case of API Gateway, such an event typically occurs whenever an HTTP request is sent to an API Gateway endpoint. API Gateway takes the request data and wraps it into an event object, which is then passed as the first parameter to a function exported under the name `handler` by the Lambda code.
+
+The Lambda handler code can then operate on this event data, and is expected to return a value that is usable for the invoking AWS service; as API Gateway needs to return an HTTP response to the client which requested its endpoint, the Lambda code needs to return an object containing at least an HTTP status code and an HTTP body.
+
+We now need to get this code into AWS Lambda. The first step is to transpile it from TypeScript into JavaScript, as Lambda provides a Node.js runtime that can only execute JavaScript code.
+
+For this, we can use the `tsc` compiler that ships with TypeScript. It needs a configuration file `tsconfig.json` in folder `backend` to correctly transpile our TypeScript code:
+
+    {
+      "compilerOptions": {
+        "outDir": "./build",
+        "target": "es5",
+        "lib": [
+          "esnext",
+          "dom"
+        ],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": false,
+      },
+      "include": ["src/**/*"],
+      "exclude": ["node_modules"],
+    }
+
+With this file in place, run the following command from folder `backend`:
+
+    > ./node_modules/.bin/tsc --build tsconfig.json
+
+This will create file `build/index.js`. As we need to provide a ZIP file for AWS Lambda, let's create it as follows:
+
+    > cd build
+
+    > zip rest_api.zip index.js
+    adding: index.js (deflated 62%)
+
+We can now upload this file to S3 - however, it's not enough to simply replace the existing fake ZIP file. Instead, we need to put it into a new subfolder within the S3 bucket, and need to point the Lambda setup at this new file.
+
+To do so, let's first upload the file to a new subfolder:
+
+    > aws s3 cp rest_api.zip s3://PLEASE-REPLACE-ME-backend/version-1/rest_api.zip
+    upload: ./rest_api.zip to s3://PLEASE-REPLACE-ME-backend/version-1/rest_api.zip
+
+And then, switch to folder `infrastructure`, and update the setup as follows:
+
+    > terraform apply -var deployment_number="version-1"
+
+At this point, we have for the first time a working API-Gateway-plus-Lambda setup, which can be verified as follows (don't forget to use YOUR CloudFront domain name!):
+
+    > curl https://d1ka2fzxbv1rta.cloudfront.net/api/
+
+    {
+      "version": "1.0",
+      "resource": "/{proxy+}",
+      "path": "/api/",
+      "httpMethod": "GET",
+      "headers": {
+        "Content-Length": "0",
+        "Host": "ei64mptro7.execute-api.us-east-1.amazonaws.com",
+        ...many more headers...
+      },
+      "multiValueHeaders": {
+        ...
+      },
+      "queryStringParameters": null,
+      "multiValueQueryStringParameters": null,
+      "requestContext": {
+        ...
+        },
+        "path": "/api/",
+        ...
+      },
+      "pathParameters": {
+        "proxy": ""
+      },
+      "stageVariables": null,
+      "body": null,
+      "isBase64Encoded": false
+    }
+
 
 
 - create AWS account
