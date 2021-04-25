@@ -545,7 +545,7 @@ After running `terraform apply` once again, our infrastructure is complete. Note
 
 But "where" is our infrastructure? We didn't define our own domain name - but every CloudFront distribution comes with it's own domain name ending on `.cloudfront.net`.
 
-To see this domain name, we can use Terraform's output capability. Simply create file `outputs.tf`, with the following content:
+To see this domain name, we can use Terraform's output capability. Simply create a file named `outputs.tf`, with the following content:
 
     output "cloudfront_domain_name" {
       value = aws_cloudfront_distribution.default.domain_name
@@ -563,6 +563,68 @@ Then, run `terraform refresh`, and the result will look like this:
 
     cloudfront_domain_name = "d1q0chr074j2ha.cloudfront.net"
 
+Note that the first part of the domain name will of course be different in your case.
+
+You can already open this domain in your browser, but that will result in an error. The way we defined the infrastructure, opening `http://d1q0chr074j2ha.cloudfront.net/` will first result in a redirect to `https://d1q0chr074j2ha.cloudfront.net` (see file `cloudfront.tf`, line 63, `viewer_protocol_policy = "redirect-to-https"`), and then CloudFront will try to serve file `index.html` from the frontend S3 bucket. This file does not yet exist, and will be created only late in the process when we build and upload our React app for the first time.
+
+We will first create and deploy the backend code for the REST API served at `https://d1q0chr074j2ha.cloudfront.net/api`, though.
+
+To do so, create a new folder `backend` within the project folder, on the same level as folder `infrastructure`. This is going to be a Node.js project, so we start by adding a `.nvmrc` file and switching to the defined Node.js version with NVM:
+
+    > echo "14" > .nvmrc
+
+    > nvm install
+    Found '/Users/manuelkiessling/rtla/backend/.nvmrc' with version <14>
+    v14.16.1 is already installed.
+    Now using node v14.16.1 (npm v6.14.12)
+
+We use version 14 of Node.js because at the time of this writing, that's the most recent version of Node.js supported by AWS Lambda. We've defined that we want to use this in file `infrastructure/lambda.tf` on line 8: `runtime = "nodejs14.x"`.
+
+It's now time to initialize the backend project via NPM:
+
+    > npm init
+    package name: (backend)
+    version: (1.0.0)
+    description:
+    entry point: (index.js) src/index.js
+    test command:
+    git repository:
+    keywords:
+    author:
+    license: (ISC) UNLICENSED
+    About to write to /Users/manuelkiessling/rtla/backend/package.json:
+
+    {
+      "name": "backend",
+      "version": "1.0.0",
+      "description": "",
+      "main": "src/index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "author": "",
+      "license": "UNLICENSED"
+    }
+
+    Is this OK? (yes) yes
+
+As we are going to write our backend code as a Node.js project for the AWS platform using TypeScript, we need a handful of dependencies, namely TypeScript, the AWS JavaScript SDK, and TypeScript type definitions for Node.js and the AWS SDK:
+
+    > npm install typescript aws-sdk @types/aws-lambda @types/node --save
+    npm notice created a lockfile as package-lock.json. You should commit this file.
+    npm WARN backend@1.0.0 No description
+    npm WARN backend@1.0.0 No repository field.
+
+    + typescript@4.2.4
+    + @types/node@14.14.41
+    + aws-sdk@2.892.0
+    + @types/aws-lambda@8.10.75
+    added 17 packages from 146 contributors and audited 17 packages in 1.962s
+
+    1 package is looking for funding
+      run `npm fund` for details
+
+    found 0 vulnerabilities
 
 
 - create AWS account
