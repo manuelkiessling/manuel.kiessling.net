@@ -732,21 +732,5 @@ At this point, we have for the first time a working API-Gateway-plus-Lambda setu
 
 
 
-- create AWS account
-- create IAM user with AdministratorAccess policy (or more fine-grained)
-- note on best practice: https://manuel.kiessling.net/2020/12/29/single-sign-on-and-resource-separation-on-aws/
-- create project folder
-- create infrastructure/terraform/main.tf
-- variables.tf -> change to UNIQUE project name!
-- s3.tf
-- aws configure with API credentials
-- terraform init
-- terraform apply
-- create "fake" zipfiles
-- aws s3 cp ./rest_apis_default.zip s3://kiessling-rtla-backend-rest-apis/initial/
-- aws s3 cp ./dynamodb_workers_wordcounter.zip s3://kiessling-rtla-backend-dynamodb-workers/initial/
-- npx create-react-app react-typescript-lambda-demo --template redux-typescript
-- Add .nvmrc
-
 
 - Ansatz bewerten auf den Dimensionen UX, DX, RX (Rollout Experience), HX (Hosting Experience, mit Verweis auf Machtlosigkeit zB CloudFront S3 DNS Problem)
