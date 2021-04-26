@@ -31,7 +31,7 @@ This tutorial is the result of that journey. It describes a target setup for a s
 
 # The project
 
-When all steps of this tutorial have been followed, the result is a React/Redux frontend served via CloudFront (in front of S3) that talks to a backend running on AWS Lambda, and which, too, is served via CloudFront (in front of API Gateway), with data written to and read from a DynamoDB table.
+When all steps of this tutorial have been followed, the result is a **React/Redux web frontend** served via **CloudFront** (in front of **S3**) that talks to a backend running on **AWS Lambda** which, too, is served via **CloudFront** (in front of **API Gateway**), with data written to and read from a **DynamoDB** table.
 
 A complete and fully working code base for this setup is [available on GitHub](https://github.com/manuelkiessling/react-typescript-lambda-app). However, some notes regarding this code base:
 
@@ -107,7 +107,7 @@ Open your terminal application and run `aws configure` and paste the key ID and 
 Make sure to set the default region to `us-east-1` and the output format to `text`.
 
 
-# Terraforming the infrastructure
+# The infrastructure: Automating AWS resource management with Terraform
 
 We can now start to build our AWS infrastructure. To do so, create a project directory and open it in your favourite programming editor or IDE.
 
@@ -571,6 +571,8 @@ You can already open this domain in your browser, but you will be greeted with a
 
 We will first create and deploy the backend code for the REST API served at `https://d1q0chr074j2ha.cloudfront.net/api`, though.
 
+# The backend: Building a REST API on AWS Lambda
+
 To do so, create a new folder `backend` within the project folder, on the same level as folder `infrastructure`. This is going to be a Node.js project, so we start by adding a `.nvmrc` file and switching to the defined Node.js version with NVM:
 
     > echo "14" > .nvmrc
@@ -581,6 +583,9 @@ To do so, create a new folder `backend` within the project folder, on the same l
     Now using node v14.16.1 (npm v6.14.12)
 
 We use version 14 of Node.js because at the time of this writing, that's the most recent version of Node.js supported by AWS Lambda. We've defined that we want to use this in file `infrastructure/lambda.tf` on line 8: `runtime = "nodejs14.x"`.
+
+
+## Creating a package.json
 
 It's now time to initialize the backend project via NPM:
 
@@ -610,6 +615,9 @@ It's now time to initialize the backend project via NPM:
 
     Is this OK? (yes) yes
 
+
+## Installing the dependencies
+
 As we are going to write our backend code as a Node.js project for the AWS platform using TypeScript, we need a handful of dependencies, namely TypeScript, the AWS JavaScript SDK, and TypeScript type definitions for Node.js and the AWS SDK:
 
     > npm install typescript aws-sdk @types/aws-lambda @types/node --target_arch=x64 --target_platform=linux --target_libc=glibc --save
@@ -630,6 +638,9 @@ As we are going to write our backend code as a Node.js project for the AWS platf
 
 Note the `--target` arguments when running `npm install`. These are crucial whenever we work on Node.js projects for AWS Lambda. Upon installation, some NPM packages pull in (or compile) binary extensions that extend their JavaScript code. These are architecture-specified, and thus different files are pulled in when running `npm install` on a macOS system versus a Linux system, for example. But AWS Lambda is a Linux-based Node.js environment that wouldn't know how to handle binary files for a macOS system. Thus, we force NPM to always install dependencies for a glibc-based x64 Linux environment.
 
+
+## A first implementation
+
 Next, create file `src/index.ts`, with a bare minimum implementation that will output the event data which API Gateway passes to our Lambda function upon invocation:
 
     import { APIGatewayProxyHandler } from 'aws-lambda';
@@ -644,6 +655,9 @@ Next, create file `src/index.ts`, with a bare minimum implementation that will o
 This shows how Lambda is designed: AWS services like API Gateway can invoke a piece of code, the Lambda function, whenever a defined event occurs. In case of API Gateway, such an event typically occurs whenever an HTTP request is sent to an API Gateway endpoint. API Gateway takes the request data and wraps it into an event object, which is then passed as the first parameter to a function exported under the name `handler` by the Lambda code.
 
 The Lambda handler code can then operate on this event data, and is expected to return a value that is usable for the invoking AWS service; as API Gateway needs to return an HTTP response to the client which requested its endpoint, the Lambda code needs to return an object containing at least an HTTP status code and an HTTP body.
+
+
+## Setting up TypeScript compilation
 
 We now need to get this code into AWS Lambda. The first step is to transpile it from TypeScript into JavaScript, as Lambda provides a Node.js runtime that can only execute JavaScript code.
 
@@ -687,6 +701,9 @@ This will create file `build/index.js`. As we need to provide a ZIP file for AWS
 
 We can now upload this file to S3 - however, it's not enough to simply replace the existing fake ZIP file. Instead, we need to put it into a new subfolder within the S3 bucket, and need to point the Lambda setup at this new file.
 
+
+## A first manual deployment
+
 To do so, let's first upload the file to a new subfolder:
 
     > aws s3 cp rest_api.zip s3://PLEASE-REPLACE-ME-backend/version-1/rest_api.zip
@@ -695,6 +712,9 @@ To do so, let's first upload the file to a new subfolder:
 And then, switch to folder `infrastructure`, and update the setup as follows:
 
     > terraform apply -var deployment_number="version-1"
+
+
+## Testing the endpoint
 
 At this point, we have for the first time a working API-Gateway-plus-Lambda setup, which can be verified as follows (don't forget to use *your* CloudFront domain name):
 
@@ -731,6 +751,9 @@ At this point, we have for the first time a working API-Gateway-plus-Lambda setu
 
 As expected, any HTTP request to the `/api` path echoes back the `event` object that API Gateway passed as the first parameter when invoking our Lambda `handler` function.
 
+
+## Automating the deployment
+
 Let's streamline this deployment process a bit. First, in file `backend/package.json`, add an NPM script definition as follows:
 
     "scripts": {
@@ -760,11 +783,14 @@ Then, write a helper script in file `bin/deploy.sh` with the following content:
       terraform apply -auto-approve -var deployment_number="$DEPLOYMENT_NUMBER"
     popd
 
-This automates the process of creating a new deployment number value on each run, retrieves the project name from file `infrastructure/variables.tf`, and then runs through the steps of building and uploading a new backend code build. Last but not least, it runs Terraform to make sure that the Lambda function is set up with the newly uploaded backend code.
+This automates the process of creating a new deployment-number value on each run, retrieves the project name from file `infrastructure/variables.tf`, and then runs through the steps of building and uploading a new backend code build. Last but not least, it runs Terraform to make sure that the Lambda function is set up with the newly uploaded backend code.
 
 So from here on, just run `bash bin/deploy.sh` whenever you want to update the backend.
 
 With this automation in place, we can now start working on the actual REST API implementation.
+
+
+## Implementing API endpoints
 
 The API needs to provide two endpoints - one where we can send the data of a newly created note to, in order to have it persisted in the database (via `POST /api/notes/`), and one where we can retrieve all notes that have been persisted in the database so far (via `GET /api/notes/`).
 
@@ -913,6 +939,9 @@ At this point, file `backend/index.ts` looks like this:
         };
     };
 
+
+## A first real API call
+
 Running `bash bin/deploy.sh` once again will put the new code live, and afterwards, the following *curl* command should be successful:
 
     > curl \
@@ -976,6 +1005,9 @@ After running `bash bin/deploy.sh` once more, we can verify that the entry we've
     [{"content":"Hello, World.","id":"123abc"}]
 
 Looks good. However, using an application through *curl* isn't exactly fun. Time to finally write a nice React frontend!
+
+
+# The frontend: Building a Single-Page Application with React and Redux
 
 
 
