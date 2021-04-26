@@ -734,7 +734,7 @@ As expected, any HTTP request to the `/api` path echoes back the `event` object 
 Let's streamline this deployment process a bit. First, in file `backend/package.json`, add an NPM script definition as follows:
 
     "scripts": {
-      "build": "rm -rf build && tsc --build tsconfig.json && pushd build && zip rest_api.zip ./* && popd"
+      "build": "rm -rf build && tsc --build tsconfig.json"
     }
 
 Then, write a helper script in file `bin/deploy.sh` with the following content:
@@ -748,17 +748,17 @@ Then, write a helper script in file `bin/deploy.sh` with the following content:
 
     PROJECT_NAME="$(cat "$DIR/../infrastructure/variables.tf" | grep 'project_name' -A 2 | grep 'default' | cut -d '=' -f 2 | cut -d '"' -f 2)"
 
-    pushd "$DIR/../backend/" || exit
+    pushd "$DIR/../backend/"
       npm run build
-      pushd build || exit
+      pushd build
         zip -r rest_api.zip ./
         aws s3 cp ./rest_api.zip "s3://$PROJECT_NAME-backend/$DEPLOYMENT_NUMBER/"
-      popd || exit
-    popd || exit
+      popd
+    popd
 
-    pushd "$DIR/../infrastructure" || exit
+    pushd "$DIR/../infrastructure"
       terraform apply -auto-approve -var deployment_number="$DEPLOYMENT_NUMBER"
-    popd || exit
+    popd
 
 This automates the process of creating a new deployment number value on each run, retrieves the project name from file `infrastructure/variables.tf`, and then runs through the steps of building and uploading a new backend code build. Last but not least, it runs Terraform to make sure that the Lambda function is set up with the newly uploaded backend code.
 
@@ -828,7 +828,156 @@ Next, we add a function that takes the `event` object and handles it by creating
 
 The function starts by checking the value of attribute `event.isBase64Encoded` - the request body content that API Gateway passes on to Lambda normally is base64 encoded, but we can't take that for granted. Therefore, we need to handle both cases, and transform the content if needed.
 
-With this out of the way
+With this out of the way, we can transform the request body into a JSON object. We use TypeScript to define what form of object we expect.
+
+Again, this tutorial's code is not meant as a template for a battle-tested production-ready application; we omit, among other things, extensive validation of the data we receive, because a) we know what kind of data our yet-to-be-written frontend app will send to the API, and because b), more than anything else, I want to keep the code here as short as possible.
+
+Next, we will await a Promise which wraps the call to the `put` function of the DynamoDB `docClient` we created earlier. This will insert a new entry into the "notes" table, with an `id` attribute and a `content` attribute.
+
+We can now integrate this function into our Lambda code, by extending the existing `handler` function with some logic that identifies the kind of API call that has been made (by looking at the combination of HTTP verb used plus the requested path, which from API Gateway's perspective is a path parameter for the catch-all route defined on line 27 of file `infrastructure/api-gateway.tf`):
+
+    export const handler: APIGatewayProxyHandler = async (event) => {
+        console.log('Received event', event);
+
+        const routeKey = `${event.httpMethod} ${event.pathParameters?.proxy}`;
+
+        if (routeKey === 'POST notes/') {
+            return handleCreateNoteRequest(event);
+        }
+
+        return {
+            statusCode: 404,
+            body: `No handler for routeKey ${routeKey}.`,
+        };
+    };
+
+At this point, file `backend/index.ts` looks like this:
+
+    import { APIGatewayProxyEvent, APIGatewayProxyHandler } from 'aws-lambda';
+    import { AWSError } from 'aws-sdk';
+
+    const AWS = require('aws-sdk');
+    AWS.config.update({ region: 'us-east-1' });
+    const docClient = new AWS.DynamoDB.DocumentClient();
+
+    const handleCreateNoteRequest = async (event: APIGatewayProxyEvent) => {
+        let requestBodyJson = '';
+        {
+            if (event.isBase64Encoded) {
+                requestBodyJson = (Buffer.from(event.body ?? '', 'base64')).toString('utf8');
+            } else {
+                requestBodyJson = event.body ?? '';
+            }
+        }
+
+        const requestBodyObject = JSON.parse(requestBodyJson) as { id: string, content: string };
+
+        await new Promise((resolve, reject) => {
+            docClient.put(
+                {
+                    TableName: 'notes',
+                    Item: {
+                        id: requestBodyObject.id,
+                        content: requestBodyObject.content
+                    }
+                },
+                (err: AWSError) => {
+                    if (err) {
+                        console.error(err);
+                        reject(err);
+                    } else {
+                        resolve(null);
+                    }
+                });
+        });
+
+        return {
+            statusCode: 201,
+            headers: {
+                'content-type': 'text/plain'
+            },
+            body: 'Created.',
+        };
+    };
+
+    export const handler: APIGatewayProxyHandler = async (event) => {
+        const routeKey = `${event.httpMethod} ${event.pathParameters?.proxy}`;
+
+        if (routeKey === 'POST notes/') {
+            return handleCreateNoteRequest(event);
+        }
+
+        return {
+            statusCode: 404,
+            body: `No handler for routeKey ${routeKey}.`,
+        };
+    };
+
+Running `bash bin/deploy.sh` once again will put the new code live, and afterwards, the following *curl* command should be successful:
+
+    > curl \
+        https://d1q0chr074j2ha.cloudfront.net/api/notes/ \
+        --data '{ "id": "123abc", "content": "Hello, World." }'
+
+    Created.
+
+There's no use in storing notes in the database if we cannot also retrieve them through the API, so let's add another function to the backend code that fetches all existing note entries from the DynamoDB table:
+
+    import { ScanOutput } from 'aws-sdk/clients/dynamodb';
+
+    const handleGetNotesRequest = async () => {
+        const queryResult: ScanOutput = await new Promise((resolve, reject) => {
+            docClient.scan(
+                { TableName: 'notes', Limit: 100 },
+                (err: AWSError, data: ScanOutput) => {
+                    if (err) {
+                        console.error(err);
+                        reject(err);
+                    } else {
+                        resolve(data);
+                    }
+                });
+        });
+
+        return {
+            statusCode: 200,
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(queryResult.Items),
+        };
+    };
+
+This looks a lot like the code for `handleCreateNoteRequest`, but this time, we do a DynamoDB table scan (very inefficient - again, no production code!), and return the result in the body of the API response.
+
+Again, this needs to be integrated into the `handler` function, like this:
+
+    export const handler: APIGatewayProxyHandler = async (event) => {
+        const routeKey = `${event.httpMethod} ${event.pathParameters?.proxy}`;
+
+        if (routeKey === 'GET notes/') {
+            return handleGetNotesRequest();
+        }
+
+        if (routeKey === 'POST notes/') {
+            return handleCreateNoteRequest(event);
+        }
+
+        return {
+            statusCode: 404,
+            body: `No handler for routeKey ${routeKey}.`,
+        };
+    };
+
+After running `bash bin/deploy.sh` once more, we can verify that the entry we've added previously with the POST request actually exists in the database table:
+
+    > curl https://d1q0chr074j2ha.cloudfront.net/api/notes/
+
+    [{"content":"Hello, World.","id":"123abc"}]
+
+Looks good. However, using an application through *curl* isn't exactly fun. Time to finally write a nice React frontend!
+
+
 
 
 - Ansatz bewerten auf den Dimensionen UX, DX, RX (Rollout Experience), HX (Hosting Experience, mit Verweis auf Machtlosigkeit zB CloudFront S3 DNS Problem)
