@@ -96,7 +96,7 @@ Log into your AWS account on https://console.aws.amazon.com, and afterwards, hea
 
 Under the "Access keys for CLI, SDK, & API access" headline, hit the "Create access key" button. This gives you an Access key ID and a Secret access key. Keep the page open in order to copy-and-paste these in the next step.
 
-Open your terminal application and run `aws configure` and paste the key ID and access key, like this:
+Open your terminal application and run `aws configure` and paste the key ID and secret access key, like this:
 
     > aws configure
     AWS Access Key ID [****************]: AKIAUCFPZVBYGKDEGPNF
