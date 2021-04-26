@@ -612,7 +612,7 @@ It's now time to initialize the backend project via NPM:
 
 As we are going to write our backend code as a Node.js project for the AWS platform using TypeScript, we need a handful of dependencies, namely TypeScript, the AWS JavaScript SDK, and TypeScript type definitions for Node.js and the AWS SDK:
 
-    > npm install typescript aws-sdk @types/aws-lambda @types/node --save
+    > npm install typescript aws-sdk @types/aws-lambda @types/node --target_arch=x64 --target_platform=linux --target_libc=glibc --save
     npm notice created a lockfile as package-lock.json. You should commit this file.
     npm WARN backend@1.0.0 No description
     npm WARN backend@1.0.0 No repository field.
@@ -628,12 +628,11 @@ As we are going to write our backend code as a Node.js project for the AWS platf
 
     found 0 vulnerabilities
 
+Note the `--target` arguments when running `npm install`. These are crucial whenever we work on Node.js projects for AWS Lambda. Upon installation, some NPM packages pull in (or compile) binary extensions that extend their JavaScript code. These are architecture-specified, and thus different files are pulled in when running `npm install` on a macOS system versus a Linux system, for example. But AWS Lambda is a Linux-based Node.js environment that wouldn't know how to handle binary files for a macOS system. Thus, we force NPM to always install dependencies for a glibc-based x64 Linux environment.
+
 Next, create file `src/index.ts`, with a bare minimum implementation that will output the event data which API Gateway passes to our Lambda function upon invocation:
 
     import { APIGatewayProxyHandler } from 'aws-lambda';
-
-    const AWS = require('aws-sdk');
-    AWS.config.update({ region: 'us-east-1' });
 
     export const handler: APIGatewayProxyHandler = async (event) => {
         return {
@@ -697,7 +696,7 @@ And then, switch to folder `infrastructure`, and update the setup as follows:
 
     > terraform apply -var deployment_number="version-1"
 
-At this point, we have for the first time a working API-Gateway-plus-Lambda setup, which can be verified as follows (don't forget to use YOUR CloudFront domain name!):
+At this point, we have for the first time a working API-Gateway-plus-Lambda setup, which can be verified as follows (don't forget to use *your* CloudFront domain name):
 
     > curl https://d1ka2fzxbv1rta.cloudfront.net/api/
 
@@ -730,7 +729,106 @@ At this point, we have for the first time a working API-Gateway-plus-Lambda setu
       "isBase64Encoded": false
     }
 
+As expected, any HTTP request to the `/api` path echoes back the `event` object that API Gateway passed as the first parameter when invoking our Lambda `handler` function.
 
+Let's streamline this deployment process a bit. First, in file `backend/package.json`, add an NPM script definition as follows:
+
+    "scripts": {
+      "build": "rm -rf build && tsc --build tsconfig.json && pushd build && zip rest_api.zip ./* && popd"
+    }
+
+Then, write a helper script in file `bin/deploy.sh` with the following content:
+
+    #!/usr/bin/env bash
+
+    DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+    DEPLOYMENT_NUMBER="$(date -u +%FT%TZ)"
+    echo "$DEPLOYMENT_NUMBER" > "$DIR/../deployment_number"
+
+    PROJECT_NAME="$(cat "$DIR/../infrastructure/variables.tf" | grep 'project_name' -A 2 | grep 'default' | cut -d '=' -f 2 | cut -d '"' -f 2)"
+
+    pushd "$DIR/../backend/" || exit
+      npm run build
+      pushd build || exit
+        zip -r rest_api.zip ./
+        aws s3 cp ./rest_api.zip "s3://$PROJECT_NAME-backend/$DEPLOYMENT_NUMBER/"
+      popd || exit
+    popd || exit
+
+    pushd "$DIR/../infrastructure" || exit
+      terraform apply -auto-approve -var deployment_number="$DEPLOYMENT_NUMBER"
+    popd || exit
+
+This automates the process of creating a new deployment number value on each run, retrieves the project name from file `infrastructure/variables.tf`, and then runs through the steps of building and uploading a new backend code build. Last but not least, it runs Terraform to make sure that the Lambda function is set up with the newly uploaded backend code.
+
+So from here on, just run `bash bin/deploy.sh` whenever you want to update the backend.
+
+With this automation in place, we can now start working on the actual REST API implementation.
+
+The API needs to provide two endpoints - one where we can send the data of a newly created note to, in order to have it persisted in the database (via `POST /api/notes/`), and one where we can retrieve all notes that have been persisted in the database so far (via `GET /api/notes/`).
+
+Let's head back to file `backend/src/index.ts` and start with note creation via POST. First, we need to set up the AWS SDK and create a client to speak to DynamoDB:
+
+    import { APIGatewayProxyEvent, APIGatewayProxyHandler } from 'aws-lambda';
+    import { AWSError } from 'aws-sdk';
+
+    const AWS = require('aws-sdk');
+    AWS.config.update({ region: 'us-east-1' });
+    const docClient = new AWS.DynamoDB.DocumentClient();
+
+    export const handler: APIGatewayProxyHandler = async (event) => {
+        return {
+            statusCode: 200,
+            body: JSON.stringify(event, null, 2),
+        };
+    }
+
+Next, we add a function that takes the `event` object and handles it by creating and persisting a new "note" table entry in our database:
+
+    const handleCreateNoteRequest = async (event: APIGatewayProxyEvent) => {
+        let requestBodyJson = '';
+        {
+            if (event.isBase64Encoded) {
+                requestBodyJson = (Buffer.from(event.body ?? '', 'base64')).toString('utf8');
+            } else {
+                requestBodyJson = event.body ?? '';
+            }
+        }
+
+        const requestBodyObject = JSON.parse(requestBodyJson) as { id: string, content: string };
+
+        await new Promise((resolve, reject) => {
+            docClient.put(
+                {
+                    TableName: 'notes',
+                    Item: {
+                        id: requestBodyObject.id,
+                        content: requestBodyObject.content
+                    }
+                },
+                (err: AWSError) => {
+                    if (err) {
+                        console.error(err);
+                        reject(err);
+                    } else {
+                        resolve(null);
+                    }
+                });
+        });
+
+        return {
+            statusCode: 201,
+            headers: {
+                'content-type': 'text/plain'
+            },
+            body: 'Created.',
+        };
+    };
+
+The function starts by checking the value of attribute `event.isBase64Encoded` - the request body content that API Gateway passes on to Lambda normally is base64 encoded, but we can't take that for granted. Therefore, we need to handle both cases, and transform the content if needed.
+
+With this out of the way
 
 
 - Ansatz bewerten auf den Dimensionen UX, DX, RX (Rollout Experience), HX (Hosting Experience, mit Verweis auf Machtlosigkeit zB CloudFront S3 DNS Problem)
