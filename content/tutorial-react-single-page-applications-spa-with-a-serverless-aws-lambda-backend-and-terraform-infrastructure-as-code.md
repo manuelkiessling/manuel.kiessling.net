@@ -1027,6 +1027,9 @@ Once you've switched to the most recent Node.js version using NVM, change to the
 
     > npx create-react-app frontend --template redux-typescript
 
+This will create a new folder `frontend` with a basic React app setup based on Redux Toolkit written in TypeScript.
+
+
 
 
 - Ansatz bewerten auf den Dimensionen UX, DX, RX (Rollout Experience), HX (Hosting Experience, mit Verweis auf Machtlosigkeit zB CloudFront S3 DNS Problem)
