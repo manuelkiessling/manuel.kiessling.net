@@ -1027,9 +1027,85 @@ Once you've switched to the most recent Node.js version using NVM, change to the
 
     > npx create-react-app frontend --template redux-typescript
 
-This will create a new folder `frontend` with a basic React app setup based on Redux Toolkit written in TypeScript.
+This will create a new folder `frontend` with a basic React app setup based on Redux Toolkit written in TypeScript. Let's explore this foundation and see how we can turn it into a modern web frontend for our notes backend.
 
 
+## Exploring the React app code base
 
+If we leave out the contents of folder `node_modules`, the `frontend` folder looks like this:
+
+    frontend
+    ├── README.md
+    ├── node_modules
+    │   └── ...
+    ├── package-lock.json
+    ├── package.json
+    ├── public
+    │   ├── favicon.ico
+    │   ├── index.html
+    │   ├── logo192.png
+    │   ├── logo512.png
+    │   ├── manifest.json
+    │   └── robots.txt
+    ├── src
+    │   ├── App.css
+    │   ├── App.test.tsx
+    │   ├── App.tsx
+    │   ├── app
+    │   │   ├── hooks.ts
+    │   │   └── store.ts
+    │   ├── features
+    │   │   └── counter
+    │   │       ├── Counter.module.css
+    │   │       ├── Counter.tsx
+    │   │       ├── counterAPI.ts
+    │   │       ├── counterSlice.spec.ts
+    │   │       └── counterSlice.ts
+    │   ├── index.css
+    │   ├── index.tsx
+    │   ├── logo.svg
+    │   ├── react-app-env.d.ts
+    │   ├── serviceWorker.ts
+    │   └── setupTests.ts
+    └── tsconfig.json
+
+Let's briefly walk through the most relevant stuff. File `package.json` contains all dependencies required to build, run, and test the app, plus the `react-scripts` package which contains the scripts and configuration used by the Create React App setup, which is what spares us a lot of [yak shaving](https://americanexpress.io/yak-shaving/) and allows us to build, run, and test the app right away, without any additional setup steps.
+
+The contents in folder `public` are served by the built-in development web server that is launched by running `npm run start`. For example, file `index.html` is the template HTML document that provides the "root" div for React to occupy as it's entry point to the DOM.
+
+Folder `src` contains the actual React and Redux code, plus some CSS definitions and unit test files. Special attention should be paid to file `index.ts`, which contains the glue code between the DOM (as provided by the HTML document mentioned above) and the React components (contained in the other .jsx files).
+
+Following [the best practices suggested by the Redux projects](https://redux.js.org/style-guide/style-guide#structure-files-as-feature-folders-with-single-file-logic), there is a `feature/counter` folder which contains all React and Redux code related to the one feature that the example code base implements, an interactive counter (which immediately greets you when running `npm run start`).
+
+This is a very basic setup for a React + Redux + TypeScript app, but not a minimal one. For example, the app doesn't set up a [Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API), but contains the code to do so.
+
+In order to better focus on implementing a notes app, let's remove everything we don't need. To do so, please remove everything that is NOT part of the following structure:
+
+    frontend
+    ├── node_modules
+    │   └── ...
+    ├── package-lock.json
+    ├── package.json
+    ├── public
+    │   ├── favicon.ico
+    │   ├── index.html
+    │   ├── logo192.png
+    │   ├── logo512.png
+    │   ├── manifest.json
+    │   └── robots.txt
+    ├── src
+    │   ├── App.tsx
+    │   ├── app
+    │   │   ├── hooks.ts
+    │   │   └── store.ts
+    │   ├── features
+    │   ├── index.css
+    │   ├── index.tsx
+    │   ├── react-app-env.d.ts
+    └── tsconfig.json
+
+You can achieve this by running the following within folder `frontend`:
+
+    > rm -rf README.md src/features/counter src/{logo.svg,index.css,App.css,App.test.tsx,serviceWorker.ts,setupTests.ts}
 
 - Ansatz bewerten auf den Dimensionen UX, DX, RX (Rollout Experience), HX (Hosting Experience, mit Verweis auf Machtlosigkeit zB CloudFront S3 DNS Problem)
