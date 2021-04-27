@@ -1009,6 +1009,23 @@ Looks good. However, using an application through *curl* isn't exactly fun. Time
 
 # The frontend: Building a Single-Page Application with React and Redux
 
+We start by setting up a code base using *create-react-app*, because that gives us a lot of sane defaults plus the boiler plate code required to wire everything up.
+
+And of course, we choose the Redux + TypeScript flavor of *create-react-app*, allowing us to write code and handle UI state without headaches.
+
+
+## Generating the code base
+
+The first step is to make sure that we have the most recent version of Node.js installed (and also use it):
+
+    > nvm install node
+    > nvm use node
+
+As of this writing, this will give you Node.js 16. No need to intentionally pick a lower version, as we did for our AWS Lambda code base. The difference is that our Lambda code will end up being executed in an environment we don't control, and which - as of this writing - is limited to Node.js 14. Our frontend Node.js code will only run in an environment we control, that is, our own system. From here, it will be transpiled into "boring" JavaScript code that even older web browsers understand - and which is then served via S3 and CloudFront. Thus, we are a lot less limited regarding the Node.js version we use while developing and building the code base.
+
+Once you've switched to the most recent Node.js version using NVM, change to the topmost folder of your project directory, and on the same level as folders `infrastructure` and `backend`, run the following:
+
+    > npx create-react-app frontend --template redux-typescript
 
 
 
