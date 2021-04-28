@@ -1108,4 +1108,11 @@ You can achieve this by running the following within folder `frontend`:
 
     > rm -rf README.md src/features/counter src/{logo.svg,index.css,App.css,App.test.tsx,serviceWorker.ts,setupTests.ts}
 
+Note that at this point, running the app via `npm run start` will no longer work, but of course we will bring it back into shape now.
+
+We start by creating a new feature called "notes", and we begin by creating file `features/notes/notesSlice.ts`.
+
+In Redux lingo, a slice is one part of the global Redux state of a React application. For example, in a shopping app, the Redux state
+
+
 - Ansatz bewerten auf den Dimensionen UX, DX, RX (Rollout Experience), HX (Hosting Experience, mit Verweis auf Machtlosigkeit zB CloudFront S3 DNS Problem)
