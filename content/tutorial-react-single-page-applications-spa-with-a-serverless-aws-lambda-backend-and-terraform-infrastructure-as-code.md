@@ -1108,11 +1108,61 @@ You can achieve this by running the following within folder `frontend`:
 
     > rm -rf README.md src/features/counter src/{logo.svg,index.css,App.css,App.test.tsx,serviceWorker.ts,setupTests.ts}
 
-Note that at this point, running the app via `npm run start` will no longer work, but of course we will bring it back into shape now.
+Note that at this point, running the app via `npm run start` will no longer work, but of course we will bring it back into shape again.
 
-We start by creating a new feature called "notes", and we begin by creating file `features/notes/notesSlice.ts`.
+We will now create a new feature called "notes", and we begin by creating a *slice* file.
 
-In Redux lingo, a slice is one part of the global Redux state of a React application. For example, in a shopping app, the Redux state
+Conceptually, a slice is one part of the global Redux state of a React application. For example, in a shopping app, the Redux state might consist of slices "session", "viewedProducts", "basket", "checkout" etc.
+
+Following Redux Toolkit best practices, a slice file is home to everything Redux-related for a given feature, for example the type definitions of the part of the Redux state that this slice handles. Let's start with these, in file `features/notes/notesSlice.ts`:
+
+    export interface Note {
+        readonly id: string,
+        readonly content: string
+    }
+
+    export interface NotesState {
+        readonly notes: Note[],
+        readonly errorMessage: null | string
+    }
+
+    const initialState: NotesState = {
+        notes: [],
+        errorMessage: null
+    };
+
+The React app will interact with our backend through its two endpoints, one for creating new notes and one for fetching the list of existing notes. To do so, the React app will need to make API requests using *fetch*, and because these are asynchronous operations, we need to handle them in [Thunks](https://redux.js.org/tutorials/fundamentals/part-6-async-logic).
+
+Redux Toolkit provides the `createAsyncThunk` helper to create a thunk, so let's use that to create one for creating new notes through the backend API:
+
+    export const createNote = createAsyncThunk<Note, { readonly content: string }, { rejectValue: { readonly errorMessage: string, readonly note: Note } }>(
+        'notes/create',
+
+        async (arg, thunkAPI) => {
+            const note: Note = { id: Math.random().toString(), content: arg.content };
+            return await fetch(
+                '/api/notes/',
+                {
+                    method: 'POST',
+                    body: JSON.stringify(note)
+                })
+
+                .then(response => {
+                    if (response.status === 201) {
+                        return note;
+                    } else {
+                        throw new Error(`Unexpected response from server (code ${response.status}).`);
+                    }
+                })
+
+                .catch(function (error) {
+                    console.error(error);
+                    return thunkAPI.rejectWithValue({ errorMessage: error.message, note });
+                });
+        }
+    );
+
+The helper function expects three type parameters: `<Returned, ThunkArg, ThunkApiConfig>`. The first is the type of the payload of the Redux action that will be emitted when the thunk operation is successful. In our case, we pass type `Note`, because we create a new note object from the
 
 
 - Ansatz bewerten auf den Dimensionen UX, DX, RX (Rollout Experience), HX (Hosting Experience, mit Verweis auf Machtlosigkeit zB CloudFront S3 DNS Problem)
