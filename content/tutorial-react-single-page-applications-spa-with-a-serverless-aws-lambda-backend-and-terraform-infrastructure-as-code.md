@@ -1276,7 +1276,7 @@ We use the `reduxDispatch` function to dispatch thunk `createNote`, passing the 
 
 If you use an IDE with good TypeScript support, you will notice how references to `reduxState.notes` are marked as erroneous, with message `TS2339: Property 'notes' does not exist on type '{ counter: unknown; }'.`.
 
-We need to fix this in file `src/app/store.ts`, by changing line 2 from
+We need to fix this in file `frontend/src/app/store.ts`, by changing line 2 from
 
     import counterReducer from '../features/counter/counterSlice';
 
