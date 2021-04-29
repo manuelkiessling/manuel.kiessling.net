@@ -1116,6 +1116,8 @@ Conceptually, a slice is one part of the global Redux state of a React applicati
 
 Following Redux Toolkit best practices, a slice file is home to everything Redux-related for a given feature, for example the type definitions of the part of the Redux state that this slice handles. Let's start with these, in file `features/notes/notesSlice.ts`:
 
+    import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
     export interface Note {
         readonly id: string,
         readonly content: string
@@ -1162,7 +1164,151 @@ Redux Toolkit provides the `createAsyncThunk` helper to create a thunk, so let's
         }
     );
 
-The helper function expects three type parameters: `<Returned, ThunkArg, ThunkApiConfig>`. The first is the type of the payload of the Redux action that will be emitted when the thunk operation is successful. In our case, we pass type `Note`, because we create a new note object from the
+The helper function expects three type parameters: `<Returned, ThunkArg, ThunkApiConfig>`.
+
+The first is the type of the payload of the Redux action that will be emitted when the thunk operation is successful. In our case, we pass type `Note`, because we create a new note object by rolling a random id using `Math.random()`, and adding the `arg.content` value which we receive when this thunk is dispatched by the React component (as we will see later).
+
+For the second type parameter, `ThunkArg`, we pass a type definition inline: `{ readonly content: string }`. This means that the `arg` parameter that needs to be passed when the thunk is dispatched must be an object with attribute `content`, of type `string`.
+
+As the *fetch* operation can fail (because the API is not reachable, or returns an unexpected HTTP code), we possibly need to return a `rejectValue` instead of a `Note`. This then becomes the value of the action that is emitted in case of failure. We also want to type this return value, and we do this again inline as `{ readonly errorMessage: string, readonly note: Note }`.
+
+
+While you can see how the `ThunkArg` type parameter defines the type of parameter `arg` in our thunk function, let's look at the slice definition to see how type parameters `Returned` and `ThunkApiConfig` are of use within our reducers.
+
+We define the reducers for this slice with the `createSlice` helper, as follows:
+
+    export const notesSlice = createSlice({
+        name: 'notes',
+        initialState,
+        reducers: {
+            reset: () => initialState
+        },
+        extraReducers: (builder) => {
+            builder
+                .addCase(createNote.fulfilled, (state, action) => {
+                    state.notes.unshift(action.payload);
+                    state.errorMessage = null;
+                });
+
+            builder
+                .addCase(createNote.rejected, (state, action) => {
+                    if (action.payload !== undefined) {
+                        state.notes.unshift(action.payload.note);
+                        state.errorMessage = action.payload.errorMessage;
+                    }
+                });
+        },
+    });
+
+    export default notesSlice.reducer;
+
+As you can see, we need to define the reducers for actions emitted by the thunk on the `extraReducers` attribute. The other attributes are probably self-explanatory: `name` sets the name of our slice, `initialState` is the content of this slice of the Redux state that is used when the application starts, and `reducers` is the place to define "normal", non-thunk, synchronous reducers.
+
+`extraReducers` is a function that gets passed a `builder` object, and using the `addCase` method of this object, we can define the reducer behaviour for actions that are emitted by the thunk. There are three possible actions that a thunk can emit: `pending`, `rejected`, and `fulfilled`. Here, we define reducers for the latter two.
+
+`fulfilled` is emitted when the thunk is successful, that is, when it returns a value of the type that was defined for the `Returned` type parameter. If the thunk returns a value of the type defined for the `ThunkApiConfig.rejectValue` attribute, then the `rejected` action is emitted.
+
+As `createSlice` uses the [Immer](https://immerjs.github.io/immer/) library under the hood, we can safely modify the `state` object within our reducer code, without breaking the Redux rule to never modify the existing state. This is explained in detail in [Writing Reducers with Immer](https://redux-toolkit.js.org/usage/immer-reducers).
+
+With the `import` statement, our own type definitions, the initial state, the thunk definition, and the slice definition in place, we can write a React component that makes use of the slice, in file `frontent/src/features/notes/Notes.tsx`:
+
+    import React, { useState } from 'react';
+
+    import { useAppSelector, useAppDispatch } from '../../app/hooks';
+    import { createNote } from './notesSlice';
+
+    export const Notes = () => {
+        const reduxState = useAppSelector(state => state);
+        const reduxDispatch = useAppDispatch();
+        const [newNoteContent, setNewNoteContent] = useState('');
+
+        return (
+            <div>
+                {
+                    reduxState.notes.errorMessage !== null
+                    &&
+                    <strong>Error: {reduxState.notes.errorMessage}</strong>
+                }
+                <h1>Add note</h1>
+                <form onSubmit={ (e) => {
+                    reduxDispatch(createNote({ content: newNoteContent }));
+                    e.preventDefault();
+                }}>
+                    <input
+                        type='text'
+                        className='form-control'
+                        id='create-server-title'
+                        placeholder=''
+                        value={newNoteContent}
+                        onChange={ (e) => setNewNoteContent(e.target.value) }
+                    />
+                    <button type='submit' disabled={newNoteContent.length < 1}>
+                        Add
+                    </button>
+                </form>
+            </div>
+        );
+    };
+
+
+Let's walk through this code step by step.
+
+Unsurprisingly, we start by importing `React`, plus a React hook that we need.
+
+Note that `useState` is the hook for React's local-component-state management, and has absolutely nothing to do with the Redux state.
+
+To work with that, we import two other hooks which `create-react-app` generated for us: `useAppSelector` (which allows us to retrieve the current Redux state) and `useAppDispatch` (this is a function we can use to dispatch thunks and other Redux actions).
+
+We then define React component `Notes` as normal JavaScript/TypeScript function - no need to write React Component classes anymore.
+
+Next, we define consts `reduxState` and `reduxDispatch`. `useAppSelector` would allow us to get only that part of the state we are interested in within this component, but because our state is very small and simple, we take the whole thing. `useAppDispatch()`, in turn, gives us the Redux `dispatch` function.
+
+Line `const [newNoteContent, setNewNoteContent] = useState('');` is a typical example for local React component state which we don't need to put into the Redux state. It gives us const `newNoteContent`, which is a string initialized with value `''`, and which will always contain the text typed in by the user in the "Create new note" form input field. To update its value, we use function `setNewNoteContent`.
+
+Next, we return the DOM structure of our component using React's JSX syntax. Note how we use `value={newNoteContent}` on line 28 to reflect the current local state value of `newNoteContent` within our input field, and `onChange={ (e) => setNewNoteContent(e.target.value) }` on line 29 to change the value of `newNoteContent` whenever the user changes the input field content. Lines 19-22 define what happens when the form is submitted:
+
+    <form onSubmit={ (e) => {
+        reduxDispatch(createNote({ content: newNoteContent }));
+        e.preventDefault();
+    }}>
+
+We use the `reduxDispatch` function to dispatch thunk `createNote`, passing the current `newNoteContent` value as its argument, following the `ThunkArg` type definition in file `notesSlice.ts`, line 18.
+
+If you use an IDE with good TypeScript support, you will notice how references to `reduxState.notes` are marked as erroneous, with message `TS2339: Property 'notes' does not exist on type '{ counter: unknown; }'.`.
+
+We need to fix this in file `src/app/store.ts`, by changing line 2 from
+
+    import counterReducer from '../features/counter/counterSlice';
+
+to
+
+    import counterReducer from '../features/counter/counterSlice';
+
+and line 6 from:
+
+    counter: counterReducer,
+
+to
+
+You can also remove lines 12-17, and should thus end up with this:
+
+    import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+    import notesReducer from '../features/notes/notesSlice';
+
+    export const store = configureStore({
+      reducer: {
+        notes: notesReducer,
+      },
+    });
+
+    export type AppDispatch = typeof store.dispatch;
+    export type RootState = ReturnType<typeof store.getState>;
+
+
+
+
+-> package.json proxy für local dev Betrieb
+
 
 
 - Ansatz bewerten auf den Dimensionen UX, DX, RX (Rollout Experience), HX (Hosting Experience, mit Verweis auf Machtlosigkeit zB CloudFront S3 DNS Problem)
