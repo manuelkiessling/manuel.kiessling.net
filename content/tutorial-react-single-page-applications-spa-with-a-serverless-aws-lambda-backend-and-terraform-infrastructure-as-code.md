@@ -1290,6 +1290,10 @@ and line 6 from:
 
 to
 
+    notes: notesReducer,
+
+This sets up the Redux store correctly and allows TypeScript to understand the structure of the `state` object we retrieve through the `useAppSelector` hook.
+
 You can also remove lines 12-17, and should thus end up with this:
 
     import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
