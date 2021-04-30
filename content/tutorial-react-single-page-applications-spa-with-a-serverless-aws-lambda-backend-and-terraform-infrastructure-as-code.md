@@ -72,7 +72,7 @@ In case you are working on a macOS system that uses Homebrew, it's as simple as 
 
 **Terraform**
 
-During this tutorial, we will create a small but full-fledged SPA + serverless infrastructure on AWS, but we are not going to do this via manually through the web-based AWS console. Instead, our infrastructure will be defined with HashiCorp Configuration Language (HCL) code files. These code files are then read and interpreted via Terraform; this tool talks to AWS and does the actual heavy lifting of getting our infrastructure deployed.
+During this tutorial, we will create a small but full-fledged SPA + serverless infrastructure on AWS, but we are not going to do this manually through the web-based AWS console. Instead, our infrastructure will be defined with HashiCorp Configuration Language (HCL) code files. These code files are then read and interpreted via Terraform; this tool talks to AWS and does the actual heavy lifting of getting our infrastructure deployed.
 
 This approach is called "Infrastructure as Code". If you are new to this concept, feel free to head over to my [Healthy Continuous Delivery: Infrastructure-as-Code](https://develop-build-deploy.com/tutorials/healthy-continuous-delivery-infrastructure-as-code/) guide first.
 
