@@ -563,13 +563,13 @@ Then, run `terraform refresh`, and the result will look like this:
 
     Outputs:
 
-    cloudfront_domain_name = "d1q0chr074j2ha.cloudfront.net"
+    cloudfront_domain_name = "d1ka2fzxbv1rta.cloudfront.net"
 
 Note that the first part of the domain name will of course be different in your case.
 
-You can already open this domain in your browser, but you will be greeted with a "404 Not Found" error message. The way we defined the infrastructure, opening `http://d1q0chr074j2ha.cloudfront.net/` will first result in a redirect to `https://d1q0chr074j2ha.cloudfront.net` (see file `cloudfront.tf`, line 63, `viewer_protocol_policy = "redirect-to-https"`), and then CloudFront will try to serve file `index.html` from the frontend S3 bucket. This file does not yet exist, and will be created only late in the process when we build and upload our React app for the first time.
+You can already open this domain in your browser, but you will be greeted with a "404 Not Found" error message. The way we defined the infrastructure, opening `http://d1ka2fzxbv1rta.cloudfront.net/` will first result in a redirect to `https://d1ka2fzxbv1rta.cloudfront.net` (see file `cloudfront.tf`, line 63, `viewer_protocol_policy = "redirect-to-https"`), and then CloudFront will try to serve file `index.html` from the frontend S3 bucket. This file does not yet exist, and will be created only late in the process when we build and upload our React app for the first time.
 
-We will first create and deploy the backend code for the REST API served at `https://d1q0chr074j2ha.cloudfront.net/api`, though.
+We will first create and deploy the backend code for the REST API served at `https://d1ka2fzxbv1rta.cloudfront.net/api`, though.
 
 # The backend: Building a REST API on AWS Lambda
 
@@ -945,7 +945,7 @@ At this point, file `backend/index.ts` looks like this:
 Running `bash bin/deploy.sh` once again will put the new code live, and afterwards, the following *curl* command should be successful:
 
     > curl \
-        https://d1q0chr074j2ha.cloudfront.net/api/notes/ \
+        https://d1ka2fzxbv1rta.cloudfront.net/api/notes/ \
         --data '{ "id": "123abc", "content": "Hello, World." }'
 
     Created.
@@ -1000,7 +1000,7 @@ Again, this needs to be integrated into the `handler` function, like this:
 
 After running `bash bin/deploy.sh` once more, we can verify that the entry we've added previously with the POST request actually exists in the database table:
 
-    > curl https://d1q0chr074j2ha.cloudfront.net/api/notes/
+    > curl https://d1ka2fzxbv1rta.cloudfront.net/api/notes/
 
     [{"content":"Hello, World.","id":"123abc"}]
 
@@ -1099,7 +1099,6 @@ In order to better focus on implementing a notes app, let's remove everything we
     │   │   ├── hooks.ts
     │   │   └── store.ts
     │   ├── features
-    │   ├── index.css
     │   ├── index.tsx
     │   ├── react-app-env.d.ts
     └── tsconfig.json
@@ -1109,6 +1108,11 @@ You can achieve this by running the following within folder `frontend`:
     > rm -rf README.md src/features/counter src/{logo.svg,index.css,App.css,App.test.tsx,serviceWorker.ts,setupTests.ts}
 
 Note that at this point, running the app via `npm run start` will no longer work, but of course we will bring it back into shape again.
+
+As a final preparation step, let's add a file `.nvmrc` in folder `frontend`, like this: `echo "node" > .nvmrc`.
+
+
+## Building a new feature
 
 We will now create a new feature called "notes", and we begin by creating a *slice* file.
 
@@ -1294,6 +1298,10 @@ to
 
 This sets up the Redux store correctly and allows TypeScript to understand the structure of the `state` object we retrieve through the `useAppSelector` hook.
 
+While we are at it, let's also remove two now unused imports, by changing line to this:
+
+    import { configureStore } from '@reduxjs/toolkit';
+
 You can also remove lines 12-17, and should thus end up with this:
 
     import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
@@ -1308,7 +1316,86 @@ You can also remove lines 12-17, and should thus end up with this:
     export type AppDispatch = typeof store.dispatch;
     export type RootState = ReturnType<typeof store.getState>;
 
+Because we removed several auto-generated files earlier in the process, some code parts need to be fixed before we can launch the frontend app for the first time. In file `frontend/src/index.tsx`, remove this import on line 3:
 
+    import './index.css';
+
+as well as this import on line 6:
+
+    import * as serviceWorker from './serviceWorker';
+
+and then this comments and function call on lines 16-19:
+
+    // If you want your app to work offline and load faster, you can change
+    // unregister() to register() below. Note this comes with some pitfalls.
+    // Learn more about service workers: https://bit.ly/CRA-PWA
+    serviceWorker.unregister();
+
+Now, switch to file `frontend/src/App.tsx`, and remove lines 2-4:
+
+    import logo from './logo.svg';
+    import { Counter } from './features/counter/Counter';
+    import './App.css';
+
+We can now integrate our new feature. To do so, remove all JSX code from the `return` statement starting on line 5, and replace it with `<Notes />`. If you are using an IDE with TypeScript and JavaScript support, the `import` statement this requires should be done automatically. In any case, this is how the final should now look:
+
+    import React from 'react';
+    import { Notes } from './features/notes/Notes';
+
+    function App() {
+      return (
+        <Notes />
+      );
+    }
+
+    export default App;
+
+
+At this point, the frontend app is in a runnable state again, so let's fire it up by running `npm run start`. This will open the app in a new browser window and show the following output:
+
+    Compiled successfully!
+
+    You can now view frontend in the browser.
+
+      Local:            http://localhost:3000
+      On Your Network:  http://192.168.0.228:3000
+
+    Note that the development build is not optimized.
+    To create a production build, use npm run build.
+
+In your browser, you should be greeted by a very minimalistically designed "Add note" form with a single input field and a submit button that reads "Add" and only becomes available if you enter text in the input field.
+
+Let's try to add a first note and see what happens.
+
+If you enter text and hit "Add", you should see an error message at the top of the page reading "Error: Unexpected response from server (code 404).". Using the inspection tool of your browser, it should look like this:
+
+[{{< figure src="/images/tutorial-react-single-page-applications-spa-with-a-serverless-aws-lambda-backend-and-terraform-infrastructure-as-code/tutorial-react-single-page-applications-spa-with-a-serverless-aws-lambda-backend-and-terraform-infrastructure-as-code-screenshot-1.png" width="100%" >}}](/images/tutorial-react-single-page-applications-spa-with-a-serverless-aws-lambda-backend-and-terraform-infrastructure-as-code/tutorial-react-single-page-applications-spa-with-a-serverless-aws-lambda-backend-and-terraform-infrastructure-as-code-screenshot-1.png)
+
+This comes from line 34 in file `frontend/src/feature/notes/notesSlice.ts`:
+
+    throw new Error(`Unexpected response from server (code ${response.status}).`);
+
+It's our thunk code throwing an error because the response status code from the server when requesting `/api/notes` with a `POST` is not `201` but `404`.
+
+This is expected. Our thunk code makes a request to path `/api/notes`, which means that the request goes to the same host and port on which the frontend app is served, that is, `localhost:3000`. But that's not where our CloudFront > API Gateway > Lambda setup is running. Instead, it's the local React Create App development webserver.
+
+Here's something we could do but won't do. We could go to line 24 in file `notesSlice.ts` and change the address that `fetch` will send its request to from `'/api/notes/'` to `https://d1ka2fzxbv1rta.cloudfront.net/api/` (of course, using YOUR cloudfront subdomain name). But we don't do this because while it's not technically incorrect, it won't do the job as expected. This is because in this case, the client code running on origin `localhost:3000` would make a request to origin `d1ka2fzxbv1rta.cloudfront.net:443` - and that's two different origins, triggering a security mechanism in the browser called [Same-origin policy](https://en.wikipedia.org/wiki/Same-origin_policy).
+
+Also, once we put the frontend app into production, that is, into our infrastructure's "frontend" S3 bucket which is served through the same CloudFront address as the API, we really do want the app to make a request to a path on its own origin.
+
+But we also want this to work while we fiddle with the frontend app on our local system. Luckily, the development web server provided by Create React App offers an elegant solution - [it can act as a proxy](https://create-react-app.dev/docs/proxying-api-requests-in-development/).
+
+The way this works is that you can define a target address in file `package.json`, and every request the development web server cannot handle itself is forwarded to this address.
+
+In order to set this up, add the following block to `package.json`, at the same level as `dependencies`, `scripts` etc.:
+
+    "proxy": "https://d1ka2fzxbv1rta.cloudfront.net"
+
+(Once again, make sure to use YOUR CloudFront address, as shown by running `terraform output` in folder `infrastructure`).
+
+You need to kill the development server by hitting CTRL-c, and start it anew. Adding a new note should now result in a `201 Created` response from the backend.
+
+The React frontend, however, doesn't really react (no pun intended) if we add a new note. Let's teach it to render a list of all notes, in file
 
 
 -> package.json proxy für local dev Betrieb
