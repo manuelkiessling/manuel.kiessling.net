@@ -1395,7 +1395,23 @@ In order to set this up, add the following block to `package.json`, at the same 
 
 You need to kill the development server by hitting CTRL-c, and start it anew. Adding a new note should now result in a `201 Created` response from the backend.
 
-The React frontend, however, doesn't really react (no pun intended) if we add a new note. Let's teach it to render a list of all notes, in file
+The React frontend, however, doesn't really react (no pun intended) if we add a new note. Let's teach it to render a list of all notes, in file `frontend/src/features/notes/Notes.tsx`, by adding the following JSX code below the closing `</form>` tag:
+
+
+    <h1>Your notes</h1>
+    {reduxState.notes.notes.map(note => (
+        <div>
+            <small>{note.id}</small>
+            <br/>
+            {note.content}
+            <hr/>
+        </div>
+    ))}
+
+This will immediately work, because our reducer code on line 54 in file `notesSlice.ts` already extends the notes array in the Redux state upon successful completion of the thunk operation:
+
+    state.notes.unshift(action.payload);
+
 
 
 -> package.json proxy für local dev Betrieb
