@@ -1492,13 +1492,27 @@ There is only one thing left to do - we need to put the frontend app into produc
 
 With this, we can now fully deploy our application, by running `bash bin/deploy.sh` once again. Afterwards, open your CloudFront URL in the browser, and you will see your app frontend.
 
-Congratulations, your serverless single-page app has been launched on the web!
+**Congratulations, your serverless single-page app has been launched on the web!**
 
 
+## Shutting down the project
+
+You can get rid of all AWS infrastructure resources by simply running `terraform destroy` in folder `infrastructure`. Note, however, that you need to remove all contents from both S3 buckets beforehand, like this:
+
+    > rm --recursive s3://PLEASE-CHANGE-ME-frontend/
+
+    > rm --recursive s3://PLEASE-CHANGE-ME-backend/
 
 
--> package.json proxy für local dev Betrieb
+## Evaluation the approach
 
+As explained in the introduction, in my opinion, a serverless single-page application approach isn't necessarily a silver bullet which negates all other web app architectures. But it's certainly a powerful solution with a unique set of strengths, and one I'm happy to have in my toolbox for future projects.
+
+Let's evaluate this architecture and tech stack on a couple of dimensions.
+
+**User Experience (UX):** Our notes application is way to simple to stress this point, but for large web apps with complex UIs, React offers a great user experience because it effectively avoids full-page-loads-on-every-click. This allows for very smooth state changes within the user interface, and it is certainly possible to provide an experience that is as good as a native desktop or mobile app.
+
+**Developer Experience (DX):** Correctly and efficiently managing the state of complex user interfaces is no small feat. And it's not necessarily fun in a language like JavaScript. But adding TypeScript and Redux into the mix makes all the difference. The type safety provided by TypeScript and the state mutation safety provided by Redux, together with the sanely opinionated patterns enforced by Redux Toolkit, turn a development process that could quickly become messy into a breeze. Being able to hot-reload
 
 
 - Ansatz bewerten auf den Dimensionen UX, DX, RX (Rollout Experience), HX (Hosting Experience, mit Verweis auf Machtlosigkeit zB CloudFront S3 DNS Problem)
