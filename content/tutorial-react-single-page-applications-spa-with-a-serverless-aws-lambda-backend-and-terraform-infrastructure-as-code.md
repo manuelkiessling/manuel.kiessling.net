@@ -1487,7 +1487,7 @@ There is only one thing left to do - we need to put the frontend app into produc
 
 With this, we can now fully deploy our application, by running `bash bin/deploy.sh` once again. Afterwards, open your CloudFront URL in the browser, and you will see your app frontend.
 
-Congratulations, your app has been launched on the web!
+Congratulations, your serverless single-page app has been launched on the web!
 
 
 
