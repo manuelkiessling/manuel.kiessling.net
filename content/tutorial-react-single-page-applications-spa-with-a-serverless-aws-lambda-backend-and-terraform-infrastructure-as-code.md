@@ -245,7 +245,7 @@ Note that I have removed a lot of lines from the actual output to make it more r
 
 Next up is DynamoDB. We will use this simple AWS NoSQL database for storing the data of our application, namely the "notes" that the application allows its users to create.
 
-We only need a single table, and the Terraform code for this (which belongs in file `dynamodb.tf`) is straight-forward:
+We only need a single table, and the Terraform code for this (which belongs in file `dynamodb.tf`) is straightforward:
 
     resource "aws_dynamodb_table" "notes" {
       name           = "notes"
@@ -764,6 +764,8 @@ Then, write a helper script in file `bin/deploy.sh` with the following content:
 
     #!/usr/bin/env bash
 
+    set -e
+
     DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
     DEPLOYMENT_NUMBER="$(date -u +%FT%TZ)"
@@ -1141,7 +1143,7 @@ The React app will interact with our backend through its two endpoints, one for 
 
 Redux Toolkit provides the `createAsyncThunk` helper to create a thunk, so let's use that to create one for creating new notes through the backend API:
 
-    export const createNote = createAsyncThunk<Note, { readonly content: string }, { rejectValue: { readonly errorMessage: string, readonly note: Note } }>(
+    export const createNote = createAsyncThunk<Note, { readonly content: string }, { readonly rejectValue: { readonly errorMessage: string, readonly note: Note } }>(
         'notes/create',
 
         async (arg, thunkAPI) => {
@@ -1412,6 +1414,80 @@ This will immediately work, because our reducer code on line 54 in file `notesSl
     state.notes.unshift(action.payload);
 
 At this point, there is only one last piece of functionality required to come full circle: When the frontend app starts, it should retrieve all existing notes from the backend, and populate the "Your notes" list with them.
+
+We implement this by adding another thunk, one that encapsulates the `GET /api/notes/` operation, in file `frontend/src/features/notes/notesSlice.ts`:
+
+    export const fetchNotes = createAsyncThunk<Note[], void, { readonly rejectValue: { readonly errorMessage: string } }>(
+        'notes/fetch',
+        async (arg, thunkAPI) => {
+            return await fetch(
+                '/api/notes/',
+                {
+                    method: 'GET'
+                })
+
+                .then(response => {
+                    if (response.status === 200) {
+                        return response.json();
+                    } else {
+                        throw new Error(`Unexpected response from server (code ${response.status}).`);
+                    }
+                })
+
+                .catch(function (error) {
+                    console.error(error);
+                    return thunkAPI.rejectWithValue({ errorMessage: error.message });
+                });
+        }
+    );
+
+This is relatively straightforward - *fetch* the notes from the backend, and return it upon success. Because the response from the backend already has the correct structure in this case, we can type this return value as `Note[]`. If something goes wrong, return the error message.
+
+We also need reducers to handle the `fulfilled` and `rejected` actions that can be emitted by the thunk. We therefore extend the `extraReducers` function as follows:
+
+    builder
+        .addCase(fetchNotes.fulfilled, (state, action) => {
+            state.notes = action.payload;
+        });
+
+    builder
+        .addCase(fetchNotes.rejected, (state, action) => {
+            if (action.payload !== undefined) {
+                state.errorMessage = action.payload.errorMessage;
+            }
+        });
+
+We can now extend the Notes component to make it dispatch the `fetchNotes` thunk when it is rendered for the first time. To do so, add the `useEffect` React hook to the first import statement in file `Notes.tsx`:
+
+    import React, { useState, useEffect } from 'react';
+
+and make sure that the new thunk is imported, too:
+
+    import { createNote, fetchNotes } from './notesSlice';
+
+Then, right before the `return` statement of function `Notes`, add the following:
+
+    useEffect(() => {
+        reduxDispatch(fetchNotes());
+    }, [reduxDispatch]);
+
+This dispatches the thunk exactly once.
+
+If you reload the frontend app in the browser and watch the *network* tab of your browsers *inspection* tool, you can see how the API request is triggered, the existing note entries are retrieved, and the user interface is updated accordingly.
+
+
+## A final deployment
+
+There is only one thing left to do - we need to put the frontend app into production. This means building a production bundle from our source code, and upload it into the *frontend* S3 bucket. We achieve this by adding the following to file `bin/deploy.sh`, right below the `PROJECT_NAME=...` line and before the `pushd "$DIR/../backend/"` line:
+
+    pushd "$DIR/../frontend"
+      npm run build
+      aws s3 cp --recursive --acl public-read build/ "s3://$PROJECT_NAME-frontend/"
+    popd
+
+With this, we can now fully deploy our application, by running `bash bin/deploy.sh` once again. Afterwards, open your CloudFront URL in the browser, and you will see your app frontend.
+
+Congratulations, your app has been launched on the web!
 
 
 
