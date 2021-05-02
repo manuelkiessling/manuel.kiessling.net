@@ -11,6 +11,10 @@ h1.title {
     font-weight: normal;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 2em;
+}
+
 #header {
     background: #40E0D0;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #FF8C00, #FF0080, #40E0D0);  /* Chrome 10-25, Safari 5.1-6 */
@@ -92,7 +96,7 @@ footer.entry-footer-container {
 
 .header::after {
     margin-top: 2em;
-    margin-bottom: 2.5em;
+    margin-bottom: 1em;
     opacity: 0;
 }
 
@@ -116,8 +120,10 @@ span.filename.beforecode {
 }
 
 pre {
-    margin-top: -22px;
+    margin-top: 0;
+    margin-bottom: 2em;
     font-size: 0.675em;
+    border-radius: 1em;
 }
 
 .entry-content a {

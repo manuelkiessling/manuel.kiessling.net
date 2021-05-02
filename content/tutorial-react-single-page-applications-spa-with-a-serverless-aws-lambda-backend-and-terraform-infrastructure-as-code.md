@@ -10,6 +10,11 @@ lang: en
 
 # About
 
+From zero to production: this extensive guide describes in detail how to create and deploy a React-based web app frontend using TypeScript and Redux Toolkit on top of a Node.js based AWS Lambda backend with a DynamoDB database, connect and integrate them through API Gateway and CloudFront, and how to codify and automate the required cloud infrastructure and deployment process using Terraform.
+
+
+# Background
+
 One of my current tasks at Joboo.de is to define an architecture and tech stack for our most complex web UIs, where our existing Symfony & Twig solution just won't cut it.
 
 In order to experiment in a wholesome way, I used this as an excuse to finally build my first software-and-systems project that was 100% serverless in the backend and 100% an SPA on the frontend.
@@ -31,7 +36,7 @@ This tutorial is the result of that journey. It describes a target setup for a s
 
 # The project
 
-When all steps of this tutorial have been followed, the result is a **React/Redux web frontend** served via **CloudFront** (in front of **S3**) that talks to a backend running on **AWS Lambda** which, too, is served via **CloudFront** (in front of **API Gateway**), with data written to and read from a **DynamoDB** table.
+When all steps of this tutorial have been followed, the result is a very simple note-keeping app implemented as a **React/Redux web frontend** served via **CloudFront** (in front of **S3**) that talks to a backend running on **AWS Lambda** which, too, is served via **CloudFront** (in front of **API Gateway**), with data written to and read from a **DynamoDB** table.
 
 A complete and fully working code base for this setup is [available on GitHub](https://github.com/manuelkiessling/react-typescript-lambda-app). However, some notes regarding this code base:
 
@@ -96,7 +101,7 @@ Log into your AWS account on https://console.aws.amazon.com, and afterwards, hea
 
 Under the "Access keys for CLI, SDK, & API access" headline, hit the "Create access key" button. This gives you an Access key ID and a Secret access key. Keep the page open in order to copy-and-paste these in the next step.
 
-Open your terminal application and run `aws configure` and paste the key ID and secret access key, like this:
+Open your terminal application, run `aws configure`, and paste the key ID and secret access key, like this:
 
     > aws configure
     AWS Access Key ID [****************]: AKIAUCFPZVBYGKDEGPNF
