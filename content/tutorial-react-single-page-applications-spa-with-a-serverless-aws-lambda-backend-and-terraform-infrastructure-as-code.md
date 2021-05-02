@@ -2,9 +2,9 @@
 date: 2021-04-21T08:30:00+01:00
 lastmod: 2021-04-21T08:30:00+01:00
 title: "Tutorial: Single Page Applications with a Serverless Backend and Infrastructure as Code"
-description: ""
+description: "From zero to production: this extensive guide describes in detail how to create and deploy a React-based web app frontend using TypeScript and Redux Toolkit on top of a Node.js based AWS Lambda backend with a DynamoDB database, connect and integrate them through API Gateway and CloudFront, and how to codify and automate the required cloud infrastructure and deployment process using Terraform."
 authors: ["manuelkiessling"]
-slug: 2021/04/21/tutorial-react-single-page-applications-spa-with-a-serverless-aws-lambda-backend-and-terraform-infrastructure-as-code
+slug: 2021/05/02/tutorial-react-single-page-applications-spa-with-a-serverless-aws-api-gateway-and-lambda-and-dynamodb-backend-and-terraform-infrastructure-as-code
 lang: en
 ---
 
