@@ -17,7 +17,7 @@ From zero to production: this extensive guide describes in detail how to create 
 
 One of my current tasks at Joboo.de is to define an architecture and tech stack for our most complex web UIs, where our existing Symfony & Twig solution just won't cut it.
 
-In order to experiment in a wholesome way, I used this as an excuse to finally build my first software-and-systems project that was 100% serverless in the backend and 100% an SPA on the frontend.
+In order to experiment in a wholesome way, I used this as an excuse to finally build my first software-and-systems side project that was 100% serverless on the backend and 100% an SPA on the frontend.
 
 After all, that's how all great software projects start: with [CV Driven Development](https://www.clairecodes.com/blog/2019-05-15-cv-driven-development/)!
 
@@ -36,7 +36,7 @@ This tutorial is the result of that journey. It describes a target setup for a s
 
 # The project
 
-When all steps of this tutorial have been followed, the result is a very simple note-keeping app implemented as a **React/Redux web frontend** served via **CloudFront** (in front of **S3**) that talks to a backend running on **AWS Lambda** which, too, is served via **CloudFront** (in front of **API Gateway**), with data written to and read from a **DynamoDB** table.
+When all steps of this tutorial have been followed, the result is a very simple note-keeping app on Amazon Web Services implemented as a **React/Redux web frontend** served via **CloudFront** (in front of **S3**) that talks to a **Node.js backend** running on **Lambda** which, too, is served via **CloudFront** (in front of **API Gateway**), with data written to and read from a **DynamoDB** table.
 
 A complete and fully working code base for this setup is [available on GitHub](https://github.com/manuelkiessling/react-typescript-lambda-app). However, some notes regarding this code base:
 
