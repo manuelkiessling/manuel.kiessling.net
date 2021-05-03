@@ -1506,15 +1506,18 @@ You can get rid of all AWS infrastructure resources by simply running `terraform
     > rm --recursive s3://PLEASE-CHANGE-ME-backend/
 
 
-## Evaluation the approach
+## Evaluating the approach
 
 As explained in the introduction, in my opinion, a serverless single-page application approach isn't necessarily a silver bullet which negates all other web app architectures. But it's certainly a powerful solution with a unique set of strengths, and one I'm happy to have in my toolbox for future projects.
 
 Let's evaluate this architecture and tech stack on a couple of dimensions.
 
-**User Experience (UX):** Our notes application is way to simple to stress this point, but for large web apps with complex UIs, React offers a great user experience because it effectively avoids full-page-loads-on-every-click. This allows for very smooth state changes within the user interface, and it is certainly possible to provide an experience that is as good as a native desktop or mobile app.
+**User Experience (UX):** Our notes application is way to simple to stress this point, but for large web apps with complex UIs, correctly-built React apps offers a great user experience because they effectively avoid full-page-loads-on-every-click. This allows for very smooth state changes within the user interface, and it is certainly possible to provide an experience that is as good as a native desktop or mobile app.
 
-**Developer Experience (DX):** Correctly and efficiently managing the state of complex user interfaces is no small feat. And it's not necessarily fun in a language like JavaScript. But adding TypeScript and Redux into the mix makes all the difference. The type safety provided by TypeScript and the state mutation safety provided by Redux, together with the sanely opinionated patterns enforced by Redux Toolkit, turn a development process that could quickly become messy into a breeze. Being able to hot-reload
+**Developer Experience (DX):** Correctly and efficiently managing the state of complex user interfaces is no small feat. And it's not necessarily fun in a language like JavaScript. But adding TypeScript and Redux into the mix makes all the difference. The type safety provided by TypeScript and the state mutation safety provided by Redux, together with the sanely opinionated patterns enforced by Redux Toolkit, turn a development process that could quickly become messy into a breeze. The hot-reload functionality of the Create React App development server allows for a fluid live-coding experience.
 
+**Hosting Experience:** The promise of serverless hosting is that you can concentrate on building your app, without the need to "worry about" servers. This is certainly true in a general sense, and as this tutorial has shown you end up with an app that is fully hosted and therefore fully usable on the public web by only writing code, with no low-level server setup whatsoever required.
 
-- Ansatz bewerten auf den Dimensionen UX, DX, RX (Rollout Experience), HX (Hosting Experience, mit Verweis auf Machtlosigkeit zB CloudFront S3 DNS Problem)
+This level of convenience comes at a price, though: you are giving up a lot of control over the systems part of your project; you can manage some configuration settings and hope for the best when it comes to error reporting via CloudWatch, but that's about it. For example, I tried to deploy the exact same setup in a different AWS region, and ended up with a strange CloudFront-and-S3 related error that prevented the frontend app from being served, and I wasn't able to fully debug the problem, and simply couldn't solve it. Without changing anything else, simply switching to AWS region us-east-1 resulted in a working app. Why? I have no idea.
+
+**Rollout Experience:** Very much related to the Hosting Experience, but also a topic of its own in my opinion. I love how hosting the backend code on Lambda and the frontend code on S3 means that rolling out a new release boils down to building new JavaScript bundles and copying them to S3. This is extremely fast, and anyone who works with continuous deployment setups knows how being able to do releases quickly provides so much more than only the velocity itself.
