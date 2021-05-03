@@ -20,7 +20,7 @@ pygmentsCodefences = true
 defaultContentLanguage = "en"
 
 [params.info]
-description = "Covers topics on architecting, building, deploying and running software and systems for the web based on open source tools with agile methodologies."
+description = "Covers topics on architecting, building, deploying and running software and systems for the web based on open source tools with lean methodologies."
 title404 = "Nothing's here!"
 
 [params.assets]
