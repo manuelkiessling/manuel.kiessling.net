@@ -2,7 +2,7 @@
 date: 2021-04-21T08:30:00+01:00
 lastmod: 2021-04-21T08:30:00+01:00
 title: "Tutorial: Single Page Applications with a Serverless Backend and Infrastructure as Code"
-description: "From zero to production: this extensive guide describes in detail how to create and deploy a React-based web app frontend using TypeScript and Redux Toolkit on top of a Node.js based AWS Lambda backend with a DynamoDB database, connect and integrate them through API Gateway and CloudFront, and how to codify and automate the required cloud infrastructure and deployment process using Terraform."
+description: "From zero to production: this extensive guide describes in detail how to create and deploy a React-based web app frontend using TypeScript and Redux Toolkit on top of a Node.js based AWS Lambda backend with a DynamoDB database, connect and integrate them through API Gateway and CloudFront, and explains how to codify and automate the required cloud infrastructure and deployment process using Terraform."
 authors: ["manuelkiessling"]
 slug: 2021/05/02/tutorial-react-single-page-applications-spa-with-a-serverless-aws-api-gateway-and-lambda-and-dynamodb-backend-and-terraform-infrastructure-as-code
 lang: en
@@ -10,7 +10,7 @@ lang: en
 
 # About
 
-From zero to production: this extensive guide describes in detail how to create and deploy a React-based web app frontend using TypeScript and Redux Toolkit on top of a Node.js based AWS Lambda backend with a DynamoDB database, connect and integrate them through API Gateway and CloudFront, and how to codify and automate the required cloud infrastructure and deployment process using Terraform.
+From zero to production: this extensive guide describes in detail how to create and deploy a React-based web app frontend using TypeScript and Redux Toolkit on top of a Node.js based AWS Lambda backend with a DynamoDB database, connect and integrate them through API Gateway and CloudFront, and explains how to codify and automate the required cloud infrastructure and deployment process using Terraform.
 
 
 # Background
@@ -31,7 +31,9 @@ And admittedly, part of this was driven by a "know your enemy" attitude: I have 
 
 I was sure that there are plenty of very valid reasons to use an SPA + serverless architecture, and I wanted to finally embrace it for good, making it part of my toolbox.
 
-This tutorial is the result of that journey. It describes a target setup for a simple but fully-functional web app, and guides you through all steps required to have this setup up and running in your own AWS account.
+There are two results of this journey. The first one is [LogBuddy.io](https://logbuddy.io), which we now use at Joboo.de for some of our more simple log use cases, where something like an [ELK stack](https://www.elastic.co/de/what-is/elk-stack) setup is overkill.
+
+The second one is this tutorial - it is based on a bare-minimum implementation of the LogBuddy architecture and tech stack, and as such describes a target setup for a very simple but also fully-functional web app. The tutorial guides you through all steps required to have this setup up and running in your own AWS account, from zero to production.
 
 
 # The project
