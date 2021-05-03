@@ -17,7 +17,7 @@ From zero to production: this extensive guide describes in detail how to create 
 
 One of my current tasks at Joboo.de is to define an architecture and tech stack for our most complex web UIs, where our existing Symfony & Twig solution just won't cut it.
 
-In order to experiment in a wholesome way, I used this as an excuse to finally build my first software-and-systems side project that was 100% serverless on the backend and 100% an SPA on the frontend.
+In order to experiment in a wholesome way, I used this as an excuse to finally build my first software-and-systems side project that is 100% serverless on the backend and 100% an SPA on the frontend.
 
 After all, that's how all great software projects start: with [CV Driven Development](https://www.clairecodes.com/blog/2019-05-15-cv-driven-development/)!
 
