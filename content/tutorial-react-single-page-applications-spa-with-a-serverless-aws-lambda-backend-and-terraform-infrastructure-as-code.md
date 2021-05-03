@@ -172,6 +172,9 @@ At this point, we can run Terraform for the first time, in order to initialize t
     rerun this command to reinitialize your working directory. If you forget, other
     commands will detect it and remind you to do so if necessary.
 
+
+## S3: A place in the cloud for our code
+
 With this, Terraform is prepared to do some real work, so let's give it something to work on. We start by defining our S3 setup, in file `s3.tf`:
 
     resource "aws_s3_bucket" "frontend" {
@@ -250,6 +253,9 @@ Well, simply declaring these resources in a Terraform file doesn't create them, 
 
 Note that I have removed a lot of lines from the actual output to make it more readable.
 
+
+## DynamoDB: Persistent state for the backend
+
 Next up is DynamoDB. We will use this simple AWS NoSQL database for storing the data of our application, namely the "notes" that the application allows its users to create.
 
 We only need a single table, and the Terraform code for this (which belongs in file `dynamodb.tf`) is straightforward:
@@ -268,6 +274,9 @@ We only need a single table, and the Terraform code for this (which belongs in f
     }
 
 At this point we have a place for our frontend and backend code files, and a database table where the backend can store its data.
+
+
+## Lambda: Running Node.js code without a server
 
 Our backend code is supposed to run on AWS Lambda, and we can now define the Lambda function for this. To do so, create file `lambda.tf` with the following content:
 
@@ -376,6 +385,9 @@ Once this is done, you are able to successfully start another run of `terraform 
 
 Afterwards, our Lambda function exists, but it exists in isolation, and cannot be triggered from the outside. We therefore need to connect it to an AWS resource which is able to trigger it. In our case, the Lambda function will wrap our backend REST API implementation, and therefore, it should be triggered whenever our frontend code makes an HTTP request to the API.
 
+
+## API Gateway: Connecting Lambda to the outer world
+
 On AWS, HTTP calls can trigger Lambda functions by making an HTTP endpoint available through API Gateway. The Terraform HCL code for this, in file `api-gateway.tf`, looks like this:
 
     resource "aws_apigatewayv2_api" "default" {
@@ -425,6 +437,9 @@ This spares us from building a more complicated setup where the frontend at `htt
 We also need to allow API Gateway to access our Lambda function - the `aws_lambda_permission` resource takes care of that.
 
 At this point, you can run `terraform apply` again.
+
+
+## CloudFront: Integrating everything
 
 We have now reached the final step of defining and building the infrastructure. What's left is to integrate all the parts from the browser's perspective - we need a web address and a system which serves both the frontend code and the API endpoint at this address, again in a serverless way (meaning we don't want to build our own VM with Nginx or Apache, for example). AWS CloudFront is the obvious choice for this - it will act as a reverse proxy in front of both API Gateway and S3.
 
@@ -577,6 +592,7 @@ Note that the first part of the domain name will of course be different in your 
 You can already open this domain in your browser, but you will be greeted with a "404 Not Found" error message. The way we defined the infrastructure, opening `http://d1ka2fzxbv1rta.cloudfront.net/` will first result in a redirect to `https://d1ka2fzxbv1rta.cloudfront.net` (see file `cloudfront.tf`, line 63, `viewer_protocol_policy = "redirect-to-https"`), and then CloudFront will try to serve file `index.html` from the frontend S3 bucket. This file does not yet exist, and will be created only late in the process when we build and upload our React app for the first time.
 
 We will first create and deploy the backend code for the REST API served at `https://d1ka2fzxbv1rta.cloudfront.net/api`, though.
+
 
 # The backend: Building a REST API on AWS Lambda
 
@@ -1179,12 +1195,14 @@ Redux Toolkit provides the `createAsyncThunk` helper to create a thunk, so let's
 
 The helper function expects three type parameters: `<Returned, ThunkArg, ThunkApiConfig>`.
 
+
+## Typing a thunk
+
 The first is the type of the payload of the Redux action that will be emitted when the thunk operation is successful. In our case, we pass type `Note`, because we create a new note object by rolling a random id using `Math.random()`, and adding the `arg.content` value which we receive when this thunk is dispatched by the React component (as we will see later).
 
 For the second type parameter, `ThunkArg`, we pass a type definition inline: `{ readonly content: string }`. This means that the `arg` parameter that needs to be passed when the thunk is dispatched must be an object with attribute `content`, of type `string`.
 
 As the *fetch* operation can fail (because the API is not reachable, or returns an unexpected HTTP code), we possibly need to return a `rejectValue` instead of a `Note`. This then becomes the value of the action that is emitted in case of failure. We also want to type this return value, and we do this again inline as `{ readonly errorMessage: string, readonly note: Note }`.
-
 
 While you can see how the `ThunkArg` type parameter defines the type of parameter `arg` in our thunk function, let's look at the slice definition to see how type parameters `Returned` and `ThunkApiConfig` are of use within our reducers.
 
@@ -1222,6 +1240,9 @@ As you can see, we need to define the reducers for actions emitted by the thunk 
 `fulfilled` is emitted when the thunk is successful, that is, when it returns a value of the type that was defined for the `Returned` type parameter. If the thunk returns a value of the type defined for the `ThunkApiConfig.rejectValue` attribute, then the `rejected` action is emitted.
 
 As `createSlice` uses the [Immer](https://immerjs.github.io/immer/) library under the hood, we can safely modify the `state` object within our reducer code, without breaking the Redux rule to never modify the existing state. This is explained in detail in [Writing Reducers with Immer](https://redux-toolkit.js.org/usage/immer-reducers).
+
+
+## Creating a React component
 
 With the `import` statement, our own type definitions, the initial state, the thunk definition, and the slice definition in place, we can write a React component that makes use of the slice, in file `frontent/src/features/notes/Notes.tsx`:
 
@@ -1287,6 +1308,9 @@ Next, we return the DOM structure of our component using React's JSX syntax. Not
 
 We use the `reduxDispatch` function to dispatch thunk `createNote`, passing the current `newNoteContent` value as its argument, following the `ThunkArg` type definition in file `notesSlice.ts`, line 18.
 
+
+## Fixing TypeScript errors
+
 If you use an IDE with good TypeScript support, you will notice how references to `reduxState.notes` are marked as erroneous, with message `TS2339: Property 'notes' does not exist on type '{ counter: unknown; }'.`.
 
 We need to fix this in file `frontend/src/app/store.ts`, by changing line 2 from
@@ -1346,6 +1370,9 @@ Now, switch to file `frontend/src/App.tsx`, and remove lines 2-4:
     import { Counter } from './features/counter/Counter';
     import './App.css';
 
+
+## Integrating the new feature
+
 We can now integrate our new feature. To do so, remove all JSX code from the `return` statement starting on line 5, and replace it with `<Notes />`. If you are using an IDE with TypeScript and JavaScript support, the `import` statement this requires should be done automatically. In any case, this is how the final should now look:
 
     import React from 'react';
@@ -1358,7 +1385,6 @@ We can now integrate our new feature. To do so, remove all JSX code from the `re
     }
 
     export default App;
-
 
 At this point, the frontend app is in a runnable state again, so let's fire it up by running `npm run start`. This will open the app in a new browser window and show the following output:
 
@@ -1385,6 +1411,9 @@ This comes from line 34 in file `frontend/src/feature/notes/notesSlice.ts`:
     throw new Error(`Unexpected response from server (code ${response.status}).`);
 
 It's our thunk code throwing an error because the response status code from the server when requesting `/api/notes` with a `POST` is not `201` but `404`.
+
+
+## Connecting to the API
 
 This is expected. Our thunk code makes a request to path `/api/notes`, which means that the request goes to the same host and port on which the frontend app is served, that is, `localhost:3000`. But that's not where our CloudFront > API Gateway > Lambda setup is running. Instead, it's the local React Create App development webserver.
 
@@ -1421,6 +1450,9 @@ This will immediately work, because our reducer code on line 54 in file `notesSl
     state.notes.unshift(action.payload);
 
 At this point, there is only one last piece of functionality required to come full circle: When the frontend app starts, it should retrieve all existing notes from the backend, and populate the "Your notes" list with them.
+
+
+## Fetching notes
 
 We implement this by adding another thunk, one that encapsulates the `GET /api/notes/` operation, in file `frontend/src/features/notes/notesSlice.ts`:
 
@@ -1497,7 +1529,7 @@ With this, we can now fully deploy our application, by running `bash bin/deploy.
 **Congratulations, your serverless single-page app has been launched on the web!**
 
 
-## Shutting down the project
+# Shutting down the project
 
 You can get rid of all AWS infrastructure resources by simply running `terraform destroy` in folder `infrastructure`. Note, however, that you need to remove all contents from both S3 buckets beforehand, like this:
 
@@ -1506,7 +1538,7 @@ You can get rid of all AWS infrastructure resources by simply running `terraform
     > rm --recursive s3://PLEASE-CHANGE-ME-backend/
 
 
-## Evaluating the approach
+# Evaluating the approach
 
 As explained in the introduction, in my opinion, a serverless single-page application approach isn't necessarily a silver bullet which negates all other web app architectures. But it's certainly a powerful solution with a unique set of strengths, and one I'm happy to have in my toolbox for future projects.
 
