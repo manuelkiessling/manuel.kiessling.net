@@ -7,6 +7,11 @@ body, .title, h1, h2, h3, h4, h5, h6 {
     font-weight: lighter;
 }
 
+div.entry-content > p, div.entry-content > ul  {
+    font-family: Palatino, Garamond, "Times New Roman", Times, serif;
+    line-height: 2em;
+}
+
 h1.title {
     font-weight: normal;
 }
@@ -111,7 +116,7 @@ code.inline, p code, li code {
 }
 
 span.filename.beforecode {
-    font-family: Menlo,Consolas,Monaco,Ubuntu Mono,Liberation Mono,Lucida Console,monospace;;
+    font-family: Menlo,Consolas,Monaco,Ubuntu Mono,Liberation Mono,Lucida Console,monospace;
     color: #777;
     font-size: 0.75em;
     margin-bottom: 0;

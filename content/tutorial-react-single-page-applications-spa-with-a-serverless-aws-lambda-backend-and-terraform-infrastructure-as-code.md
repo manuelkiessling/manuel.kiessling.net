@@ -15,7 +15,7 @@ From zero to production: this extensive guide describes in detail how to create 
 
 # Background
 
-One of my current tasks at Joboo.de is to define an architecture and tech stack for our most complex web UIs, where our existing Symfony & Twig solution just won't cut it.
+One of my current tasks at Joboo.de is to define an architecture and tech stack for our most complex web UIs, an area where our existing Symfony & Twig solution just won't cut it.
 
 In order to experiment in a wholesome way, I used this as an excuse to finally build my first software-and-systems side project that is 100% serverless on the backend and 100% an SPA on the frontend.
 
@@ -418,9 +418,9 @@ On AWS, HTTP calls can trigger Lambda functions by making an HTTP endpoint avail
       source_arn = "${aws_apigatewayv2_api.default.execution_arn}/*/*"
     }
 
-This defines a very simple API Gateway setup, where every HTTP request is always forwarded to our Lambda function without further ado. We also define an API Gateway stage named "api" - we do this to make the API Gateway setup handle HTTP requests that aim at the `/api` path of the API URL - this way, we can serve our frontend at `/` and the API at `/api` of the same domain (CloudFront will take care of that in a moment), and thus, don't need to separate frontend and backend over two different domains.
+This defines a very simple API Gateway setup, where every HTTP request is always forwarded to our Lambda function without further ado. We also define an API Gateway stage named "api" - we do this to make the API Gateway setup handle HTTP requests that are targeted at the `/api` path of the API address. This way, we can serve our frontend at `/` and the API at `/api` of the same domain (CloudFront will take care of that in a moment), and thus, we don't need to separate frontend and backend over two different domains.
 
-This spares us from building a more complicated setup where the frontend at https://foo.com will request the API at https://bar.com, which would require a relatively involved CORS setup.
+This spares us from building a more complicated setup where the frontend at `https://foo.com` will request the API at `https://bar.com`, which would require a relatively involved CORS setup.
 
 We also need to allow API Gateway to access our Lambda function - the `aws_lambda_permission` resource takes care of that.
 
