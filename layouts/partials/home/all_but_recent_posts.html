@@ -1,0 +1,15 @@
+<section id='all-but-recent-posts' class='home-section'>
+    <header>
+        <h2 class='home-section-title title'>
+            {{- i18n "allButRecentPosts" -}}
+        </h2>
+    </header>
+
+    <div class='list-container'>
+        <ul class='list'>
+            {{ range ( after .Site.Params.settings.recentPostsLength ( where .Data.Pages "Section" "" ) ) }}
+            {{ .Render "li" }}
+            {{ end }}
+        </ul>
+    </div>
+</section>

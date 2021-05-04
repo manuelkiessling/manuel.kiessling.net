@@ -20,6 +20,12 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 2em;
 }
 
+#recent-posts {
+    background-color: rgba(64, 224, 208, .1);
+    padding: 2em;
+    border-radius: 1em;
+}
+
 #header {
     background: #40E0D0;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #FF8C00, #FF0080, #40E0D0);  /* Chrome 10-25, Safari 5.1-6 */
