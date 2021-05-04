@@ -659,7 +659,7 @@ As we are going to write our backend code as a Node.js project for the AWS platf
 
     found 0 vulnerabilities
 
-Note the `--target` arguments when running `npm install`. These are crucial whenever we work on Node.js projects for AWS Lambda. Upon installation, some NPM packages pull in (or compile) binary extensions that extend their JavaScript code. These are architecture-specified, and thus different files are pulled in when running `npm install` on a macOS system versus a Linux system, for example. But AWS Lambda is a Linux-based Node.js environment that wouldn't know how to handle binary files for a macOS system. Thus, we force NPM to always install dependencies for a glibc-based x64 Linux environment.
+Note the `--target` arguments when running `npm install`. These are crucial whenever we work on Node.js projects for AWS Lambda. Upon installation, some NPM packages pull in (or compile) binary extensions that extend their JavaScript code. These are architecture-specific, and thus different files are pulled in when running `npm install` on a macOS system versus a Linux system, for example. But AWS Lambda is a Linux-based Node.js environment that wouldn't know how to handle binary files for a macOS system. Thus, we force NPM to always install dependencies for a glibc-based x64 Linux environment.
 
 
 ## A first implementation
