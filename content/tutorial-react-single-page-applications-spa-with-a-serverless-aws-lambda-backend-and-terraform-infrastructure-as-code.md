@@ -61,7 +61,7 @@ Note that we are going to do a lot of work on the command line, so make sure tha
 
 **An Amazon AWS account**
 
-A simple personal account is perfectly fine, but for the sake of simplicity you need full access to all resources in this account (i.e., an AWS account root user or an IAM user attached to the "AdministratorAccess" policy). Create a new account at https://aws.amazon.com if necessary, or use an existing one.
+A simple personal account is perfectly fine, but for the sake of simplicity you need full access to all resources in this account (i.e., an AWS account root user or an IAM user attached to the "AdministratorAccess" policy). Create a new account at [aws.amazon.com](https://aws.amazon.com) if necessary, or use an existing one.
 
 This, of course, isn't the best practice approach when working with AWS, but the best-practice approach would go beyond the scope of this tutorial. See my [Single Sign-On and Resource Separation on AWS](/2020/12/29/single-sign-on-and-resource-separation-on-aws/) guide for more information on this topic.
 
