@@ -15,7 +15,7 @@ From zero to production: this extensive guide describes in detail how to create 
 
 # Background
 
-One of my current tasks at Joboo.de is to define an architecture and tech stack for our most complex web UIs, an area where our existing Symfony & Twig solution just won't cut it.
+One of my current tasks at Joboo.de is to define an architecture and tech stack for our most complex web UIs, an area where our existing MariaDB + Symfony + jQuery solution just won't cut it.
 
 In order to experiment in a wholesome way, I used this as an excuse to finally build my first software-and-systems side project that is 100% serverless on the backend and 100% an SPA on the frontend.
 
@@ -25,9 +25,9 @@ As if that wasn't enough, I'm also the guy with [this tweet](https://twitter.com
 
 > Never underestimate how far web apps with Server-Side Page Rendering that do Full Page Reloads On Every Click powered by a One Thread Per Request Language running as a Monolithic Service On A Non-Distributed System can get you in terms of generating real value for real customers.
 
-Now, I wouldn't say that what I wrote back then was wrong (who am I to criticize people on Twitter?), but let's say that I'm well aware of the limitations of the stack described above.
+Now, I wouldn't say that what I wrote back then was wrong (who am I to criticize people on Twitter?), but let's say that I'm well aware of the limitations of my year-long go-to stack described above.
 
-And admittedly, part of this was driven by a "know your enemy" attitude: I have no problem disliking something passionately, but I really don't want to dislike it for the wrong reasons or because I'm not well-informed enough.
+This shows how part of my approach was driven by a "know your enemy" attitude: I have no problem disliking something passionately, but I really don't want to dislike it for the wrong reasons or because I'm not well-informed enough.
 
 I was sure that there are plenty of very valid reasons to use an SPA + serverless architecture, and I wanted to finally embrace it for good, making it part of my toolbox.
 
