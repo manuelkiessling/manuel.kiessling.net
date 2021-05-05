@@ -1554,3 +1554,9 @@ This level of convenience comes at a price, though: you are giving up a lot of c
 
 **Rollout Experience:** Very much related to the Hosting Experience, but also a topic of its own in my opinion. I love how hosting the backend code on Lambda and the frontend code on S3 means that rolling out a new release boils down to building new JavaScript bundles and simply copying them to S3. This is an extremely fast process, and anyone who works with continuous deployment setups knows how being able to do releases quickly provides so much more than only the velocity itself.
 
+
+# Conclusion
+
+So that's that. I hope you enjoyed the ride and, if it feels like a useful approach, you can put it to good use for your next web app project.
+
+If you have any questions or comments, then [drop me a line on Twitter](https://twitter.com/manuelkiessling) or [send me an email at manuel@kiessling.net](mailto:manuel@kiessling.net).
