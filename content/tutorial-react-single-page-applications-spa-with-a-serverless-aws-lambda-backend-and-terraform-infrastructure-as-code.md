@@ -1544,7 +1544,7 @@ As explained in the introduction, in my opinion, a serverless single-page applic
 
 Let's evaluate this architecture and tech stack on a couple of dimensions.
 
-**User Experience (UX):** Our notes application is way to simple to stress this point, but for large web apps with complex UIs, correctly-built React apps offers a great user experience because they effectively avoid full-page-loads-on-every-click. This allows for very smooth state changes within the user interface, and it is certainly possible to provide an experience that is as good as a native desktop or mobile app.
+**User Experience (UX):** Our notes application is way too simple to stress this point, but for large web apps with complex UIs, correctly-built React apps offers a great user experience because they effectively avoid full-page-loads-on-every-click. This allows for very smooth state changes within the user interface, and it is certainly possible to provide an experience that is as good as a native desktop or mobile app.
 
 **Developer Experience (DX):** Correctly and efficiently managing the state of complex user interfaces is no small feat. And it's not necessarily fun in a language like JavaScript. But adding TypeScript and Redux into the mix makes all the difference. The type safety provided by TypeScript and the state mutation safety provided by Redux, together with the sanely opinionated patterns enforced by Redux Toolkit, turn a development process that could quickly become messy into a breeze. The hot-reload functionality of the Create React App development server allows for a fluid live-coding experience.
 
