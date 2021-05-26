@@ -1319,7 +1319,7 @@ We need to fix this in file `frontend/src/app/store.ts`, by changing line 2 from
 
 to
 
-    import counterReducer from '../features/counter/counterSlice';
+    import notesReducer from '../features/notes/notesSlice';
 
 and line 6 from:
 
