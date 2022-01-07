@@ -109,7 +109,7 @@ On the web console, the trust relationship between a role in a target account an
 
 This shows role "AccountManager" in target account 456 ("webapp").
 
-Uder the hood, a trust relationship is defined as an inline policy – it can be viewed by clicking on "Show policy document", and looks like this:
+Under the hood, a trust relationship is defined as an inline policy – it can be viewed by clicking on "Show policy document", and looks like this:
 
 ```
 {
