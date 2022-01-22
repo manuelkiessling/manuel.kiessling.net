@@ -44,4 +44,64 @@ However, we cannot change the TTL of the records in question - while we control 
 
 We thus needed a way to "virtually" increase the TTL of those records, to somehow ensure that our own servers talked to the Resolver, say, only every minute instead of every 5 seconds.
 
-Luckily, such a solution 
+Here is what we came up with.
+
+The local DNS cache we use on our EC2 Linux systems is [systemd-resolved](https://www.freedesktop.org/software/systemd/man/systemd-resolved.service.html). While it doesn't offer a way to override TTLs of records in its cache, it has one feature that turned out to be handy: as long as configuration setting `ReadEtcHosts` is set to `yes`, entries in file `/etc/hosts` are honored.
+
+Thanks to this, we were able to build a solution where we run a bash script every minute which resolves the IP address of a record like `db.prod.jooboo.internal` by requesting the Resolver directly, and write the result into file `/etc/hosts`. Any other application trying to resolve this DNS name still uses the local DNS cache, which in turn will resolve the IP address using the hosts file entry instead of going to the Resolver itself.
+
+That way, each DNS record is in practice cached locally for 1 minute, resulting in only one Resolver request per minute, keeping us well below the VPC's DNS quota.
+
+Here's how that script looks for `db.prod.jooboo.internal` and `redis.prod.jooboo.internal`:
+
+    #!/usr/bin/env bash
+    
+    HOSTSFILE=/etc/hosts
+    
+    function valid_ip()
+    {
+        local ip=$1
+        local stat=1
+    
+        if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+            OIFS=$IFS
+            IFS='.'
+            ip=($ip)
+            IFS=$OIFS
+            [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
+            stat=$?
+        fi
+        return $stat
+    }
+    
+    OUTPUT="127.0.0.1 localhost
+    
+    ::1 ip6-localhost ip6-loopback
+    fe00::0 ip6-localnet
+    ff00::0 ip6-mcastprefix
+    ff02::1 ip6-allnodes
+    ff02::2 ip6-allrouters
+    ff02::3 ip6-allhosts
+    "
+    
+    
+    for IP in $(dig A "db.prod.jooboo.internal" @10.0.0.2 +multiline +noall +answer +nocmd | grep -v "CNAME" | grep "A" | cut -d "A" -f 2)
+    do
+        if valid_ip "$IP"
+        then
+            OUTPUT="$OUTPUT
+    $IP $DATABASE_HOSTNAME"
+        fi
+    done
+    
+    
+    for IP in $(dig A "redis.prod.jooboo.internal" @10.0.0.2 +multiline +noall +answer +nocmd | grep -v "CNAME" | grep "A" | cut -d "A" -f 2)
+    do
+        if valid_ip "$IP"
+        then
+            OUTPUT="$OUTPUT
+    $IP $REDIS_HOSTNAME"
+        fi
+    done
+
+The script takes care to never break DNS lookups by making sure that entries are only written if the lookup result really is an IP address (and not some gibberish resulting from a failed `dig` run), and always writes the complete new content out into the hosts file in one go.
