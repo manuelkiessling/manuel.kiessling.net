@@ -9,6 +9,6 @@ weight: -210
 
 This is the homepage and blog of Manuel Kießling.
 
-I'm a software architect, test driven developer, linux admin, agilist, [book author](https://leanpub.com/u/manuelkiessling), and father of two.
+I'm a software architect, programmer, Linux and AWS admin, [book author](https://leanpub.com/u/manuelkiessling), and father of two.
 
-You can write me an e-mail at [manuel@kiessling.net](mailto:manuel@kiessling.net), or find me on [GitHub](https://github.com/manuelkiessling), [Xing](https://www.xing.com/profile/Manuel_Kiessling), and [LinkedIn](https://www.linkedin.com/in/manuelkiessling).
+You can write me an e-mail at [manuel@kiessling.net](mailto:manuel@kiessling.net), or find me on [Twitter](https://twitter.com/manuelkiessling), [GitHub](https://github.com/manuelkiessling), [Xing](https://www.xing.com/profile/Manuel_Kiessling), and [LinkedIn](https://www.linkedin.com/in/manuelkiessling).
