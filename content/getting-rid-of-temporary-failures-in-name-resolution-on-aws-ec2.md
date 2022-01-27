@@ -42,7 +42,7 @@ While we sure like high availability and low downtimes too, a fail-over time of 
 
 However, we cannot change the TTL of the records in question – while we control the records (including the TTL) of our own private hosted zone, like `db.prod.jooboo.internal`, these are only CNAME records to an actual A record like `675467832656467.cfengesemfrs.eu-central-1.rds.amazonaws.com`, and records in the `amazonaws.com` zone are of course controlled by AWS. 
 
-We thus needed a way to "virtually" increase the TTL of these records – a way to somehow ensure that our own servers talked to the Resolver, only, say, every minute instead of every 5 seconds.
+We thus needed a way to "virtually" increase the TTL of these records – a way to somehow ensure that our own servers talked to the Resolver only, say, every minute instead of every 5 seconds.
 
 Here is what we came up with.
 
