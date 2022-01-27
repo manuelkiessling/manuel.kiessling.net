@@ -1,20 +1,20 @@
 ---
 date: 2022-01-22T16:37:00+01:00
-lastmod: 2022-01-22T16:37:00+01:00
+lastmod: 2022-01-27T08:26:00+01:00
 title: "Getting rid of temporary failures in name resolution on Amazon Elastic Compute Cloud"
-description: "The applications on our EC2-based virtual machines started to repeatedly show 'temporary failure in name resolution' errors. Here is how we solved this problem."
+description: "The applications on our EC2-based virtual machines started to repeatedly show 'temporary failure in name resolution' errors. Here is how we solved the problem."
 authors: ["manuelkiessling"]
-slug: 2022/01/22/getting-rid-of-temporary-failures-in-name-resolution-on-aws-ec2
+slug: 2022/01/27/getting-rid-of-temporary-failures-in-name-resolution-on-aws-ec2
 lang: en
 ---
 
 # Introduction
 
-At Joboo.de, we are running nearly all of our infrastructure on AWS. This includes a couple of web applications running on virtual Linux servers hosted via EC2.
+At Joboo.de, we are running nearly all of our production infrastructure on AWS. This includes several web applications running on virtualized Linux servers hosted via EC2.
 
-A couple of weeks ago, we saw elevated error levels from these applications, and they all boiled down to the same problem: in order to connect to a couple of AWS-managed services like MariaDB (on AWS Relational Database Service), ElasticSearch (on AWS OpenSearch), SMTP (on AWS Simple Email Service), and Redis (on AWS ElastiCache), these applications wanted to resolve the DNS names of those service endpoints to their underlying IP addresses - and these lookups failed multiple times per day.
+A couple of weeks ago, we saw elevated error levels from these applications, and they all boiled down to the same problem: in order to connect to some of our AWS-managed services like MariaDB (on AWS Relational Database Service), ElasticSearch (on AWS OpenSearch), SMTP (on AWS Simple Email Service), and Redis (on AWS ElastiCache), the applications wanted to resolve the DNS names of those service endpoints to their underlying IP addresses – and these lookups failed multiple times per day.
 
-The problems occurred in "chunks" - that is, we saw zero problems for a couple of hours, and then up to a couple of hundred errors within a very short time frame of only several of minutes, again followed by multiple hours without any issues:
+The problems occurred in "chunks" – that is, we saw zero problems for a couple of hours, and then up to a couple of hundred errors within a very short time frame of only several minutes, again followed by multiple hours without any issues:
 
 [{{< figure src="/images/getting-rid-of-temporary-failures-in-name-resolution-on-aws-ec2/2022-01-22-getting-rid-of-temporary-failures-in-name-resolution-on-aws-ec2-error-grap.png" width="100%" class="m-5" >}}](/images/getting-rid-of-temporary-failures-in-name-resolution-on-aws-ec2/2022-01-22-getting-rid-of-temporary-failures-in-name-resolution-on-aws-ec2-error-grap.png)
 
@@ -24,7 +24,7 @@ When investigating the problem, one quickly ends up on this [AWS documentation a
 Each EC2 instance can send 1024 packets per second per network interface to Route 53 Resolver (specifically the .2 address, such as 10.0.0.2, and 169.254.169.253). This quota cannot be increased.
 </blockquote>
 
-"Route 53" is the managed DNS service of AWS which among other things provides the aforementioned Resolver as the DNS server which can be used by EC2 instances within a VPC to resolve DNS names. It looked like we were running into the mentioned quota limit. 
+"Route 53" is the managed DNS service of AWS which among other things provides the aforementioned Resolver as the DNS server which can be used by EC2 instances within a VPC. It looked like we were running into the mentioned quota limit. 
 
 An important detail is that we run a setup where we manage our own CNAME records for most of the service endpoints our application needs, and do so within a private Route 53 Hosted Zone. Because that zone is private, only Route 53 itself can resolve names within this zone. We thus could not simply switch name resolution from AWS's VPC Resolver to a public DNS service like Google's 8.8.8.8 or Cloudflare's 1.1.1.1, as those simply cannot look up these private DNS records.
 
