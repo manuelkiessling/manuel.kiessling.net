@@ -24,29 +24,29 @@ When investigating the problem, one quickly ends up on this [AWS documentation a
 Each EC2 instance can send 1024 packets per second per network interface to Route 53 Resolver (specifically the .2 address, such as 10.0.0.2, and 169.254.169.253). This quota cannot be increased.
 </blockquote>
 
-"Route 53" is the managed DNS service of AWS which among other things provides the aforementioned Resolver as the DNS server which can be used by EC2 instances within a VPC. It looked like we were running into the mentioned quota limit. 
+"Route 53" is the managed DNS service of AWS which among other things provides the aforementioned Resolver as the DNS server which can be used by EC2 instances within a VPC. Because we do use this name server on our systems, it looked like we were running into the mentioned quota limit.
 
-An important detail is that we run a setup where we manage our own CNAME records for most of the service endpoints our application needs, and do so within a private Route 53 Hosted Zone. Because that zone is private, only Route 53 itself can resolve names within this zone. We thus could not simply switch name resolution from AWS's VPC Resolver to a public DNS service like Google's 8.8.8.8 or Cloudflare's 1.1.1.1, as those simply cannot look up these private DNS records.
+An important detail is that we run a setup where we manage our own CNAME records for most of the service endpoints our applications need, and do so within a private Route 53 Hosted Zone. Because that zone is private, only Route 53 itself can resolve names within this zone. We thus could not simply switch name resolution from AWS's VPC Resolver to a public DNS service like Google's 8.8.8.8 or Cloudflare's 1.1.1.1, as those simply cannot look up those private DNS records.
 
-We were already doing what AWS describes in [How can I avoid DNS resolution failures with an Amazon EC2 Linux instance?](https://aws.amazon.com/de/premiumsupport/knowledge-center/dns-resolution-failures-ec2-linux/), which recommends to set up a DNS cache on each EC2 instance to limit the number of DNS queries to the Route 53 Resolver - this way, each record is looked up through the Resolver once, and subsequent lookups are answered by the local cache, without the need to go to the Resolver again.
+We were already doing what AWS describes in [How can I avoid DNS resolution failures with an Amazon EC2 Linux instance?](https://aws.amazon.com/de/premiumsupport/knowledge-center/dns-resolution-failures-ec2-linux/), which recommends to set up a DNS cache on each EC2 instance to limit the number of DNS queries to the Route 53 Resolver – this way, each record is looked up through the Resolver once, and subsequent lookups are answered by the local cache, without the need to go to the Resolver again.
 
-However, this only works until the Time-to-live (TTL) value of the record is reached; when this is the case, the record is considered stale, and has to be retrieved again through the Resolver.
+However, this only works until the Time-to-Live (TTL) value of a record is reached; when this is the case, the record is considered stale by the cache, and has to be retrieved again through the Resolver.
 
-This means that the "saving potential" of using a cache depends on the TTL of frequently-needed records. And of course, the DNS records of the AWS-managed services are the most frequently requested ones *and* they have extremely low TTLs. A record for an RDS-hosted database, for example, is "good" for only 5 seconds. And these values are set by AWS and cannot be influenced by the AWS customer.
+This means that the "saving potential" of using a cache depends on the TTL of frequently-needed records. And of course, the DNS records of the AWS-managed services are the most frequently requested ones *and* they have very low TTLs. A record for an RDS-hosted database, for example, is "good" for only 5 seconds. And these values are set by AWS and cannot be influenced by the AWS customer.
 
-Having extremely short-lived records makes sense with regards to minimizing service downtime - if and when the RDS database runs into a problem and needs to invoke a failover process, it potentially must be moved to another server (and therefore another network segment) somewhere in AWS's cloud, which would result in a new IP address.
+Having extremely short-lived records makes sense with regards to minimizing service downtime – if and when e.g. the RDS database runs into a problem and needs to invoke a fail-over process, it potentially must be moved to another server (and therefore another network segment) somewhere in AWS's cloud, which would result in a new IP address.
 
 An application using this database would of course be interested to learn about the new IP address as soon as possible, in order to avoid connection attempts to the old, and now wrong, IP address.
 
-While we sure like high availability and low downtimes too, a failover time of only 5 seconds is way less than we need, especially when it has the side effect of making our applications run into Route 53's DNS quota multiple times a day. 
+While we sure like high availability and low downtimes too, a fail-over time of only 5 seconds is way less than we need, especially when it has the side effect of making our applications run into Route 53's DNS quota limit multiple times a day.
 
-However, we cannot change the TTL of the records in question - while we control the records (including the TTL) of our own private hosted zone, like `db.prod.jooboo.internal`, these are only CNAME records to an actual A record like `675467832656467.cfengesemfrs.eu-central-1.rds.amazonaws.com`, and records in the `amazonaws.com` zone are of course controlled by AWS. 
+However, we cannot change the TTL of the records in question – while we control the records (including the TTL) of our own private hosted zone, like `db.prod.jooboo.internal`, these are only CNAME records to an actual A record like `675467832656467.cfengesemfrs.eu-central-1.rds.amazonaws.com`, and records in the `amazonaws.com` zone are of course controlled by AWS. 
 
-We thus needed a way to "virtually" increase the TTL of those records - a way to somehow ensure that our own servers talked to the Resolver, say, only every minute instead of every 5 seconds.
+We thus needed a way to "virtually" increase the TTL of these records – a way to somehow ensure that our own servers talked to the Resolver, only, say, every minute instead of every 5 seconds.
 
 Here is what we came up with.
 
-The local DNS cache we use on our EC2 Linux systems is [systemd-resolved](https://www.freedesktop.org/software/systemd/man/systemd-resolved.service.html). While it doesn't offer a way to override TTLs of records in its cache, it has one feature that turned out to be handy: as long as configuration setting `ReadEtcHosts` is set to `yes`, entries in file `/etc/hosts` are honored.
+The local DNS cache we use on our EC2-based Linux systems is [systemd-resolved](https://www.freedesktop.org/software/systemd/man/systemd-resolved.service.html). While it doesn't offer a way to override TTLs of records in its cache, it has one feature that turned out to be handy: as long as configuration setting `ReadEtcHosts` is set to `yes`, entries in file `/etc/hosts` are honored.
 
 Thanks to this, we were able to build a solution where we run a bash script every minute which resolves the IP address of a record like `db.prod.jooboo.internal` by requesting the Resolver directly, and write the result into file `/etc/hosts`. Any other application trying to resolve this DNS name still uses the local DNS cache, which in turn will resolve the IP address using the hosts file entry instead of going to the Resolver itself.
 
@@ -103,5 +103,11 @@ Here's how that script looks for `db.prod.jooboo.internal` and `redis.prod.joobo
     $IP $REDIS_HOSTNAME"
         fi
     done
+    
+    
+    echo "$OUTPUT" > "$HOSTSFILE"
+
 
 The script takes care to never result in a hosts file that would break DNS lookups by making sure that entries are only written if the lookup result really is an IP address (and not some gibberish resulting from a failed `dig` run), and always writes the complete new content out into the hosts file in one go. It also works whether there is only one A record for a name or multiple records.
+
+Ever since we implemented this solution, the name resolution failure rate dropped to zero for good.
