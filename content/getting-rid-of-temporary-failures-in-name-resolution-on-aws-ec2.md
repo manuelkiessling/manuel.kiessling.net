@@ -108,6 +108,6 @@ Here's how that script looks for `db.prod.jooboo.internal` and `redis.prod.joobo
     echo "$OUTPUT" > "$HOSTSFILE"
 
 
-The script takes care to never result in a hosts file that would break DNS lookups by making sure that entries are only written if the lookup result really is an IP address (and not some gibberish resulting from a failed `dig` run), and always writes the complete new content out into the hosts file in one go. It also works whether there is only one A record for a name or multiple records.
+The script takes care to never result in a hosts file that would break DNS lookups, by making sure that entries are only written if the lookup result really is an IP address (and not some gibberish resulting from a failed `dig` run), and always writes the complete new content out into the hosts file in one go. It also works whether there is only one A record for a name or multiple records.
 
 Ever since we implemented this solution, the name resolution failure rate dropped to zero for good.
