@@ -24,7 +24,7 @@ Der Projektcode ist auf Github abrufbar unter <a href="https://github.com/manuel
 Das folgende Video ist eine kurze Einführung zur aktuellen Alphaversion des Projekts. Es enthält außerdem eine lustige Sprecherstimme und eine sehr kreative Interpretation der englischen Grammatik.
 </p>
 
-<object width="640" height="385"><param name="movie" value="http://www.youtube.com/v/HI6SRqz_3D0?fs=1&amp;hl=de_DE"><param name="allowFullScreen" value="true"><param name="allowscriptaccess" value="always"><embed src="http://www.youtube.com/v/HI6SRqz_3D0?fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="385"></object>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HI6SRqz_3D0?si=yvuGFMJWXNDPIIoK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <br>
 <p>

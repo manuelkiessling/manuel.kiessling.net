@@ -23,7 +23,7 @@ The project’s code is hosted on Github at <a href="https://github.com/manuelki
 This video is a short introduction to the current alpha version of the project. A funny voice and lots of grammatical shortcomings are included for free:
 </p>
 
-<object width="640" height="385"><param name="movie" value="http://www.youtube.com/v/HI6SRqz_3D0?fs=1&amp;hl=de_DE"><param name="allowFullScreen" value="true"><param name="allowscriptaccess" value="always"><embed src="http://www.youtube.com/v/HI6SRqz_3D0?fs=1" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="385"></object>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/HI6SRqz_3D0?si=yvuGFMJWXNDPIIoK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <br>
 <p>
