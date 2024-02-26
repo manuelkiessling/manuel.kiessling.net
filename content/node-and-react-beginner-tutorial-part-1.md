@@ -9,7 +9,7 @@ lang: en
 draft: true
 ---
 
-# Part 0: Preface
+# Preface
 
 
 ## What you will learn
@@ -44,11 +44,13 @@ If you absolutely must use Windows for developing JavaScript applications, then 
 
 # Part 1: Introduction to JavaScript
 
+## JavaScript and TypeScript
+
 This tutorial teaches its readers how to build software applications with the programming language TypeScript.
 
-And yet, it begins by introducing the reader to a different programming language: JavaScript.
+And yet, it begins by introducing a different programming language: JavaScript.
 
-One builds on the other. Ultimately, the code that is executed when your applications run is JavaScript code. And there is nothing wrong with writing your applications with JavaScript code directly — and actually, this is what we will do in the first part of this tutorial.
+One builds on the other. Ultimately, the code that is executed when your applications run is JavaScript code. And there is nothing wrong with writing your applications with JavaScript code directly — and actually, this is what we will do in the first few parts of this tutorial.
 
 But there are very good reasons to then take the next step and write your applications with TypeScript code instead — and have your computer translate your TypeScript code into JavaScript code before it is executed.
 
@@ -61,34 +63,42 @@ If you are new to programming, the above sentence probably didn't make much sens
 The most important information right now is this: Every valid JavaScript program is also a 100% valid TypeScript program. Everything you learn about JavaScript — expressions, values, types, control structures, functions, and so on — are written and used in exactly the same way in TypeScript. Thus, once you've finished the first part of this tutorial, and learned JavaScript, you have already learned 90% of TypeScript.
 
 
+## Writing and running JavaScript code
+
+Starting to write and run JavaScript code is really simple. All we need is an environment which is able to interpret and run the JavaScript code that we write.
+
+There are several environments we can choose from, and we will learn about the different environments that are able to handle our code, but for now we will start with one that is readily available to us: the web browser.
+
+All mainstream web browsers — Chrome, Firefox, Internet Explorer, Edge, Safari, Opera, to name the most famous ones — are able to run JavaScript code, and we can use them for our first experiments.
+
+To follow along, please open your Chrome or Firefox browser.
+
+> If you don't have at least one of these currently installed, then please visit https://google.com/chrome or https://firefox.com to download and install them.
+
+After opening the browser, you don't need to open any specific webpage. Instead, we want to work with a developer tool that is integrated into browser: its *JavaScript Console*, where we can write code and execute it.
+
+In Firefox, hit CTRL-SHIFT-K (or, on macOS, OPTION-CMD-K) to open the console. In Chrome, use CTRL-SHIFT-I (or, on macOS, OPTION-CMD-I) to open the Developer Tools, and then click on the *Console* tab within the newly opened pane to access the JavaScript Console.
+
+Alternatively, you can also right-click somewhere on a webpage, and then select "Inspect" from the context menu. This will open the Developer Tools, and you can then click on the *Console* tab to access the console.
+
+{{<figure src="/images/node-react-beginner/inspect-via-right-click-menu-1414x1049.png">}}
+
+> When opening the JavaScript console, it's possible that it is already filled with some warning and error messages. That's not a problem — simply ignore these. Both browsers also provide a button which empties the console. It's a trashcan icon in Firefox, similar to 🗑, and a circle-with-a-diagonal-line icon in Chrome, similar to ⃠.
+
+The console offers a prompt which allows you to type in text, as can be seen in the following screenshot:
+
+{{<figure src="/images/node-react-beginner/chrome_console.png">}}
+
+Everything we enter into this console, at the `>` input prompt, will be evaluated and executed by the JavaScript interpreter embedded into the browser, as soon as we end our input by hitting the ENTER key.
+
+This enables us to run our very first JavaScript code.
 
 
 ## Values and Types
 
-Starting to write and run JavaScript code is really simple. All we need is an environment which is able to interpret and run the JavaScript code that we write. There are several environments we can choose from, and we will learn about the different environments that are able to handle our code, but for now we will start with one that is readily available to us: the web browser.
+To do so, type the following at the console input prompt: `"hello"`, and then hit the ENTER key.
 
-All mainstream web browsers — Chrome, Firefox, Internet Explorer, Edge, Safari, Opera, to name the most famous ones — are able to run JavaScript code, and we can use them for our first experiments.
-
-To follow along, please open your Chrome or Firefox browser. If you don't have at least one of these currently installed, then please visit https://www.google.com/chrome or https://www.firefox.com to download and install them.
-
-After opening the browser, you don't need to surf to any specific webpage. Instead, we want to work with the browser's JavaScript console, where we can write code and execute it.
-
-In Firefox, hit CTRL-SHIFT-K (or, on macOS, ALT-CMD-K) to open the console. In Chrome, use CTRL-SHIFT-I (or, on macOS, ALT-CMD-I) to open the Developer Tools, and then click on the "Console" tab within the newly opened pane to access the console.
-
-When reaching the console, it's possible that it is already filled with some warning and error messages. That's not a problem — simply ignore these. Both browsers also provide a button which empties the console. It's a trashcan icon in Firefox, similar to 🗑, and a circle-with-a-diagonal-line icon in Chrome, similar to ⃠.
-
-The console offers a prompt which allows you to type in text, as can be seen in the following screenshot:
-
-{{<
-figure src="/images/node-react-beginner/chrome_console.png"
->}}
-
-
-Everything we enter into this console will be evaluated by the JavaScript interpreter embedded into the browser, as soon as we end our input by hitting the ENTER key.
-
-This enables us to run our very first JavaScript code.
-
-To do so, type the following at the console input prompt: `"hello"`, and then hit the ENTER key. Note the quotation marks — these are important!
+Note the quotation marks around the text — these are important!
 
 As a result, the console will print our text back to us — in this case, it's `<- "hello"`. The left arrow, `<-`, isn't actually part of the response — it simply denotes that this is a response from the JavaScript interpreter.
 
@@ -97,7 +107,7 @@ Right now, the content of your console should look like this:
     >  "hello"
     <- "hello"
 
-The `>` symbol (in some browsers it might look like `>>`) denotes the input line, and the `<-` symbol denotes the output line.
+The `>` symbol (some browsers use `>>` instead) denotes the input line, and the `<-` symbol denotes the output line.
 
 What we just entered, and what the JavaScript interpreter evaluated and executed, is a very simple JavaScript *expression*. Our expression consists of one single element: a *value* — the text *hello*.
 
@@ -118,6 +128,9 @@ We can run other expressions that evaluate to values of other types:
 
 
 This introduces two new types: *number* and *boolean*. For numbers, JavaScript doesn't differentiate between integer and floating point numbers - in other words, the values `1` and `1.0` are identical, and thus, `1` and `0.5` have the same type.
+
+
+### Combining values
 
 As expected, values of type *number* can be used for mathematical operations. Entering `1 + 1` at the console will return `2`, as does `1.0 + 1.0`. In order to get a floating point number back, we must run an operation where the result contains a fractional part, e.g. `1 + 1.5`, which returns `2.5` as expected. Numbers with a fractional part of zero, like `1.0`, are always shown simplified to the whole number, e.g. `1`.
 
@@ -167,10 +180,78 @@ And finally, there's `!`, which can be used to "invert" a boolean expression - `
 
 That last one is a good litmus test to see if we understand how boolean expressions work. As this is an "or" expression using `||`, it's enough to make it `true` if one side of it is `true`. The expression on the left, `1 == 1`, is `true`, but because it is inverted with `!` before the `||` comparison is done, the left side of the "or" expression is `false`.
 
-Note how we use `==` for value comparison, while we used `=` for assignment.
 
-And there is a second comparison operator, which is useful when we compare values of different types: `0 == 0` is of course `true`, but `0 == ""` is... also `true`. This might not be what you want, because the number `0` and the empty string `""` are two different things - we probably agree that an empty string is something different than the number zero.
+### Comparing values
+
+Note how we used `==` for value comparison, while we used `=` for assignment.
+
+There is a second comparison operator, which is useful when we compare values of different types: `0 == 0` is of course `true`, but `0 == ""` is... also `true`.
+
+This might not be what you expect or want, because the number `0` and the empty string `""` are two different things — we probably agree that an empty *string* is something different than the *number* zero.
 
 In order to make sure that the two things we compare have the same value *and* also have the same type, we can use the `===` operator, which checks for type *and* value. Because comparisons with `==` are less strict, they are a common source of confusing bugs. It's therefore recommended to always compare using `===`, unless you know for sure that you want a less strict comparison.
 
+
+### Combining values of different types
+
 Mixing values of different types is possible not only for *comparison* - you can also *combine* values of different types to create new values. For example, adding the *number* value `1` to the *string* value `foo` creates a new string value: `1 + "foo"` results in value `"1foo"`, of type *string*.
+
+It is important to understand that the same logic applies when comparing values of different types with `==` or combining values of different types with `+`: for the JavaScript interpreter, it's always a two-step process called *type coercion*.
+
+*First*, one of the values is translated into another type (so that both values have the same type), and only *then* the comparison or combination takes place.
+
+There's a whole lot of rules behind type coercion in JavaScript. However, the basics are simple - whenever type coercion happens, a value is translated into one of only three types: into a *string*, into a *boolean*, or into a *number*.
+
+When we execute `1 + "foo"`, then the JavaScript interpreter assumes that we want a result of type *string*, and therefore translates the number `1` into the string `"1"`, and afterwards concatenates both strings together into `"1foo"`.
+
+Because the string equivalent of the number `1.0` is also `"1"`, the result of `1.0 + "foo"` is again `"1foo"`, while `1.5 + "foo"` results in `"1.5foo"`.
+
+We could say that when working with `+`, the string value as part of the combination "wins", and the non-string part of the combination is translated into a string value.
+
+The opposite is true when working with `-`, `*`, or `/`. The result of `5 - "2"` is the number `3`, the result of `5 * "2"` is the number `10`, and `5 / "2"` results in `2.5`.
+
+Here, the *number* part of the combination "wins", and the string is translated into a number before the combination is done.
+
+Note that parentheses play a role here, too: `1 + 2 + "foo"` results in `"3foo"`, while `1 + (2 + "foo")` results in `"12foo"`.
+
+Equations are evaluated from left to right: `1 + 2 + "3"` results in string `"33"` - first, `1 + 2` are evaluated to the number `3`, which is then concatenated with string `"3"` into string `"33"`.
+
+
+### Converting values to boolean
+
+When comparing a value of a type other than *boolean* to a boolean value with `==`, the non-boolean value is first converted to a boolean value.
+
+For example, the number `0` becomes `false`, which is why `0 == false` evaluates to `true`, while `1 == false` evaluates to `false` - that's because `0` is translated into `false`, and `1` is translated into `true`.
+
+
+### Type casting: Explicitly translating values
+
+You can do these translations explicitly, through *type casting*. To do so, use one of the following:
+
+- `Boolean(expression)` transforms `expression` into a *boolean* value
+- `Number(expression)` transforms `expression` into a *number* value
+- `String(expression)` transforms `expression` into a *string* value
+
+
+For example, `Boolean(0)` and `Boolean("")` translate into `false`, while `Boolean(1)`, `Boolean("1")` - **and** `Boolean("0")`! - all translate into `true`. You can type-cast more complex expressions, of course - `Number("1" + 2)` will result in value `12` of type *number*.
+
+> Note that this introduces another important element of the JavaScript language — Boolean(), Number(), and String() are so-called functions. We are going to discuss these in detail later in the series.
+
+Because keeping all these type coercion rules in mind isn't easy, and because not all of them are straightforward, it really is recommended to always use the `===` comparison operator, which doesn't do any kind of type coercion and, as explained, compares value *and* type.
+
+## Summary of part 1
+
+Let's recap what we've learned:
+
+- We can write and run JavaScript code in our web browser, using the JavaScript Console.
+- JavaScript has three basic types: *string*, *number*, and *boolean*.
+- We can combine values of different types to create new values.
+- We can compare values of different types, and we can combine values of different types, because the JavaScript interpreter does *type coercion*.
+- We can explicitly convert values of one type into values of another type, through *type casting*.
+- We can use the `===` operator to compare values without any kind of type coercion.
+- We can use the `Boolean()`, `Number()`, and `String()` functions to explicitly translate values into boolean, number, and string values.
+- We can use parentheses to enforce operator precedence.
+
+## Next up
+
+In the second part of this series, we will learn about constants and variables, and how to use them to *store values* in our JavaScript programs.
