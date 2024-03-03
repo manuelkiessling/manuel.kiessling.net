@@ -59,10 +59,10 @@ one = "One min read"
 other = "{{ .Count }} mins read"
 
 [recentPosts]
-other = "Recent Posts"
+other = "Recent posts"
 
 [allButRecentPosts]
-other = "Older posts"
+other = "All posts"
 
 [archivedPosts]
 other = "Archived Content"

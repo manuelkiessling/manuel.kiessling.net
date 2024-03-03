@@ -7,7 +7,7 @@
 
     <div class='list-container'>
         <ul class='list'>
-            {{ range ( after .Site.Params.settings.recentPostsLength ( where .Data.Pages "Section" "" ) ) }}
+            {{ range ( ( where .Data.Pages "Section" "" ) ) }}
             {{ .Render "li" }}
             {{ end }}
         </ul>
