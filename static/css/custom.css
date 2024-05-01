@@ -1,16 +1,29 @@
+html {
+    background-color: #eee;
+}
+
 body, .title, h1, h2, h3, h4, h5, h6 {
-    font-family: "Helvetica Neue", HelveticaNeue, "TeX Gyre Heros", TeXGyreHeros, FreeSans, "Nimbus Sans L", "Liberation Sans", Arimo, Helvetica, Arial, sans-serif;
+    font-family: "Roboto Serif", serif;
+    line-height: 1.4em;
+    font-weight: 340;
+    color: #222;
+    /*font-family: "Helvetica Neue", HelveticaNeue, "TeX Gyre Heros", TeXGyreHeros, FreeSans, "Nimbus Sans L", "Liberation Sans", Arimo, Helvetica, Arial, sans-serif;*/
 }
 
 .title, h1, h2, h3, h4, h5, h6 {
-    font-family: "Helvetica Neue", HelveticaNeue, "TeX Gyre Heros", TeXGyreHeros, FreeSans, "Nimbus Sans L", "Liberation Sans", Arimo, Helvetica, Arial, sans-serif;
-    font-weight: lighter;
+    /*font-family: "Helvetica Neue", HelveticaNeue, "TeX Gyre Heros", TeXGyreHeros, FreeSans, "Nimbus Sans L", "Liberation Sans", Arimo, Helvetica, Arial, sans-serif;*/
+    font-weight: bolder;
 }
 
-div.entry-content > p, div.entry-content > ul  {
-    font-family: serif;
+body > div > header, h1.site-title, body > div > footer {
+    font-family: "Helvetica Neue", HelveticaNeue, "TeX Gyre Heros", TeXGyreHeros, FreeSans, "Nimbus Sans L", "Liberation Sans", Arimo, Helvetica, Arial, sans-serif;
+}
+
+main, div.entry-content > p, div.entry-content > ul, div.entry-content > ol {
     line-height: 1.5em;
-    font-size: 1.4em
+    font-size: 1.0em;
+    font-weight: 340;
+    color: #222;
 }
 
 h1.title {
@@ -68,8 +81,12 @@ p.site-description {
     font-style: normal;
 }
 
-h3.list-item-title a {
-    font-weight: bold;
+h3.list-item-title {
+    font-weight: bolder;
+}
+
+b, strong {
+    font-weight: 550;
 }
 
 .list-item-description {
@@ -117,9 +134,13 @@ footer.entry-footer-container {
 }
 
 code.inline, p code, li code {
-    background-color: rgba(64, 224, 208, 0.25);
+    background-color: rgba(0, 0, 0, 0.075);
     padding-left: 0.4em;
     padding-right: 0.4em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    border-radius: 0.2em;
+    font-size: 0.8em;
 }
 
 span.filename.beforecode {
