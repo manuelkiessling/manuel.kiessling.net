@@ -75,9 +75,9 @@ To follow along, please open your Chrome or Firefox browser.
 
 > If you don't have at least one of these currently installed, then please visit https://google.com/chrome or https://firefox.com to download and install them.
 
-After opening the browser, you don't need to open any specific webpage. Instead, we want to work with a developer tool that is integrated into browser: its *JavaScript Console*, where we can write code and execute it.
+After opening the browser, you don't need to open any specific webpage. Instead, we want to work with a developer tool that is already integrated into the browser: its *JavaScript Console*, where we can write code and execute it.
 
-In Firefox, hit CTRL-SHIFT-K (or, on macOS, OPTION-CMD-K) to open the console. In Chrome, use CTRL-SHIFT-I (or, on macOS, OPTION-CMD-I) to open the Developer Tools, and then click on the *Console* tab within the newly opened pane to access the JavaScript Console.
+In Firefox, hit key combination `CTRL-SHIFT-K` (or, on macOS, `OPTION-CMD-K`) to open the console. In Chrome, use `CTRL-SHIFT-I` (or, on macOS, `OPTION-CMD-I`) to open the Developer Tools, and then click on the *Console* tab within the newly opened pane to access the JavaScript Console.
 
 Alternatively, you can also right-click somewhere on a webpage, and then select "Inspect" from the context menu. This will open the Developer Tools, and you can then click on the *Console* tab to access the console.
 
@@ -89,9 +89,9 @@ The console offers a prompt which allows you to type in text, as can be seen in 
 
 {{<figure src="/images/node-react-beginner/chrome_console.png">}}
 
-Everything we enter into this console, at the `>` input prompt, will be evaluated and executed by the JavaScript interpreter embedded into the browser, as soon as we end our input by hitting the ENTER key.
+Everything we enter into this console, at the input prompt symbol `>`, will be evaluated and executed by the JavaScript interpreter embedded into the browser, as soon as we end our input by hitting the ENTER key.
 
-This enables us to run our very first JavaScript code.
+And this enables us to run our very first JavaScript code.
 
 
 ## Values and Types
