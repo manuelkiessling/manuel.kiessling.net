@@ -16,7 +16,8 @@ body, .title, h1, h2, h3, h4, h5, h6 {
 }
 
 body > div > header, h1.site-title, body > div > footer {
-    font-family: "Helvetica Neue", HelveticaNeue, "TeX Gyre Heros", TeXGyreHeros, FreeSans, "Nimbus Sans L", "Liberation Sans", Arimo, Helvetica, Arial, sans-serif;
+    font-family: "Roboto", sans-serif;
+    /*font-family: "Helvetica Neue", HelveticaNeue, "TeX Gyre Heros", TeXGyreHeros, FreeSans, "Nimbus Sans L", "Liberation Sans", Arimo, Helvetica, Arial, sans-serif;*/
 }
 
 main, div.entry-content > p, div.entry-content > ul, div.entry-content > ol {
@@ -134,17 +135,20 @@ footer.entry-footer-container {
 }
 
 code.inline, p code, li code {
+    font-family: "Roboto Mono", monospace;
     background-color: rgba(0, 0, 0, 0.075);
+    color: #000;
     padding-left: 0.4em;
     padding-right: 0.4em;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
     border-radius: 0.2em;
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
 span.filename.beforecode {
-    font-family: Menlo,Consolas,Monaco,Ubuntu Mono,Liberation Mono,Lucida Console,monospace;
+    font-family: "Roboto Mono", monospace;
+    /*font-family: Menlo,Consolas,Monaco,Ubuntu Mono,Liberation Mono,Lucida Console,monospace;*/
     color: #777;
     font-size: 0.75em;
     margin-bottom: 0;
@@ -162,6 +166,14 @@ pre {
 .entry-content a {
     border-bottom: none;
     text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: #999;
+    text-decoration-thickness: 0.01em;
+}
+
+.entry-content a:hover {
+    color: #000;
+    text-decoration-color: #444;
 }
 
 h3 a {
