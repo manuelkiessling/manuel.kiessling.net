@@ -1,3 +1,112 @@
+/* roboto-300 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../fonts/roboto-v30-latin-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-regular - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/roboto-v30-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-500 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/roboto-v30-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-serif-300 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto Serif';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../fonts/roboto-serif-v13-latin-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-serif-300italic - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto Serif';
+    font-style: italic;
+    font-weight: 300;
+    src: url('../fonts/roboto-serif-v13-latin-300italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-serif-regular - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto Serif';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/roboto-serif-v13-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-serif-italic - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto Serif';
+    font-style: italic;
+    font-weight: 400;
+    src: url('../fonts/roboto-serif-v13-latin-italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-serif-500 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto Serif';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/roboto-serif-v13-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-serif-500italic - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto Serif';
+    font-style: italic;
+    font-weight: 500;
+    src: url('../fonts/roboto-serif-v13-latin-500italic.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-mono-300 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto Mono';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../fonts/roboto-mono-v23-latin-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-mono-regular - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/roboto-mono-v23-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-mono-500 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Roboto Mono';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/roboto-mono-v23-latin-500.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+
 html {
     background-color: #eee;
 }
@@ -5,14 +114,12 @@ html {
 body, .title, h1, h2, h3, h4, h5, h6 {
     font-family: "Roboto Serif", serif;
     line-height: 1.4em;
-    font-weight: 340;
+    font-weight: 300;
     color: #222;
-    /*font-family: "Helvetica Neue", HelveticaNeue, "TeX Gyre Heros", TeXGyreHeros, FreeSans, "Nimbus Sans L", "Liberation Sans", Arimo, Helvetica, Arial, sans-serif;*/
 }
 
 .title, h1, h2, h3, h4, h5, h6 {
-    /*font-family: "Helvetica Neue", HelveticaNeue, "TeX Gyre Heros", TeXGyreHeros, FreeSans, "Nimbus Sans L", "Liberation Sans", Arimo, Helvetica, Arial, sans-serif;*/
-    font-weight: bolder;
+    font-weight: 500;
 }
 
 .home-section-title {
@@ -21,7 +128,22 @@ body, .title, h1, h2, h3, h4, h5, h6 {
 
 body > div > header, h1.site-title, body > div > footer {
     font-family: "Roboto", sans-serif;
-    /*font-family: "Helvetica Neue", HelveticaNeue, "TeX Gyre Heros", TeXGyreHeros, FreeSans, "Nimbus Sans L", "Liberation Sans", Arimo, Helvetica, Arial, sans-serif;*/
+}
+
+h1.site-title, p.site-title-minified {
+    letter-spacing: -0.04em;
+    font-weight: 500;
+}
+
+.site-title-minified {
+    color: #fff;
+    margin-bottom: 1em;
+    font-size: 2em;
+    margin-top: 1.09em;
+}
+
+.site-description.subtitle {
+    font-weight: 400;
 }
 
 .home-section + .home-section::before {
@@ -31,7 +153,7 @@ body > div > header, h1.site-title, body > div > footer {
 main, div.entry-content > p, div.entry-content > ul, div.entry-content > ol {
     line-height: 1.5em;
     font-size: 1.0em;
-    font-weight: 340;
+    font-weight: 300;
     color: #222;
 }
 
@@ -41,10 +163,6 @@ ul {
 
 div.entry-content > ul > li, div.entry-content > ol > li {
     margin-bottom: 1.5em;
-}
-
-h1.title {
-    font-weight: normal;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -73,16 +191,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #header h1.site-title {
-    font-weight: lighter;
+    font-weight: 500;
     /*text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);*/
-}
-
-.site-title-minified {
-    color: #fff;
-    margin-top: 0.605em;
-    margin-bottom: 1em;
-    font-weight: lighter;
-    font-size: 2em;
 }
 
 p.site-description {
@@ -91,7 +201,7 @@ p.site-description {
 
 .home-section > p {
     color: #777;
-    font-weight: lighter;
+    font-weight: 300;
 }
 
 .header-info .subtitle, .header-info .taxonomy-type {
@@ -99,11 +209,11 @@ p.site-description {
 }
 
 h3.list-item-title {
-    font-weight: bolder;
+    font-weight: 500;
 }
 
 b, strong {
-    font-weight: 550;
+    font-weight: 500;
 }
 
 .list-item-description {
@@ -124,7 +234,7 @@ b, strong {
 .entry .meta span, .entry .meta span a {
     font-style: normal;
     color: #444;
-    font-weight: lighter;
+    font-weight: 300;
 }
 
 footer.entry-footer-container {
@@ -152,6 +262,7 @@ footer.entry-footer-container {
 
 code.inline, p code, li code {
     font-family: "Roboto Mono", monospace;
+    font-weight: 500;
     background-color: rgba(0, 0, 0, 0.075);
     color: #000;
     padding-left: 0.4em;
@@ -164,7 +275,7 @@ code.inline, p code, li code {
 
 span.filename.beforecode {
     font-family: "Roboto Mono", monospace;
-    /*font-family: Menlo,Consolas,Monaco,Ubuntu Mono,Liberation Mono,Lucida Console,monospace;*/
+    font-weight: 500;
     color: #777;
     font-size: 0.75em;
     margin-bottom: 0;
