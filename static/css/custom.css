@@ -15,9 +15,17 @@ body, .title, h1, h2, h3, h4, h5, h6 {
     font-weight: bolder;
 }
 
+.home-section-title {
+    text-align: center;
+}
+
 body > div > header, h1.site-title, body > div > footer {
     font-family: "Roboto", sans-serif;
     /*font-family: "Helvetica Neue", HelveticaNeue, "TeX Gyre Heros", TeXGyreHeros, FreeSans, "Nimbus Sans L", "Liberation Sans", Arimo, Helvetica, Arial, sans-serif;*/
+}
+
+.home-section + .home-section::before {
+    border-bottom: none;
 }
 
 main, div.entry-content > p, div.entry-content > ul, div.entry-content > ol {
@@ -25,6 +33,14 @@ main, div.entry-content > p, div.entry-content > ul, div.entry-content > ol {
     font-size: 1.0em;
     font-weight: 340;
     color: #222;
+}
+
+ul {
+    list-style-type: square;
+}
+
+div.entry-content > ul > li, div.entry-content > ol > li {
+    margin-bottom: 1.5em;
 }
 
 h1.title {
@@ -167,13 +183,15 @@ pre {
     border-bottom: none;
     text-decoration: underline;
     text-decoration-style: dotted;
-    text-decoration-color: #999;
-    text-decoration-thickness: 0.01em;
+    text-decoration-color: #777;
+    text-decoration-thickness: 0.05em;
 }
 
 .entry-content a:hover {
     color: #000;
-    text-decoration-color: #444;
+    text-decoration-color: #000;
+    text-decoration-style: solid;
+    text-decoration-thickness: 0.06em;
 }
 
 h3 a {

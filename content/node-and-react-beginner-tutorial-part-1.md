@@ -1,12 +1,12 @@
 ---
-date: 2024-01-20T00:00:00+01:00
-lastmod: 2024-01-20T00:00:00+01:00
+date: 2024-05-02T00:00:01+01:00
+lastmod: 2024-05-02T00:00:01+01:00
 title: "Node & React Beginner Tutorial — Part 1: Introduction to JavaScript"
-description: ""
+description: "This part introduces JavaScript, a widely used programming language. It guides beginners on how to write and run JavaScript code in a web browser, and covers the most basic components of the language such as values and types."
 authors: ["manuelkiessling"]
-slug: 2024/01/20/node-and-react-beginner-tutorial-part-1
+slug: node-and-react-beginner-tutorial/part-1
 lang: en
-draft: true
+draft: false
 ---
 
 # Preface
@@ -254,4 +254,4 @@ Let's recap what we've learned:
 
 ## Next up
 
-In the second part of this series, we will learn about constants and variables, and how to use them to *store values* in our JavaScript programs.
+In [the second part of this series](../part-2/), we will learn about constants and variables, and how to use them to *store values* in our JavaScript programs.
