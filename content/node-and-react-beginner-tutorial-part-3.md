@@ -67,31 +67,31 @@ Once you are there, create the project folder, and change into the new folder:
 
 We are going to tell NVM which version of Node.js we want to use for this project. To do so, we create a file named `.nvmrc` right in our project folder. The sole content of this file is one line that contains the Node.js version number we wish to use. This can be achieved like this:
 
-    > echo "14" > .nvmrc
+    > echo "20" > .nvmrc
 
 When running NVM while we are within the project folder, it will detect this file, read its contents, and will use the contained version number. The first thing we are going to use NVM for is to install Node.js:
 
     > nvm install
 
-    Found '/home/manuelkiessling/nodejs-hello-world/.nvmrc' with version <14>
-    Downloading and installing node v14.6.0...
-    Downloading https://nodejs.org/dist/v14.6.0/node-v14.6.0-darwin-x64.tar.xz...
+    Found '/home/manuelkiessling/nodejs-hello-world/.nvmrc' with version <20>
+    Downloading and installing node v20.12.2...
+    Downloading https://nodejs.org/dist/v20.12.2/node-v20.12.2-darwin-x64.tar.xz...
     ######################################################################## 100.0%
     Computing checksum with shasum -a 256
     Checksums matched!
-    Now using node v14.6.0 (npm v6.14.6)
+    Now using node v20.12.2 (npm v10.5.0)
 
-As you can see, using `14` as the Node.js version number works as a kind of wildcard — because we only provided the first part of the three part version number, NVM automatically assumes we want the most recent version of Node.js 14.x.y, which as of this writing is 14.6.0.
+As you can see, using `20` as the Node.js version number works as a kind of wildcard — because we only provided the first part of the three part version number, NVM automatically assumes we want the most recent version of Node.js 20.x.y, which as of this writing is 20.12.2.
 
-Version 14 of Node.js is the current Long Term Support (LTS) version of Node.js, and is an optimal starting point for new projects. You can find the most recent "LTS" and "Current" versions of Node.js at https://nodejs.org.
+Version 20 of Node.js is the current Long Term Support (LTS) version of Node.js, and is an optimal starting point for new projects. You can find the most recent "LTS" and "Current" versions of Node.js at https://nodejs.org.
 
 With this, Node.js is now available on your system! You can verify this by running `node --version`:
 
     > node --version
 
-    v14.6.0
+    v20.12.2
 
-If this doesn't work as expected, or a version number other than the one you expected is shown, then run `nvm use` to ensure that for the current project, NVM has definitely switched to the intended version. However, note that for all practical purposes, it doesn't make any difference if your system uses another minor version, like *14.8.3* instead of *14.6.0*. And even if you have a higher major version, like *15.2.0*, you will probably still be good to follow along.
+If this doesn't work as expected, or a version number other than the one you expected is shown, then run `nvm use` to ensure that for the current project, NVM has definitely switched to the intended version. However, note that for all practical purposes, it doesn't make any difference if your system uses another minor version, like *20.8.3* instead of *20.12.2*. And even if you have a higher major version, like *21.2.0*, you will probably still be good to follow along.
 
 Let's see what we can do with this.
 
@@ -99,7 +99,7 @@ As said, Node.js basically is a JavaScript interpreter[^note1], wrapped into a c
 
     > node
 
-    Welcome to Node.js v14.6.0.
+    Welcome to Node.js v20.12.2.
     Type ".help" for more information.
     > let a = "hello"
     undefined
