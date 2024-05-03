@@ -95,7 +95,11 @@ If this doesn't work as expected, or a version number other than the one you exp
 
 Let's see what we can do with this.
 
-As said, Node.js basically is a JavaScript interpreter[^note1], wrapped into a command line application instead of a web browser. As such, it provides an interactive console, very much like the one we already worked with. Simply start the `node` application, and you are thrown into this interactive console:
+As said, Node.js basically is a JavaScript interpreter, wrapped into a command line application instead of a web browser.
+
+> To be precise, Node.js wraps V8, an open-source JavaScript engine developed by The Chromium Project for Google Chrome and Chromium web browsers. See https://en.wikipedia.org/wiki/V8_(JavaScript_engine) for more details.
+
+As such, it provides an interactive console, very much like the one we already worked with. Simply start the `node` application, and you are thrown into this interactive console:
 
     > node
 
