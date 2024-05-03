@@ -11,7 +11,7 @@ draft: false
 
 This is part three of a multi-part tutorial series that teaches how to build real-world software applications with JavaScript, TypeScript, Node.js, and React — starting from zero knowledge, all the way to launching into production.
 
-Start at [Part 1: Introduction to JavaScript](../part-1/) to start at the beginning.
+Go to [Part 1: Introduction to JavaScript](../part-1/) to start at the beginning.
 
 # Part 3: Node.js: JavaScript on the command line
 
@@ -104,7 +104,7 @@ As said, Node.js basically is a JavaScript interpreter[^note1], wrapped into a c
     > let a = "hello"
     undefined
 
-Type `.exit` or hit CTRL-D if you want to leave this console.
+Type `.exit` or hit `CTRL-D` if you want to leave this console.
 
 While this is certainly nice to have whenever we feel like playing around with JavaScript interactively, we wanted to get away from the console and start writing "real" JavaScript applications.
 

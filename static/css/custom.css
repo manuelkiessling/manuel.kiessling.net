@@ -151,7 +151,7 @@ h1.site-title, p.site-title-minified {
 }
 
 main, div.entry-content > p, div.entry-content > ul, div.entry-content > ol {
-    line-height: 1.5em;
+    line-height: 1.75em;
     font-size: 1.0em;
     font-weight: 300;
     color: #222;
@@ -262,25 +262,31 @@ footer.entry-footer-container {
 
 code.inline, p code, li code {
     font-family: "Roboto Mono", monospace;
-    font-weight: 500;
+    font-weight: 400;
     background-color: rgba(0, 0, 0, 0.075);
     color: #000;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
     padding-left: 0.4em;
     padding-right: 0.4em;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
     border-radius: 0.2em;
     font-size: 0.9em;
+    white-space: pre;
 }
 
 span.filename.beforecode {
     font-family: "Roboto Mono", monospace;
-    font-weight: 500;
+    font-weight: 300;
     color: #777;
-    font-size: 0.75em;
-    margin-bottom: 0;
+    font-size: 0.675em;
+    position: relative;
+    bottom: -2.2em;
     background: #212121;
-    padding: 8px 20px 8px 22px;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    padding: 12px 20px 24px 18px;
 }
 
 pre {
@@ -288,6 +294,7 @@ pre {
     margin-bottom: 2em;
     font-size: 0.675em;
     border-radius: 1em;
+    line-height: 1.8em;
 }
 
 .entry-content a {
@@ -318,10 +325,11 @@ h3 a {
 }
 
 blockquote {
-    font-size: 1em;
+    font-size: 0.75em;
+    line-height: 2em;
     font-style: normal;
     margin: 0 0 1.5em;
     padding-left: 1em;
-    border-left: .2em solid #FF8C00;
-    color: #888;
+    border-left: .1em solid #999;
+    color: #666;
 }

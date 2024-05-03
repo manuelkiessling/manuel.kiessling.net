@@ -54,13 +54,17 @@ One builds on the other. Ultimately, the code that is executed when your applica
 
 But there are very good reasons to then take the next step and write your applications with TypeScript code instead — and have your computer translate your TypeScript code into JavaScript code before it is executed.
 
-Luckily, taking this step is very straightforward. Once you understand the basics of software development with JavaScript (which is what the first part of this tutorial takes care of), you can switch to TypeScript very easily. This is because TypeScript is not a completely new and different language — instead, it is a so-called *superset* of JavaScript, extending JavaScript's syntax with some additional syntax that makes your software development experience even better.
+Luckily, taking this step is very straightforward. Once you understand the basics of software development with JavaScript (which is what the first part of this tutorial takes care of), you can switch to TypeScript very easily.
+
+This is because TypeScript is not a completely new and different language — instead, it is a so-called *superset* of JavaScript, extending JavaScript's syntax with some additional syntax that makes your software development experience even better.
 
 It does so by extending JavaScript, a language which doesn't allow to explicitly type its values, with explicit type annotation syntax, giving you type-safety while building your applications.
 
 If you are new to programming, the above sentence probably didn't make much sense. Fear not! We will take it step by step: we first learn how to build software with JavaScript, and then we will learn how to build software even better with TypeScript.
 
-The most important information right now is this: Every valid JavaScript program is also a 100% valid TypeScript program. Everything you learn about JavaScript — expressions, values, types, control structures, functions, and so on — are written and used in exactly the same way in TypeScript. Thus, once you've finished the first part of this tutorial, and learned JavaScript, you have already learned 90% of TypeScript.
+The most important information right now is this: Every valid JavaScript program is also a 100% valid TypeScript program. Everything you learn about JavaScript — expressions, values, types, control structures, functions, and so on — are written and used in exactly the same way in TypeScript.
+
+Thus, once you've finished the first part of this tutorial, and learned JavaScript, you have already learned 90% of TypeScript.
 
 
 ## Writing and running JavaScript code
@@ -127,7 +131,7 @@ We can run other expressions that evaluate to values of other types:
     <- true
 
 
-This introduces two new types: *number* and *boolean*. For numbers, JavaScript doesn't differentiate between integer and floating point numbers - in other words, the values `1` and `1.0` are identical, and thus, `1` and `0.5` have the same type.
+This introduces two new types: *number* and *boolean*. For numbers, JavaScript doesn't differentiate between integer and floating point numbers — in other words, the values `1` and `1.0` are identical, and thus, `1` and `0.5` have the same type.
 
 
 ### Combining values
@@ -164,7 +168,7 @@ The other operator is `||`, which expresses the boolean *or*. It resolves to `tr
     >  1 == 2 || 2 == 3
     <- false
 
-And finally, there's `!`, which can be used to "invert" a boolean expression - `true` becomes `false` and vice versa. This applies to simple and complex boolean expressions alike, but we need to put every part of a boolean expression into parentheses if we want to invert a complex expression:
+And finally, there's `!`, which can be used to "invert" a boolean expression — `true` becomes `false` and vice versa. This applies to simple and complex boolean expressions alike, but we need to put every part of a boolean expression into parentheses if we want to invert a complex expression:
 
     >  !true
     <- false
@@ -194,13 +198,13 @@ In order to make sure that the two things we compare have the same value *and* a
 
 ### Combining values of different types
 
-Mixing values of different types is possible not only for *comparison* - you can also *combine* values of different types to create new values. For example, adding the *number* value `1` to the *string* value `foo` creates a new string value: `1 + "foo"` results in value `"1foo"`, of type *string*.
+Mixing values of different types is possible not only for *comparison* — you can also *combine* values of different types to create new values. For example, adding the *number* value `1` to the *string* value `foo` creates a new string value: `1 + "foo"` results in value `"1foo"`, of type *string*.
 
 It is important to understand that the same logic applies when comparing values of different types with `==` or combining values of different types with `+`: for the JavaScript interpreter, it's always a two-step process called *type coercion*.
 
 *First*, one of the values is translated into another type (so that both values have the same type), and only *then* the comparison or combination takes place.
 
-There's a whole lot of rules behind type coercion in JavaScript. However, the basics are simple - whenever type coercion happens, a value is translated into one of only three types: into a *string*, into a *boolean*, or into a *number*.
+There's a whole lot of rules behind type coercion in JavaScript. However, the basics are simple — whenever type coercion happens, a value is translated into one of only three types: into a *string*, into a *boolean*, or into a *number*.
 
 When we execute `1 + "foo"`, then the JavaScript interpreter assumes that we want a result of type *string*, and therefore translates the number `1` into the string `"1"`, and afterwards concatenates both strings together into `"1foo"`.
 
@@ -214,14 +218,14 @@ Here, the *number* part of the combination "wins", and the string is translated 
 
 Note that parentheses play a role here, too: `1 + 2 + "foo"` results in `"3foo"`, while `1 + (2 + "foo")` results in `"12foo"`.
 
-Equations are evaluated from left to right: `1 + 2 + "3"` results in string `"33"` - first, `1 + 2` are evaluated to the number `3`, which is then concatenated with string `"3"` into string `"33"`.
+Equations are evaluated from left to right: `1 + 2 + "3"` results in string `"33"` — first, `1 + 2` are evaluated to the number `3`, which is then concatenated with string `"3"` into string `"33"`.
 
 
 ### Converting values to boolean
 
 When comparing a value of a type other than *boolean* to a boolean value with `==`, the non-boolean value is first converted to a boolean value.
 
-For example, the number `0` becomes `false`, which is why `0 == false` evaluates to `true`, while `1 == false` evaluates to `false` - that's because `0` is translated into `false`, and `1` is translated into `true`.
+For example, the number `0` becomes `false`, which is why `0 == false` evaluates to `true`, while `1 == false` evaluates to `false` — that's because `0` is translated into `false`, and `1` is translated into `true`.
 
 
 ### Type casting: Explicitly translating values
@@ -233,7 +237,9 @@ You can do these translations explicitly, through *type casting*. To do so, use 
 - `String(expression)` transforms `expression` into a *string* value
 
 
-For example, `Boolean(0)` and `Boolean("")` translate into `false`, while `Boolean(1)`, `Boolean("1")` - **and** `Boolean("0")`! - all translate into `true`. You can type-cast more complex expressions, of course - `Number("1" + 2)` will result in value `12` of type *number*.
+For example, `Boolean(0)` and `Boolean("")` translate into `false`, while `Boolean(1)`, `Boolean("1")` — **and** `Boolean("0")`! — all translate into `true`.
+
+You can type-cast more complex expressions, of course — `Number("1" + 2)` will result in value `12` of type *number*.
 
 > Note that this introduces another important element of the JavaScript language — Boolean(), Number(), and String() are so-called functions. We are going to discuss these in detail later in the series.
 
