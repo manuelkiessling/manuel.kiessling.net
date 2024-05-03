@@ -23,7 +23,7 @@ The Node.js project takes a JavaScript interpreter (the one that ships with the 
 
 This enables application building: using the simple expressions we already know, and some more complex ones we are going to learn about next, we can create complex programs that reliably and continuously serve a useful purpose — from simple command line tools to full-fledged server applications.
 
-Being able to build useful server applications is an important building block of knowledge on our journey, because it allows us to provide an HTTP-based REST API for the React-based Single-Page Application we are going to build in the third part of this book.
+Being able to build useful server applications is an important building block of knowledge on our journey, because it allows us to provide an HTTP-based REST API for the React-based Single-Page Application we are going to build in later parts of this series.
 
 
 ## Setting things up
@@ -172,7 +172,7 @@ and run it:
     hello
     hello1
 
-Nice. You may have noticed that I suddenly started to put a semicolon `;` at the end of each line. This isn't strictly necessary, because most of the time JavaScript knows how to automatically detect that an expression has ended, even if it goes over multiple lines. But ending every expression with a semicolon explicitly removes any ambiguity, and is the dominant code style. We will stick to it in this book from now on.
+Nice. You may have noticed that I suddenly started to put a semicolon `;` at the end of each line. This isn't strictly necessary, because most of the time JavaScript knows how to automatically detect that an expression has ended, even if it goes over multiple lines. But ending every expression with a semicolon explicitly removes any ambiguity, and is the dominant code style. We will stick to it in this series from now on.
 
 Let's use our new multi-line freedom to write a very first *control structure*:
 
@@ -261,3 +261,5 @@ Let's make our application a bit more complex. Say we want to check not only one
 This is a correctly working application that does exactly what we want, but clearly this isn't an efficient implementation. What if we want to check a thousand values? Copy-and-paste isn't going to cut it in an efficient manner.
 
 Instead, we can turn our comparison logic into a code construct that can be re-used again and again without the need to spell the logic out repeatedly. The construct we need to create is a *function*, and we will do so in the upcoming, soon-to-be-released part four of this series.
+
+> ⚠️ Information about the release of the fourth part of this series will be published on [my Twitter account](https://twitter.com/manuelkiessling) and [my LinkedIn account](https://www.linkedin.com/in/manuelkiessling). Alternatively, send me an e-mail at [manuel@kiessling.net](mailto:manuel@kiessling.net), and I will drop you a line when part four has been published.

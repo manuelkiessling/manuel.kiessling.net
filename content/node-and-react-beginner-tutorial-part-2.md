@@ -19,7 +19,7 @@ See [Part 1: Introduction to JavaScript](../part-1/) if you haven't read it yet.
 
 Let's now write a more complex JavaScript expression. Please enter and run `let a = "hello"` in the console.
 
-What we just did was a so-called *variable declaration and assignment* — we *declared* the existence of a new variable named `a`, and *assigned* it the value `"hello"`. In JavaScript, as in all other programming languages, variables act as containers for values. It's like using an envelope that has "a" written on it and putting a letter with the text "hello" into this envelope.
+What we just did was a so-called *variable declaration and assignment* — we *declared* the existence of a new variable named `a`, and *assigned* to it the value `"hello"`. In JavaScript, as in all other programming languages, variables act as containers for values. It's like using an envelope that has "a" written on it and putting a letter with the text "hello" into this envelope.
 
 It's important to understand that when the JavaScript interpreter evaluates this single expression, it actually performs **two** things: first, a variable is *declared*, that is, the variable name is from then on known to the JavaScript interpreter. Afterwards, an initial value is then *assigned* to the newly defined variable, making the value accessible under the name of the variable.
 
@@ -140,7 +140,7 @@ When we declare a variable, we can also assign to it the value of another, alrea
     >  c
     <- "foo"
 
-Important detail: `b` and `c` now have the same value, `"foo"`, but they do not "share" this value, because ´c´ got an independent copy of `b`'s value, which can be demonstrated like this:
+Important detail: `b` and `c` now have the same value, `"foo"`, but they do not "share" this value, because `c` got an independent copy of `b`'s value, which can be demonstrated like this:
 
     >  let b = "foo"
     >  let c = b
@@ -195,4 +195,6 @@ Thus, beginning with part three, we will start to use JavaScript in an environme
 
 This allows us to write and run code for the command line, and enables us to tackle more language constructs like *if statements*, *loops*, *functions*, and many more. We will employ these to write code that is actually useful.
 
-We will return to JavaScript in the browser, though, when we start working with React afterwards. But now, on to [part three of this series](../part-3/), and with that, on to the command line!
+We will return to JavaScript in the browser, though, when we start working with React afterwards.
+
+But now, on to [part three of this series](../part-3/), and with that, on to the command line!
