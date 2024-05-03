@@ -131,15 +131,15 @@ body > div > header, h1.site-title, body > div > footer {
 }
 
 h1.site-title, p.site-title-minified {
-    letter-spacing: -0.04em;
     font-weight: 500;
+    line-height: 1.5em;
 }
 
 .site-title-minified {
     color: #fff;
     margin-bottom: 1em;
     font-size: 2em;
-    margin-top: 1.09em;
+    margin-top: 0.75em;
 }
 
 .site-description.subtitle {
