@@ -1,4 +1,14 @@
 <head>
+    <link rel="preload" href="/assets/css/main.f0e8df71.css" as="style">
+    <link rel="preload" href="/css/custom.css" as="style">
+
+    <link rel="preload" href="/fonts/roboto-v30-latin-300.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/roboto-v30-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/roboto-serif-v13-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/roboto-serif-v13-latin-300.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/roboto-mono-v23-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/roboto-serif-v13-latin-300italic.woff2" as="font" type="font/woff2" crossorigin>
+
     {{ partial "head/meta" . }}
     <title>{{ partial "data/title" . }}</title>
     <link rel='canonical' href='{{ if isset .Params "canonical" }}{{ .Params.canonical }}{{else}}{{ .Permalink }}{{ end }}'>
