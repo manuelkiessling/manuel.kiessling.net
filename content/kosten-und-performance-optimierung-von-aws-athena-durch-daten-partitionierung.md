@@ -10,31 +10,39 @@ lang: de
 
 # Einführung & Kontext
 
-Bei [JOBOO](https://www.joboo.de) arbeiten wir stark datengetrieben, indem alle unsere Anwendungsplattformen sogenannte Event-Daten aus den Bereichen *Geschäftsvorfälle* ("ein User hat sich registriert", "ein User hat ein Abonnement abgeschlossen"), *Anwendung* ("einem User wurde eine E-Mail zugestellt", "ein Fehler ist aufgetreten"), *Webaufrufe* ("Seite X wurde mit diesen und jenen Parametern aufgerufen"), *Conversion-Tracking* ("User hat ein Kampagnenziel erreicht") — und einigen weiteren Bereichen — kontinuierlich an unser Data Warehouse streamen.
+Bei [JOBOO](https://www.joboo.de) arbeiten wir stark datengetrieben, indem alle unsere Anwendungsplattformen sogenannte Event-Daten kontinuierlich an unser Data Warehouse streamen.
 
-Das Data Warehouse basiert dabei auf einem stark AWS-lastigen Tech-Stack in einer Architektur, bei der mehrere Managed Services wie *Amazon Data Firehose*, *S3*, und *Amazon Athena* miteinander integriert werden.
+Jeder dieser Event-Datensätze kapselt dabei ein relevantes Ereignis aus den Bereichen 
 
-Der Event-Datenstrom fließt dabei über einen von Data Firehose bereitgestellten HTTP-Endpunkt in Form von einzelnen JSON-strukturierten Ereignis-Datensätzen in das Data Warehouse ein, wo diese Datensätze zu [Apache Parquet](https://parquet.apache.org/) Dateien konvertiert und dann in S3 abgelegt werden.
+- **Geschäftsvorfälle** ("ein User hat sich registriert", "ein User hat ein Abonnement abgeschlossen")
+- **Anwendung** ("einem User wurde eine E-Mail zugestellt", "ein Fehler ist aufgetreten")
+- **Webaufruf** ("Seite X wurde mit diesen und jenen Parametern aufgerufen")
+- und **Conversion-Tracking** ("User hat ein Kampagnenziel erreicht").
+
+Diese relativ einfache Form der Datenerfassung mit der Semantik "was ist wann vorgefallen?" erlaubt uns sehr flexibel viele aussagekräftige Auswertungen.
+
+Das Data Warehouse basiert dabei auf einem stark AWS-lastigen Tech-Stack in einer Architektur, bei der mehrere Managed Services wie *Data Firehose*, *S3*, und *Athena* miteinander integriert werden.
+
+Die Events fließen dabei über einen von Data Firehose bereitgestellten HTTP-Endpunkt in Form von einzelnen JSON-strukturierten Ereignis-Objekten in das Data Warehouse ein, wo diese Datensätze zu [Apache Parquet](https://parquet.apache.org/) Dateien konvertiert und dann in S3 abgelegt werden.
 
 Von dort können diese Datensätze mittels Athena per SQL abgefragt werden, mit allen Möglichkeiten der Aggregation, Assoziation, Filterung und Transformation, die SQL bietet.
 
 Diese Pipeline bietet die Grundlage für alle weiteren Analysen und Auswertungen.
 
 
-
 # Die Problemstellung
 
-Aufgrund der Vielzahl an erfassten Ereignissen in unserer stetig wachsenden Plattform fallen mittlerweile große Mengen von Ereignissen an, und damit einhergehend entsprechend große Datenmengen.
+Aufgrund der Vielzahl an erfassten Vorfällen in unserer stetig wachsenden Anwendungslandschaft fallen mittlerweile große Mengen von Ereignis-Datensätzen an, und damit einhergehend entsprechend große Datenmengen.
 
-Und ohne weiteres Zutun werden sämtliche von Amazon Data Firehose erzeugten Parquet-Dateien aus Sicht von Athena im Moment einer SQL Abfrage im Wesentlichen als ein einziger großer, unsortierter "Datenklumpen" betrachtet.
+Und ohne weiteres Zutun werden sämtliche von Data Firehose erzeugten Parquet-Dateien aus Sicht von Athena im Moment einer SQL Abfrage im Wesentlichen als ein einziger großer, unsortierter "Datenklumpen" betrachtet.
 
-Es spricht zwar für die Abfrage-Engine von Athena, im Zweifel auch mit diesen Strukturen umgehen zu können, jedoch skaliert dies auf der Kostenseite schlecht, da beim "pay-per-use" Kostenmodell von Athena stets immer die Menge der für einen SQL Query zu scannenden Daten als Grundlage für die Gebührenberechnung dient.
+Es spricht zwar für die Abfrage-Engine von Athena, im Zweifel auch mit diesen ineffizienten Strukturen umgehen zu können, jedoch skaliert dies auf der Kostenseite schlecht, da beim "pay-per-use" Kostenmodell von Athena stets die Menge der für einen SQL Query zu scannenden Datenmenge als Grundlage für die Gebührenberechnung dient.
 
 Auch entwickelt sich die Abfragedauer mit jedem neuen Datensatz linear fort, selbst wenn sich die gesuchte Antwort zu einer Abfrage letztlich nur in einigen wenigen Kilobytes an Daten befinden sollte.
 
 Die Abfrage von Ereignisdaten erfolgt dabei oft fachlich strukturiert und limitiert nach Zeit, beispielsweise im Sinne von "Berechne die Anzahl aller Neuregistrierungen der vergangen 7 Tage".
 
-Diese Form der logischen Strukturierung in der Abfrage resultiert ohne Weiteres aber nicht in einer Optimierung der Abfrage-Effizienz, wenn die physische Struktur der abgelegten Ereignis-Daten dies nicht unterstützt.
+Diese Form der *logischen* Strukturierung in der Abfrage resultiert ohne Weiteres aber nicht in einer Optimierung der Abfrage-Effizienz, wenn die *physische* Struktur der abgelegten Ereignis-Daten dies nicht unterstützt.
 
 Man kann sich dies in etwa so vorstellen, als würde man einen Raum mit einer völlig unsortierten Sammlung von Büchern der letzten 200 Jahre betreten.
 
