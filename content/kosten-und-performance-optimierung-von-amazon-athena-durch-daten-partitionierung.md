@@ -193,7 +193,7 @@ Das Vorgehen ist nun wie folgt:
 
 - Als erstes muss eine neue AWS Glue Tabelle angelegt werden, in der das Schema der angelieferten Daten spezifiziert wird.
 - Der Firehose Stream benötigt dieses Schema, um die von der Anwendung angelieferten JSON Datensätze korrekt interpretieren zu können.
-- Der Name der Tabelle lautet "business_events_as_json", sie gehört zur Glue Database "business_events".
+- Der Name der Tabelle lautet `business_events_as_json`, sie gehört zur Glue Database `business_events`.
 - Das Table Format ist "Standard AWS Glue table".
 - Das Data Format ist "JSON"
 
