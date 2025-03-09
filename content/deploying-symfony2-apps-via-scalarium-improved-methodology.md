@@ -61,7 +61,7 @@ As their names imply, these scripts are triggered at certain points of the deplo
 <p></p>
 
 <p>
-For the steps we want to execute with our recipe (installing the vendors, clearing the app cache, executing db migrations, installing the assets, and chowning app cache and log dirs), the <em>before_symlink.rb</em> is just fine – it hooks into the deployment process the moment before Chef, after downloading the application source code from Github, changes the symbolic link at <em>/srv/www/symfonyexample/current</em> to the newly downloaded release. At this moment, we have all the source code available, but it is not yet put into production, thus it’s the most sensible moment for additional setup steps.
+For the steps we want to execute with our recipe (installing the vendors, clearing the app cache, executing db migrations, installing the assets, and chowning app cache and log dirs), the <em>before_symlink.rb</em> is just fine – it hooks into the deployment process the moment before Chef, after downloading the application source code from GitHub, changes the symbolic link at <em>/srv/www/symfonyexample/current</em> to the newly downloaded release. At this moment, we have all the source code available, but it is not yet put into production, thus it’s the most sensible moment for additional setup steps.
 </p>
 
 <p>

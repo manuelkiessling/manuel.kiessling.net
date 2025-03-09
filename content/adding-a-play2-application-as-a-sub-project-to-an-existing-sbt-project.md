@@ -158,5 +158,5 @@ With this, I was now able to run <code class="inline">sbt</code> from the root f
 </p>
 
 <p>
-<a href="https://github.com/journeymonitor/analyze/commit/4a899b07cb9637142b849975babec8579a5a066f">Commit 4a899b0 on the journeymonitor/analyze repo</a> on Github shows the differences before and after adding the new sub-project.
+<a href="https://github.com/journeymonitor/analyze/commit/4a899b07cb9637142b849975babec8579a5a066f">Commit 4a899b0 on the journeymonitor/analyze repo</a> on GitHub shows the differences before and after adding the new sub-project.
 </p>

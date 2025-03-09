@@ -24,7 +24,7 @@ Current or soon-to-be Scalarium customers, devops interested in deploying Symfon
 
 <h2>Prerequisites</h2>
 <p>
-In order to get your Symfony2 application running on Amazon AWS, you need an AWS account, a Scalarium account (correctly set up with your AWS credentials), and a Github account to host your Symfony2 application and your custom Chef recipes. This tutorial assumes that you are already familiar with managing EC2 clusters with Scalarium. It’s tested to work with Symfony 2.0.4 on Ubuntu 11.04 instances.
+In order to get your Symfony2 application running on Amazon AWS, you need an AWS account, a Scalarium account (correctly set up with your AWS credentials), and a GitHub account to host your Symfony2 application and your custom Chef recipes. This tutorial assumes that you are already familiar with managing EC2 clusters with Scalarium. It’s tested to work with Symfony 2.0.4 on Ubuntu 11.04 instances.
 </p>
 
 <h2>Overview</h2>
@@ -37,16 +37,16 @@ The above diagram is here to illustrate how the different parts are working toge
 </p>
 
 <p>
-Looking at the diagram, we could say that Scalarium <em>manages</em>, Amazon <em>runs</em>, and Github <em>provides</em> – Scalarium uses what Github provides in order to run the application on Amazon.
+Looking at the diagram, we could say that Scalarium <em>manages</em>, Amazon <em>runs</em>, and GitHub <em>provides</em> – Scalarium uses what GitHub provides in order to run the application on Amazon.
 </p>
 
 <p>
-Because Scalarium already provides the setup logic and recipes that allow us to set up basic Apache/PHP application servers and MySQL database servers on AWS, we will only need to provide what is needed in order to finalize the deployment and setup of our specific Symfony2 application – setting up a basic Ubuntu server, installing software packages like PHP, Apache, MySQL, and checking out our Symfony2 application code from Github is all done by Scalarium without the need to provide additional means.
+Because Scalarium already provides the setup logic and recipes that allow us to set up basic Apache/PHP application servers and MySQL database servers on AWS, we will only need to provide what is needed in order to finalize the deployment and setup of our specific Symfony2 application – setting up a basic Ubuntu server, installing software packages like PHP, Apache, MySQL, and checking out our Symfony2 application code from GitHub is all done by Scalarium without the need to provide additional means.
 </p>
 
 <h2>The example application</h2>
 <p>
-It makes sense to follow this tutorial using your own Symfony2 application. However, an example application hosted at <a href="https://github.com/MyHammer/ScalariumExampleSymfony2Application">Github.com → MyHammer → ScalariumExampleSymfony2Application</a> is used to illustrate the process – you are free to use this repository to deploy the application to your Scalarium cloud. The <a href="https://github.com/MyHammer/ScalariumExampleSymfony2Application/commits/master">commit history</a> of this repository also shows step by step which changes need to be applied to a Symfony2 application to prepare it for running on a Scalarium cloud.
+It makes sense to follow this tutorial using your own Symfony2 application. However, an example application hosted at <a href="https://github.com/MyHammer/ScalariumExampleSymfony2Application">GitHub.com → MyHammer → ScalariumExampleSymfony2Application</a> is used to illustrate the process – you are free to use this repository to deploy the application to your Scalarium cloud. The <a href="https://github.com/MyHammer/ScalariumExampleSymfony2Application/commits/master">commit history</a> of this repository also shows step by step which changes need to be applied to a Symfony2 application to prepare it for running on a Scalarium cloud.
 </p>
 
 <h2>Setting up a Scalarium cloud for our application</h2>
@@ -76,11 +76,11 @@ Let’s start with our application. Later, we are going to make some modificatio
 </p>
 
 <p>
-I’m going to choose “SymfonyExample” as the name. Please choose “PHP” as the <em>Application Type</em>. If you are going to use the sample application that resides on Github, please choose a <em>Repository Type</em> of “Git”, and enter the following <em>Repository URL</em>: “git://github.com/MyHammer/ScalariumExampleSymfony2Application.git”. All other parameters are not important for now – however, if you are configuring your own private repository, you will need to provide a deploy SSH key.
+I’m going to choose “SymfonyExample” as the name. Please choose “PHP” as the <em>Application Type</em>. If you are going to use the sample application that resides on GitHub, please choose a <em>Repository Type</em> of “Git”, and enter the following <em>Repository URL</em>: “git://github.com/MyHammer/ScalariumExampleSymfony2Application.git”. All other parameters are not important for now – however, if you are configuring your own private repository, you will need to provide a deploy SSH key.
 </p>
 
 <p>
-Although this is sufficient to deploy the code from Github onto our instances, it’s not enough to actually get a running application. Additional steps are necessary after the code has been pulled from Github, and those steps need to be performed using a custom Chef recipe. We are going to write this recipe later, but we can already configure the cookbook that contains the recipe into our cloud. On the cloud overview page, select <em>Manage Cookbooks</em> from the <em>Actions</em> dropdown.
+Although this is sufficient to deploy the code from GitHub onto our instances, it’s not enough to actually get a running application. Additional steps are necessary after the code has been pulled from GitHub, and those steps need to be performed using a custom Chef recipe. We are going to write this recipe later, but we can already configure the cookbook that contains the recipe into our cloud. On the cloud overview page, select <em>Manage Cookbooks</em> from the <em>Actions</em> dropdown.
 </p>
 
 <p>
@@ -178,7 +178,7 @@ $kernel-&gt;handle(Request::createFromGlobals())-&gt;send();
 </p>
 
 <p>
-You can look at a visual before-and-after comparison of all these changes on Github:
+You can look at a visual before-and-after comparison of all these changes on GitHub:
 <br>
 <a href="https://github.com/MyHammer/ScalariumExampleSymfony2Application/compare/d2fad2a06b82471c173bd211a59223075b87ab98...0392bed4c1bf5e08b98a48aff3fd71760c938a93"><img src="/images/github_comparison_symfony2_scalarium_environment-249x300.png" width="249" height="300"></a>
 
@@ -200,7 +200,7 @@ Ok, let’s deploy our application! All you need to do is to add an instance of 
 </p><ul>
 <li>Scalarium requests an EC2 instance from Amazon AWS which is booted with a fresh Ubuntu 11.04 image</li>
 <li>Scalarium sets this machine up with some basic packages like PHP, Apache etc., and executes its basic setup routines (which are Chef recipes, too)</li>
-<li>Our Symfony2 application is pulled from Github and deployed to <em>/srv/www/symfonyexample/current</em></li>
+<li>Our Symfony2 application is pulled from GitHub and deployed to <em>/srv/www/symfonyexample/current</em></li>
 <li>The instance executes our custom Chef recipe <em>symfony2::deploy</em> which installs the vendors, clears the app cache, applies the database migrations, installs the web assets, sets users and permissions on cache and log files, and configures an Apache vhost for our application</li>
 </ul>
 <p></p>
