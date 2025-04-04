@@ -24,11 +24,8 @@ I'm now convinced that AI-assisted software development has the potential to ele
 
 My motivation for sharing these experiences and the best practices I've identified is to help move the needle forward in terms of AI adoption within the broader software development community — even if realistically, it's only by some micrometers.
 
-> **A Note on Learning & Productivity:** As some commenters on HackerNews rightly pointed out, AI can also be a powerful learning accelerator. By asking the AI to explain concepts, patterns, or generated code, developers (both junior and senior) can deepen their understanding more rapidly. While this post focuses on leveraging AI for implementation, its role in learning is equally significant and contributes to overall productivity.
 
 # The Current State of AI Coding
-
-## Beyond "Vibe Coding"
 
 My Twitter feed suggests that AI-powered coding tools are already generating significant buzz in a specific niche: non-professional developers who are having great fun building software products. For them, these tools primarily serve as enablers, allowing them to tackle projects they might never have considered without such assistance.
 
@@ -40,21 +37,19 @@ However, this represents just one segment of potential users, and certainly not 
 
 My current conclusion, though preliminary in this rapidly evolving field, is that not only can seasoned developers benefit from this technology — they are actually in the optimal position to harness its power.
 
-**Here's the fascinating part: The very experience and accumulated know-how in software engineering and project management — which might seem obsolete in the age of AI — are precisely what enable the most effective use of these tools.**
+**Here's the important part: The very experience and accumulated know-how in software engineering and project management — which might seem obsolete in the age of AI — are precisely what enable the most effective use of these tools.**
 
-# The AI Assistant: A Senior Coder, Junior Colleague
-
-While I haven't found the perfect metaphor for these LLM-based programming agents in an AI-assisted coding setup, I currently think of them as "an absolute senior when it comes to programming knowledge, but an absolute junior when it comes to architectural oversight *in your specific context*."
+That's because while I haven't found the perfect metaphor for these LLM-based programming agents in an AI-assisted coding setup, I currently think of them as "an absolute senior when it comes to programming knowledge, but an absolute junior when it comes to architectural oversight *in your specific context*."
 
 This means that **it takes some strategic effort to make them save you a tremendous amount of work**.
 
 And who better to invest that effort in the right way than a senior software engineer?
 
-As we'll see, while we're dealing with cutting-edge technology, it's the time-tested, traditional practices and tools that enable us to wield this new capability most effectively.
+As we'll see, while we're dealing with this new, cutting-edge technology, it is the time-tested, traditional practices and tools that enable us to wield this new capability most effectively.
 
-# Key Areas of Expertise
+# Three important measures for a successful AI coding session
 
-I've identified three critical areas of expertise needed when working with AI-assisted coding:
+I've identified three critical measures needed when working with AI-assisted coding:
 
 - **Well-structured Requirements**
 - **Tool-based Guard Rails**
@@ -66,15 +61,13 @@ I will give examples for two categories of projects: green-field and brown-field
 
 For both categories, I'll focus on cases where AI handled the entire implementation, or very nearly so.
 
-While I do sometimes use AI as a "better autocomplete" or as a chat-only companion for general discussions, this article focuses on what I call the "real deal" — where AI tooling operates in an agentic mode and handles all the heavy lifting.
+While I do sometimes use AI as a "better autocomplete" or as a chat-only companion for general discussions, this article focuses on the "real deal" — where AI tooling operates in an agentic mode and handles all the heavy lifting.
 
-## Development Environment
-
-My current tool of choice for these projects is [Cursor](https://www.cursor.com/), powered by Anthropic's Claude Sonnet 3.7 model. For optimal developer experience, I prefer not to manually copy-paste generated code into my codebase and need the AI assistant to execute commands directly on my local command line. Cursor provides this capability, and I expect similar products would yield comparable results.
+For this, my current tool of choice is [Cursor](https://www.cursor.com/), powered by Anthropic's Claude Sonnet 3.7 model. Cursor provides the crucial capability to directly edit all files in a project that require changes, and to execute commands related to the software development process.
 
 ## Example 1: Platform Problem Monitoring
 
-This setup, combined with the expertise areas I'll discuss, enabled me to create and fully implement a green-field application: *Platform Problem Monitoring*. You can find the source code at https://github.com/dx-tooling/platform-problem-monitoring-core.
+Cursor and Claude, combined with the expertise areas I'll discuss below, enabled me to create and fully implement a green-field application: *Platform Problem Monitoring*. You can find the source code at https://github.com/dx-tooling/platform-problem-monitoring-core.
 
 The application connects hourly to our ELK stack's Elasticsearch server, reads the latest error messages, and sends us a well-formatted email summarizing the current state of problems on our web platform:
 
@@ -82,13 +75,14 @@ The application connects hourly to our ELK stack's Elasticsearch server, reads t
 
 For more details, check out the ["New project: Platform Problem Monitoring"](../../../../2025/03/09/new-project-plaform-problem-monitoring/) post.
 
-**What makes this example particularly interesting is that the core implementation logic was written by Cursor/Claude, requiring minimal manual code intervention from my side.**
-
-> **Context on Code Quality (via HackerNews):** The HackerNews discussion included valid critiques regarding the code quality in this specific Python project example (e.g., logger configuration, custom config parsing, potential race conditions). It's a fair point, especially given I'm not a Python expert. For this particular green-field project, my primary goal was rapid prototyping and achieving a *working solution* in an *unfamiliar stack*, prioritizing the functional outcome over idiomatic code perfection or optimizing for long-term maintainability in this specific instance. It served as an experiment to see how far AI could bridge a knowledge gap. In brown-field projects within my areas of expertise, or projects demanding higher long-term maintainability, the human review, refinement, and testing process (using the guardrails discussed later) is necessarily much more rigorous. The critiques highlight the crucial role of experienced oversight in evaluating and refining AI-generated code to meet specific quality standards.
+In this case all of the implementation logic was written by Cursor/Claude, requiring no manual code intervention from my side.
 
 This is especially noteworthy because I don't actually know Python. Yes, with 25+ years of software development experience, I could probably write a few lines of working Python code if pressed — but I don't truly *know* the language. I lack the muscle memory and intimate knowledge of its conventions and best practices.
 
-However, my broad understanding of software architecture, engineering best practices, system operations, and what makes for excellent software projects made this development process remarkably smooth.
+However, my broad understanding of software architecture, engineering best practices, system operations, and what makes for excellent software projects made the development process remarkably smooth.
+
+> **Context on Code Quality:** The HackerNews discussion included valid critiques regarding the code quality in this specific Python project example (e.g., logger configuration, custom config parsing, potential race conditions). It's a fair point, especially given I'm not a Python expert. For this particular green-field project, my primary goal was rapid prototyping and achieving a *working solution* in an *unfamiliar stack*, prioritizing the functional outcome over idiomatic code perfection or optimizing for long-term maintainability in this specific instance. It served as an experiment to see how far AI could bridge a knowledge gap. In brown-field projects within my areas of expertise, or projects demanding higher long-term maintainability, the human review, refinement, and testing process (using the guardrails discussed later) is necessarily much more rigorous.
+
 
 ## Example 2: Process Management UI Integration
 
@@ -112,24 +106,19 @@ The task involved:
 ## Key Insights from Both Projects
 
 These examples highlight two distinct advantages of AI assistance:
+
 1. In the green-field project, I could create a functional application despite unfamiliarity with the tech stack (though, as noted, expert review would be needed for production-grade quality).
 2. In the brown-field project, I achieved results much faster — particularly valuable since UI development isn't my strong suit.
 
 This was when terms like "game-changing" started to feel appropriate, and I began to recognize this technology's significance for both personal and team productivity.
 
-> **Productivity Nuances:** While the speed increase can feel dramatic ("10x" is often cited), real-world productivity gains vary significantly based on the task complexity, the quality of requirements, the maturity of the AI model, and the developer's skill in guiding and correcting the AI. As the HackerNews discussion touched upon, the biggest gains might be in overcoming initial hurdles or handling boilerplate, while complex logic or large-scale refactoring still requires significant human oversight and iterative refinement. Achieving consistent high productivity often involves learning how to interact effectively with the specific AI tool and prompt it iteratively.
+Let's now examine the three measures I employ to ensure productive AI coding sessions that consistently deliver successful results.
 
-# The Keys to Successful AI Collaboration
-
-Let's examine the techniques I employ to ensure productive AI coding sessions that consistently deliver successful results.
-
-## The Investment-Return Principle
-
-As mentioned earlier, achieving significant time savings with AI requires some upfront investment. This parallels managing talented but junior developers — you can't simply tell them to "build X" and expect optimal results. You need to invest time in setting them up for success.
+To repeat myself: achieving significant time savings with AI requires some upfront investment. This parallels managing talented but junior developers — you can't simply tell them to "build X" and expect optimal results. You need to invest time in setting them up for success.
 
 ## Well-Structured Requirements
 
-The foundation of any successful AI coding session is a comprehensive requirements document. For the Platform Problem Monitoring project, I created this document before starting: [REQUIREMENTS.md](https://github.com/dx-tooling/platform-problem-monitoring-core/blob/main/docs/REQUIREMENTS.md).
+The foundation of any successful AI coding session is a comprehensive set of requirements. For the Platform Problem Monitoring project, I created this document before starting: [REQUIREMENTS.md](https://github.com/dx-tooling/platform-problem-monitoring-core/blob/main/docs/REQUIREMENTS.md).
 
 At 371 lines, it's substantial, but more importantly, it follows a clear hierarchical structure:
 
@@ -143,24 +132,22 @@ The low-level section breaks down the application's operation into 12 distinct s
 
 Just as this structure guides human developers effectively, it provides the AI assistant with the framework it needs to deliver solid results.
 
-You might think creating such documentation is excessive work. You're right — it is. But it's a necessary investment for a successful outcome.
+You might think creating such documentation required quite some work. And you're right. But it's a necessary investment for a successful outcome.
 
-One of my favorite software development maxims is:
+In this context, one of my favorite software development maxims is:
 <br>***"Six weeks of implementation easily save you two hours of planning"***
 
 The sarcasm highlights an essential truth: the implementation phase is the most expensive place to compensate for inadequate planning.
 
-I always encourage my team to start at the whiteboard with their product manager, not at the keyboard. This principle applies equally well to AI collaboration.
+That's why I always encourage my team to start a project at the whiteboard with their product manager, and not at their keyboard. This principle applies equally well to AI collaboration.
 
-### The "Play It Back" Technique
-
-A particularly effective practice with AI is what I call "play it back": I start each session in "Ask" mode, requesting the AI to:
+Another important bit with regard to requirements: I start each Cursor session in "Ask" mode, requesting the AI to:
 
 1. Summarize the requirements in its own words
 2. Create an action plan
 3. Ask clarifying questions
 
-Only after this validation do I switch to "Agent" mode and begin implementation.
+Only after this validation step do I switch it to "Agent" mode and let it begin the implementation.
 
 ## Tool-Based Guard Rails
 
@@ -189,12 +176,8 @@ While AI agents excel at creative problem-solving, sometimes we need to constrai
 The technique borrows from animation studios' workflow, where master animators create key frames — crucial moments in an animation sequence — while junior animators fill in the intermediate frames. This approach maintains quality while optimizing resource usage.
 
 {{< figure src="/images/2025-03-31-how-seasoned-developers-can-achieve-great-results-with-ai-coding-agents/keyframing_animation.jpg" alt="Platform Problem Monitoring Email Report" >}}
-<sub>Through keyframes, the master animator can ensure a certain style and the occurence of specific animation steps, without the need to create the full animation herself.</sub>
 
-
-### Practical Application
-
-When working with AI, I create "empty hull" files in the codebase before editing begins. For example, in our brown-field project, the AI needed to implement various components:
+This is why, when working with AI, I create "empty hull" files in the codebase before editing begins. For example, in our brown-field project, the AI needed to implement various components:
 
 - an API endpoint
 - an API client
@@ -256,24 +239,13 @@ This approach highlights another timeless practice that remains vital in the age
 
 Because after all, the AI models at the heart of tools like Cursor are Large-Language Models — they work on text, and text with meaning and intention is crucial for a great coding experience.
 
-> **AI Commenting and Structure:** Providing clear structure via keyframing can also help guide the AI's organization and sometimes mitigate its tendency towards overly verbose or obvious comments – a point also raised in the HackerNews discussion. However, manual review and cleanup of comments often remain necessary to ensure they add real value rather than noise.
-
 # Putting It All Together: A Real-World Example
 
 To demonstrate how these principles work together in practice, let me share a recent project where I applied all three key techniques: well-structured requirements, tool-based guard rails, and file-based keyframing.
 
-## The Challenge
+The task was similar to our earlier brown-field example: implementing a UI Dashboard to display subscription contract information from our platform.
 
-The task was similar to our earlier brown-field example: implementing a UI Dashboard to display subscription contract information from our platform. Here's what made this project interesting:
-
-- **Existing Backend**: We had a working backend implementation storing all the contract data
-- **Separate Frontend**: The UI needed to live in a different application
-- **Distributed Architecture**: The solution required an HTTP API integration between applications
-- **Shared Components**: Parts of the implementation belonged in a shared library
-
-## The Initial Prompt
-
-Below is the actual prompt I used to kickstart this project. As you read through it, notice how it incorporates our three key principles of **well-strcutured requirements**, **tool-based guard rails**, and **file-based keyframing**:
+Below is the actual prompt I used to kickstart this project. As you read through it, notice how it incorporates the three key principles of **well-strcutured requirements**, **tool-based guard rails**, and **file-based keyframing**:
 
 
 > I need you to implement a read-only web-based user interface that will present some existing db-persisted data in form of a table-like overview.
@@ -298,7 +270,7 @@ Below is the actual prompt I used to kickstart this project. As you read through
 >
 > - janus-shared-bundle hosts, among other things, the API client implementations for API endpoints provided by backend-app; janus-christophorus makes use of these clients to pull data from backend-app
 >
-> - janus-webui-bundle contains the tailwind setup, css, and Twig templates for the Living Styleguide that applied to the UIs of janus-christophorus.
+> - janus-webui-bundle contains the tailwind setup, css, and Twig templates for the Living Styleguide that apply to the UIs of janus-christophorus.
 >
 > Your mission now is to:
 >
@@ -343,6 +315,6 @@ Below is the actual prompt I used to kickstart this project. As you read through
 
 # Conclusion
 
-The examples and techniques shared here demonstrate that AI coding assistants, when properly guided, can dramatically enhance development productivity. The key to success lies in applying traditional software engineering best practices to this new technology.
+By providing well-structured requirements, implementing appropriate guardrails through tools that the AI agent can use, and by using file-based "keyframing", it is possible to harness the power of AI while maintaining code quality and architectural integrity.
 
-By providing well-structured requirements, implementing appropriate guardrails, and using file-based keyframing, we can harness the power of AI while maintaining code quality and architectural integrity. These time-tested practices, and more than anything else, **hard-earned human experience with these practices**, are more valuable than ever in the age of AI-assisted development, and far from obsolete.
+These time-tested practices, and more than anything else, **the hard-earned human experience with these practices**, are more valuable than ever in the age of AI-assisted development — and far from obsolete.
