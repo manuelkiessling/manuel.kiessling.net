@@ -8,6 +8,8 @@ slug: 2025/03/31/how-seasoned-developers-can-achieve-great-results-with-ai-codin
 lang: en
 ---
 
+> There is a lively discussion about this post over at HackerNews:<br>https://news.ycombinator.com/item?id=43573755
+
 # Introduction
 
 Over the past few months, I have been experimenting with AI-powered coding tools in both my personal and professional projects. The experience has been overwhelmingly positive, both for me and my team of software engineers at work.
@@ -38,7 +40,7 @@ My current conclusion, though preliminary in this rapidly evolving field, is tha
 
 # The AI Assistant: A Senior Coder, Junior Colleague
 
-While I haven't found the perfect metaphor for these LLM-based programming agents in an AI-assisted coding setup, I currently think of them as "an absolute senior when it comes to programming knowledge, but an absolute junior when it comes to being a co-worker."
+While I haven't found the perfect metaphor for these LLM-based programming agents in an AI-assisted coding setup, I currently think of them as "an absolute senior when it comes to programming knowledge, but an absolute junior when it comes to architectural oversight *in your specific context*."
 
 This means that **it takes some strategic effort to make them save you a tremendous amount of work**.
 
@@ -99,7 +101,7 @@ The task involved:
 - Creating an intuitive UI that aligned with our design system
 - Building a generalized API client in our shared Symfony bundle
 
-**Once again, the AI agent implemented this entire feature without requiring me to write any code manually.**
+**Once again, the AI agent implemented this entire feature without requiring me to write any code** — with the exception of *keyframe files*, as we will see — **manually.**
 
 ## Key Insights from Both Projects
 
