@@ -8,10 +8,6 @@ slug: 2025/03/31/how-seasoned-developers-can-achieve-great-results-with-ai-codin
 lang: en
 ---
 
-> There is a lively discussion about this post over at HackerNews:<br>https://news.ycombinator.com/item?id=43573755
-> 
-> I've integrated some of the points made there into this article.
-
 # Introduction
 
 Over the past few months, I have been experimenting with AI-powered coding tools in both my personal and professional projects. The experience has been overwhelmingly positive, both for me and my team of software engineers at work.
@@ -24,6 +20,11 @@ I'm now convinced that AI-assisted software development has the potential to ele
 
 My motivation for sharing these experiences and the best practices I've identified is to help move the needle forward in terms of AI adoption within the broader software development community — even if realistically, it's only by some micrometers.
 
+{{< sidenote title="HackerNews Discussion" >}}
+There is a lively discussion about this post over at HackerNews:<br>https://news.ycombinator.com/item?id=43573755
+ 
+I've integrated some of the points made there into this article.
+{{< /sidenote >}}
 
 # The Current State of AI Coding
 
@@ -73,7 +74,7 @@ The application connects hourly to our ELK stack's Elasticsearch server, reads t
 
 [{{< figure src="/images/2025-03-09-new-project-platform-problem-monitoring-sample-mail-report.png" alt="Platform Problem Monitoring Email Report" >}}](/images/2025-03-09-new-project-platform-problem-monitoring-sample-mail-report.png)
 
-For more details, check out the ["New project: Platform Problem Monitoring"](../../../../2025/03/09/new-project-plaform-problem-monitoring/) post.
+For more details, check out the ["New project: Platform Problem Monitoring"](../../../../2025/03/09/new-project-platform-problem-monitoring/) post.
 
 In this case all of the implementation logic was written by Cursor/Claude, requiring no manual code intervention from my side.
 
@@ -81,8 +82,11 @@ This is especially noteworthy because I don't actually know Python. Yes, with 25
 
 However, my broad understanding of software architecture, engineering best practices, system operations, and what makes for excellent software projects made the development process remarkably smooth.
 
-> **Context on Code Quality:** The HackerNews discussion included valid critiques regarding the code quality in this specific Python project example (e.g., logger configuration, custom config parsing, potential race conditions). It's a fair point, especially given I'm not a Python expert. For this particular green-field project, my primary goal was rapid prototyping and achieving a *working solution* in an *unfamiliar stack*, prioritizing the functional outcome over idiomatic code perfection or optimizing for long-term maintainability in this specific instance. It served as an experiment to see how far AI could bridge a knowledge gap. In brown-field projects within my areas of expertise, or projects demanding higher long-term maintainability, the human review, refinement, and testing process (using the guardrails discussed later) is necessarily much more rigorous.
+{{< sidenote title="Code Quality Note" >}}
+**Context on Code Quality:** The HackerNews discussion included valid critiques regarding the code quality in this specific Python project example (e.g., logger configuration, custom config parsing, potential race conditions). 
 
+It's a fair point, especially given I'm not a Python expert. For this particular green-field project, my primary goal was rapid prototyping and achieving a *working solution* in an *unfamiliar stack*, prioritizing the functional outcome over idiomatic code perfection or optimizing for long-term maintainability in this specific instance.
+{{< /sidenote >}}
 
 ## Example 2: Process Management UI Integration
 

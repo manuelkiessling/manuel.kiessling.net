@@ -1,0 +1,9 @@
+<div class="sidenote-container">
+  <div class="sidenote-trigger">
+    <span class="sidenote-icon">+</span>
+    {{ with .Get "title" }}<span class="sidenote-trigger-title">Sidenote: {{ . }}</span>{{ else }}<span class="sidenote-trigger-title">Sidenote</span>{{ end }}
+  </div>
+  <div class="sidenote-content">
+    {{ .Inner | markdownify }}
+  </div>
+</div> 
