@@ -358,7 +358,7 @@ blockquote {
   align-items: center;
   margin-bottom: 0.5em;
   max-width: 70%;
-  border: 1px dotted #999;
+  border: 1px dotted #bbb;
   cursor: pointer;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
@@ -371,11 +371,12 @@ blockquote {
 /* Plus icon within trigger */
 .sidenote-icon {
   display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
+  margin-left: 0.2em;
+  width: .8em;
+  height: 1.6em;
   text-align: center;
   line-height: 1.5em;
-  color: #888;
+  color: #bbb;
   font-size: 0.9em;
 }
 
@@ -385,11 +386,15 @@ blockquote {
   padding-right: 0.5em;
   padding-left: 0.3em;
   font-size: 0.8em;
-  color: #666;
+  color: #bbb;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   letter-spacing: normal;
+}
+
+.sidenote-trigger-title:hover {
+  color: #444;
 }
 
 /* Content box that appears when trigger is clicked */
@@ -415,8 +420,8 @@ blockquote {
 }
 
 /* Style changes for the trigger when the sidenote is open */
-.sidenote-checkbox:checked ~ .sidenote-trigger .sidenote-icon {
-  color: #555;
+.sidenote-checkbox:checked ~ .sidenote-trigger {
+  color: #555; display: none;
 }
 
 /* Remove bottom margin from last paragraph in sidenote content */

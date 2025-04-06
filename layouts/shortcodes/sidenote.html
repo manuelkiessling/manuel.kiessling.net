@@ -3,15 +3,15 @@
 <div class="sidenote-container">
   <!-- Hidden checkbox that controls the visibility -->
   <input type="checkbox" id="sidenote-{{ $random }}" class="sidenote-checkbox">
-  
+
   <!-- Trigger element styled as a label -->
   <label for="sidenote-{{ $random }}" class="sidenote-trigger">
     <span class="sidenote-icon">+</span>
-    {{ with .Get "title" }}<span class="sidenote-trigger-title">Sidenote: {{ . }}</span>{{ else }}<span class="sidenote-trigger-title">Sidenote</span>{{ end }}
+    {{ with .Get "title" }}<span class="sidenote-trigger-title">Show side note: {{ . }}</span>{{ else }}<span class="sidenote-trigger-title">Sidenote</span>{{ end }}
   </label>
-  
+
   <!-- Content element - shown when checkbox is checked -->
   <div class="sidenote-content">
     {{ .Inner | markdownify }}
   </div>
-</div> 
+</div>
