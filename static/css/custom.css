@@ -334,12 +334,25 @@ blockquote {
     color: #666;
 }
 
-/* Sidenote styles */
+/* =====================================
+   Sidenote Feature Styles (CSS-only version)
+   ===================================== */
+
+/* Container for both trigger and content */
 .sidenote-container {
   position: relative;
   margin: 1em 0;
 }
 
+/* Hide the checkbox */
+.sidenote-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Trigger/call-to-action element (includes plus icon and title) */
 .sidenote-trigger {
   display: inline-flex;
   align-items: center;
@@ -349,8 +362,13 @@ blockquote {
   cursor: pointer;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
+  letter-spacing: normal;
+  /* Reset common label styles that might affect spacing */
+  text-transform: none;
+  word-spacing: normal;
 }
 
+/* Plus icon within trigger */
 .sidenote-icon {
   display: inline-block;
   width: 1.5em;
@@ -361,6 +379,7 @@ blockquote {
   font-size: 0.9em;
 }
 
+/* Title text within trigger */
 .sidenote-trigger-title {
   display: inline-block;
   padding-right: 0.5em;
@@ -370,8 +389,10 @@ blockquote {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  letter-spacing: normal;
 }
 
+/* Content box that appears when trigger is clicked */
 .sidenote-content {
   display: none;
   margin-bottom: 1em;
@@ -388,13 +409,22 @@ blockquote {
   line-height: 1.3em;
 }
 
+/* Show content when checkbox is checked */
+.sidenote-checkbox:checked ~ .sidenote-content {
+  display: block;
+}
+
+/* Style changes for the trigger when the sidenote is open */
+.sidenote-checkbox:checked ~ .sidenote-trigger .sidenote-icon {
+  color: #555;
+}
+
+/* Remove bottom margin from last paragraph in sidenote content */
 .sidenote-content p:last-child {
   margin-bottom: 0;
 }
 
-/* Remove the special positioning for wider screens */
+/* Responsive styles */
 @media (min-width: 768px) {
-  .sidenote-content.sidenote-visible {
-    /* No special positioning needed */
-  }
+  /* No special responsive styling needed with the natural flow approach */
 }

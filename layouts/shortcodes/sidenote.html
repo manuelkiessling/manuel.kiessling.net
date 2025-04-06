@@ -1,8 +1,16 @@
+<!-- Sidenote shortcode: Displays content in a collapsible section with a trigger element - CSS only version -->
+{{ $random := now.UnixNano }}
 <div class="sidenote-container">
-  <div class="sidenote-trigger">
+  <!-- Hidden checkbox that controls the visibility -->
+  <input type="checkbox" id="sidenote-{{ $random }}" class="sidenote-checkbox">
+  
+  <!-- Trigger element styled as a label -->
+  <label for="sidenote-{{ $random }}" class="sidenote-trigger">
     <span class="sidenote-icon">+</span>
     {{ with .Get "title" }}<span class="sidenote-trigger-title">Sidenote: {{ . }}</span>{{ else }}<span class="sidenote-trigger-title">Sidenote</span>{{ end }}
-  </div>
+  </label>
+  
+  <!-- Content element - shown when checkbox is checked -->
   <div class="sidenote-content">
     {{ .Inner | markdownify }}
   </div>
