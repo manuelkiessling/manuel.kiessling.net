@@ -20,6 +20,12 @@ It turns out that senior software engineers are in the perfect position to ensur
 
 The following article describes well-suited real-life Coding Assistant use cases, and explains in detail the supporting practices that result in successful AI coding sessions.
 
+{{< sidenote title="Previous article version" >}}What you are reading is a heavily revised version of the original article. The new version has been improved with regards to clarity and structure.
+
+The original version is still [available on Github](https://github.com/manuelkiessling/manuel.kiessling.net/blob/7452401b3b8fafd58cacb8ef2428ac0976f4f02e/content/2025-04-03-how-seasoned-developers-can-achieve-great-results-with-ai-coding-agents.md).
+
+It also sparked a lively discussion over at HackerNews, which is worth a read, too:<br>https://news.ycombinator.com/item?id=43573755
+{{< /sidenote >}}
 
 # Introduction
 
@@ -294,7 +300,7 @@ As "filtering a given list of things based on the input in a search box" is such
 
 # A special case:<br>Green-field projects in an unknown tech stack
 
-Using AI tools like Cursor also enables us to approach implementations outside of our comfort zone, for example in the context of tech stacks that are not within our area of expertisse — where a prohibitive cost-benefit ratio would normally result in no implementation at all.
+Using AI tools like Cursor also enables us to approach implementations outside of our comfort zone, for example in the context of tech stacks that are not within our area of expertise — where a prohibitive cost-benefit ratio would normally result in no implementation at all.
 
 One such example is *Problem Platform Monitoring*, a Python application that monitors our ELK-stack setup for critical errors on our production environment.
 
@@ -302,13 +308,13 @@ Every hour, this tools scans our Elasticsearch server for error messages and cre
 
 [{{< figure src="/images/2025-03-09-new-project-platform-problem-monitoring-sample-mail-report.png" alt="Platform Problem Monitoring Email Report" >}}](/images/2025-03-09-new-project-platform-problem-monitoring-sample-mail-report.png)
 
-I was able to realize this application from the ground up within a couple of hours, although my experience with the Python language and ecosystem borders on zero. In fact, I didn't write a single line of Python code for this project.
+I was able to realize this application from the ground up within a couple of hours, although my experience with the Python language and ecosystem borders on zero. In fact, I didn't write a single line of Python code for this project myself, only the AI did.
 
 The "three measures" helped a great amount with getting to a reliably and correctly working solution.
 
 As we've released this application as Open Source, the full code is available on Github: [Platform Problem Monitoring](https://github.com/dx-tooling/platform-problem-monitoring-core).
 
-This includes its **well-structured requirement**, which I made available to the AI through file [REQUIREMENTS.md](https://github.com/dx-tooling/platform-problem-monitoring-core/blob/main/docs/REQUIREMENTS.md).
+This includes its **well-structured requirements**, which I made available to the AI through file [REQUIREMENTS.md](https://github.com/dx-tooling/platform-problem-monitoring-core/blob/main/docs/REQUIREMENTS.md).
 
 As you can see, it's not a quick read — but at 371 lines, it provides the basis for the AI agent to start off towards a clearly defined end state.
 
@@ -339,9 +345,9 @@ Well, for one, it was an interesting experience to create a non-trivial applicat
 
 And in this particular case, the new approach really made all the difference between _"I mean, do we **really** need to monitor our ELK-stack?"_ and *"Isn't it nice how we have this ELK-stack monitoring now?"*.
 
-Also, from a *product developer* perspective, the result is just fine! The application does exactly what it was meant to do, and hums along nicely every single day.
+Also, from a *product development* perspective, the result is just fine! The application does exactly what it was meant to do, and hums along nicely every single day.
 
-However, from a *software developer* perspective, one might consider it a mixed bag. As user [necovek](https://news.ycombinator.com/item?id=43575664) commented on [the HackerNews thread for the previous version](https://news.ycombinator.com/item?id=43575664) of this article:
+However, from a *software development* perspective, one might consider it a mixed bag. As user [necovek](https://news.ycombinator.com/item?id=43575664) commented on [the HackerNews thread for the previous version](https://news.ycombinator.com/item?id=43575664) of this article:
 
 > The premise might possibly be true, but as an actually seasoned Python developer, I've taken a look at one file: [utils.py](https://github.com/dx-tooling/platform-problem-monitoring-core/blob/af68ac38b5a7142c97997fe7cd799ce9bd1b4bd0/src/platform_problem_monitoring_core/utils.py)
 
