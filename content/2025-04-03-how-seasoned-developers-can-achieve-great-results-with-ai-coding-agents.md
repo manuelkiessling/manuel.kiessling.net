@@ -121,10 +121,6 @@ As an example, let's look at part of a real-world Cursor prompt that I created s
 
 Note how this explains a lot of context relevant to the task, and how it implicitly sets some constraints on how and where different parts of the feature need to be implemented.
 
-Also note what's *not* described; I don't go into much detail as to *what* data exactly needs to be displayed, and *how* exactly it needs to be displayed.
-
-From my experience, this works well as a starting point in cases like these: It's safe to assume that any cutting-edge large-language model has "seen" myriads of "presentations of subscription contract data on a web UI" during its training, so combining the general notion of "I need this data to be presented in a table-like overview" with "here is our official style guide" usually results in a visually and information-wise very good first user interface.
-
 There is also a good deal of *implicit* requirements and constraints that I feed into the Cursor prompt at the start of a new coding session: by adding existing files with implementations of a similar nature as the feature that needs to be created, and mentioning these to Cursor as "sources of inspiration (if needed)" —  this then sets the tone for the way that the underlying AI will approach a new implementation:
 
 > I'm also providing additional files like those from the styleguide, the UI navigation management service, and so on. Also consider the files from other, existing features I have provided as a guideline and inspiration.
@@ -154,6 +150,9 @@ Just as an (attentive) human junior developer might go "well this surely tells m
 
 This, together with class, method, and variable names that tend to be on the long-ish, but also very descriptive side, helps to create a fair amount of "implicit" guidance.
 
+Finally, note what's *not* described in the prompt; I don't go into much detail as to *what* data exactly needs to be displayed, and *how* exactly it needs to be displayed.
+
+From my experience, this works well as a starting point in cases like the above: It's safe to assume that any cutting-edge large-language model has "seen" myriads of "presentations of subscription contract data on a web UI" during its training, so combining the general notion of "I need this data to be presented in a table-like overview" with "here is our official style guide" usually results in a visually and information-wise very good first user interface.
 
 # Measure 2:<br>Tool-based Guard Rails
 
