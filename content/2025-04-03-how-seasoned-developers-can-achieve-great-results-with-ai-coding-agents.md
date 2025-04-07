@@ -41,7 +41,7 @@ This means that for the first time it is possible for my team and me to have the
 
 While this has already shown huge productivity boosts in multiple cases, we still maintain the responsibility to ensure that the resulting implementation is functionally correct, that important non-functional requirements are met, and that the overall code quality is as good or better as what we would create and release ourselves.
 
-Guiding the Coding Assistant towards satisfactory outcomes is of ever-growing importance in our daily work.
+Guiding the Coding Assistant towards satisfactory outcomes is therefore of ever-growing importance in our daily work.
 
 So far, I've identified three critical measures that are required to work successfully in an AI-assisted coding setup:
 
