@@ -381,3 +381,13 @@ These time-tested practices, and more than anything else, **the hard-earned huma
 As a result, using coding assistants like Cursor is already daily business when we work on our main applications, that is, those projects that lie squarely within our technological and architectural comfort zone — because the measures described in this article allow us to guide the AI in a targeted manner, and because it's straight-forward to verify the quality of the resulting code.
 
 Using the same techniques within the context of a green-field project that is based on an unfamiliar tech stack enables new application development possibilities, but does not come without pitfalls that need to be considered.
+
+# Bonus paragraph: Let's get in touch!
+
+I'm always interested in learning about your experiences with AI-assisted development, and would love to hear from you.
+
+Or maybe you are still at the beginning of the journey and would like to talk about how to best approach tools like Cursor or Windsurf, or how to best implement the new tooling and practices in your team?
+
+Then feel free to drop me a line at [manuel@kiessling.net](mailto:manuel@kiessling.net) or book a quick call with me [through Calendly](https://calendly.com/manuel-kiessling/ai-strategy-discovery-call).
+
+No sales pitch, no fluff, promised. Just an honest 1:1 where we talk about the craft and how it evolves right now.
