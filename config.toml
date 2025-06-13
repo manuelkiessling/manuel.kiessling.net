@@ -75,13 +75,18 @@ tag = "tags"
 page = "/:slug/"
 
 [[menu.main]]
-name = "Projects"
+name = "Open Source"
 weight = 1
-identifier = "Projects"
+identifier = "Open Source"
 url = "https://github.com/manuelkiessling"
 [[menu.main]]
-name = "Books"
+name = "DX·Tooling"
 weight = 2
+identifier = "DX Tooling"
+url = "https://dx-tooling.org"
+[[menu.main]]
+name = "Books"
+weight = 3
 identifier = "Books"
 url = "https://leanpub.com/u/manuelkiessling"
 
