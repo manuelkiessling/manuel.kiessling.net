@@ -226,6 +226,70 @@ b, strong {
     color: #777;
 }
 
+/* Short item (tweet-like) styling */
+.list-item.short-item article {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+}
+
+.short-item-header {
+    display: block;
+}
+
+.short-item-text {
+    margin: 0;
+}
+
+.short-item-meta {
+    margin: 0.5em 0 0 0;
+    color: #777;
+    font-size: .8em;
+}
+
+.short-item-title {
+    color: #777;
+}
+
+.short-item-date {
+    color: #777;
+}
+
+/* Differentiation visuals */
+.list-item.short-item {
+    margin-left: 0;
+    font-size: 0.65em;
+}
+
+.short-item-content {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
+    padding: 0.875em 1em;
+    width: 100%;
+}
+
+.list-item.short-item .meta {
+    flex-basis: 9em;
+    flex-shrink: 0;
+    text-align: end;
+    padding-right: 0.8em;
+    padding-top: 0.85em;
+}
+
+.short-item-label {
+    margin-top: 0;
+    padding-top: 0;
+    font-weight: 500;
+    color: #777;
+    font-size: 1em;
+}
+
+.short-item-text {
+    font-size: 1em;
+    line-height: 1.5em;
+    color: #777;
+}
+
 #main {
     margin-top: 2em;
     min-height: 50vh;

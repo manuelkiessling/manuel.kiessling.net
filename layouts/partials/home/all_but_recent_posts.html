@@ -7,8 +7,37 @@
 
     <div class='list-container'>
         <ul class='list'>
-            {{ range ( after .Site.Params.settings.recentPostsLength ( where .Data.Pages "Section" "" ) ) }}
-            {{ .Render "li" }}
+            {{/* Build combined list of posts and short items, sorted by date desc */}}
+            {{ $ctx := . }}
+            {{ $posts := where .Data.Pages "Section" "" }}
+            {{ $items := slice }}
+            {{ range $posts }}
+                {{ $items = $items | append (dict "type" "post" "date" .Date "page" .) }}
+            {{ end }}
+
+            {{ $csv := getCSV "|" "assets/shorts.csv" }}
+            {{ with $csv }}
+                {{ range . }}
+                    {{ $date := trim (index . 0) " \n\t\r" }}
+                    {{ $title := "" }}
+                    {{ $text := "" }}
+                    {{ if ge (len .) 3 }}
+                        {{ $title = trim (index . 1) " \n\t\r" }}
+                        {{ $text = trim (index . 2) " \n\t\r" }}
+                    {{ else if ge (len .) 2 }}
+                        {{ $text = trim (index . 1) " \n\t\r" }}
+                    {{ end }}
+                    {{ $items = $items | append (dict "type" "short" "date" (time $date) "title" $title "text" $text "ctx" $ctx) }}
+                {{ end }}
+            {{ end }}
+
+            {{ $sorted := sort $items "date" "desc" }}
+            {{ range after .Site.Params.settings.recentPostsLength $sorted }}
+                {{ if eq .type "post" }}
+                    {{ .page.Render "li" }}
+                {{ else }}
+                    {{ partial "home/short_item.html" . }}
+                {{ end }}
             {{ end }}
         </ul>
     </div>

@@ -1,0 +1,27 @@
+<li class='list-item short-item'>
+  <article>
+    <div class='meta'>
+        <span class='screen-reader'>Posted on </span>
+        <time class='short-item-date' datetime='{{ .date.Format "2006-01-02T15:04:05Z07:00" }}'>
+          {{- .date.Format ( .ctx.Site.Params.settings.listDateFormat | default "2006, Jan 02" ) -}}
+        </time>
+    </div>
+
+    <div class='short-item-content'>
+      <header class='short-item-header'>
+        <p class="short-item-label">
+          {{- if .title -}}
+            {{- .title -}}
+          {{- else -}}
+            Quick Note
+          {{- end -}}
+        </p>
+        <p class="short-item-text">
+          {{- .text | markdownify -}}
+        </p>
+      </header>
+    </div>
+  </article>
+</li>
+
+
