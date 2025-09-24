@@ -1,4 +1,1 @@
-2025-04-28||Interesting reads: [DX Tooling](https://dx-tooling.org), [Cursor](https://cursor.com)
-2025-03-12||Shipped a small internal tool today. Iteration > perfection.
-2024-12-01||New theme tweaks deployed. https://manuel.kiessling.net
-2024-12-02||Passing an array when declaring a defined type automatically evaluates the defined type once for each element of the array, but care must be taken if no array is declared in the Hiera structure for a given target system.
+2025-09-22||[MCP as a Service](https://mcp-as-a-service.com) now supports user-provided env vars that are passed into the MCP instance container. Starting today, it also offers launching [Metabase](https://www.metabase.com/) MCP server instances, based on [the MCP implementation by CognitionAI](https://github.com/CognitionAI/metabase-mcp-server), and allows to pass in the Metabase domain and API key through this env var mechanism. See [Pull Request #11](https://github.com/dx-tooling/maas-webapp/pull/11) for details.
