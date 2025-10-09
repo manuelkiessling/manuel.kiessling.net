@@ -1,6 +1,11 @@
 <link rel='icon' href='{{ ( or .Site.Params.assets.favicon "favicon.ico" ) | relURL }}'>
 <link rel='stylesheet' href='{{ print "/assets/css/" .Site.Data.assets.main.css | relURL  }}'>
 
+<!-- Web fonts: Inter, Source Serif 4, JetBrains Mono -->
+<link rel='preconnect' href='https://fonts.googleapis.com'>
+<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap'>
+
 {{- range .Site.Params.assets.customCSS -}}
   <link rel='stylesheet' href='{{ . | relURL }}'>
 {{- end -}}

@@ -7,9 +7,14 @@
 
     <div class='list-container'>
         <ul class='list'>
-            {{/* Build combined list of posts and short items, sorted by date desc */}}
+            {{/* Build combined list of remaining posts and all short items, sorted by date desc */}}
             {{ $ctx := . }}
             {{ $posts := where .Data.Pages "Section" "" }}
+            {{ $recentPosts := first .Site.Params.settings.recentPostsLength $posts }}
+            {{ $recentUrls := slice }}
+            {{ range $recentPosts }}
+                {{ $recentUrls = $recentUrls | append .Permalink }}
+            {{ end }}
             {{ $items := slice }}
             {{ range $posts }}
                 {{ $items = $items | append (dict "type" "post" "date" .Date "page" .) }}
@@ -32,11 +37,13 @@
             {{ end }}
 
             {{ $sorted := sort $items "date" "desc" }}
-            {{ range after .Site.Params.settings.recentPostsLength $sorted }}
-                {{ if eq .type "post" }}
-                    {{ .page.Render "li" }}
+            {{ range $it := $sorted }}
+                {{ if eq $it.type "post" }}
+                    {{ if not (in $recentUrls $it.page.Permalink) }}
+                        {{ $it.page.Render "li" }}
+                    {{ end }}
                 {{ else }}
-                    {{ partial "home/short_item.html" . }}
+                    {{ partial "home/short_item.html" $it }}
                 {{ end }}
             {{ end }}
         </ul>
