@@ -1,6 +1,6 @@
 ---
-date: 2025-11-04T00:00:01+02:03
-lastmod: 2025-11-04T00:00:01+02:03
+date: 2025-11-04T00:00:01+02:00
+lastmod: 2025-11-04T00:00:01+02:00
 title: "What if software shipped with a software engineer?"
 description: ""
 authors: ["manuelkiessling"]
@@ -9,7 +9,7 @@ lang: en
 ---
 
 
-A recent experiment made the rounds showing an LLM acting as the whole application: every HTTP request is handled by the model, which designs schemas, renders HTML, and mutates state through tool calls: [“Why write code if the LLM can just do the thing?”](https://news.ycombinator.com/item?id=45783640).
+A recent experiment made the rounds showing an LLM acting as the whole application: every HTTP request is handled by the model, that designs schemas, renders HTML, and mutates state through tool calls: [“Why write code if the LLM can just do the thing?”](https://news.ycombinator.com/item?id=45783640).
 
 It worked — barely. It was slow, expensive, and visually inconsistent. But it surfaced a useful question: if inference keeps getting cheaper and faster, why generate code at all?
 
@@ -26,15 +26,15 @@ There is a third way that blends reliability with on-demand change: a convention
 
 ## Example
 
-Let's say you’re working in a straightforward inventory management system: SKUs, counts, suppliers, filters; nothing exotic. You use the software, and realize that you need a new feature: CSV export.
+Let’s say you’re working in a straightforward inventory management system: SKUs, counts, suppliers, filters; nothing exotic. You use the software, and realize that you need a new feature: CSV export.
 
 In a classical setup, you’d file a ticket and wait for a release. In an LLM‑as‑runtime setup, the model would reinvent the feature on each request — fast to try, but inconsistent and hard to govern.
 
-With the approach that I have in mind, it works like this:
+Here’s how that would work:
 
-You open a special feature of the application, which we might call “Develop mode“, and write a prompt: “Add a feature that allows to export the inventory as a CSV file”.
+You open a special feature of the application, which we might call “Develop mode,” and write a prompt: “Add a feature that allows you to export the inventory as a CSV file.”
 
-The agent implements the feature where it belongs, adds tests, runs checks, migrates a snapshot, and gives you a preview. You approve; the changes are merged. Next week, it’s still there — a normal, versioned feature of your software.
+The agent implements the feature where it belongs, adds tests, runs checks, migrates the snapshot, and gives you a preview. You approve; the changes are merged. Next week, it’s still there — a normal, versioned feature of your software.
 
 
 ## How it would work
@@ -44,9 +44,9 @@ The agent implements the feature where it belongs, adds tests, runs checks, migr
 - **Behind the scenes**:
   - A branch-like workspace is created with a full data snapshot.
   - The agent edits code where it belongs, runs linters, tests, and security checks.
-  - Migrations run against the snapshot; failure rolls back automatically.
+  - Migrations run against the snapshot; failures trigger an automatic rollback.
   - A dedicated preview instance spins up with your copied data.
-- **Promote when ready**: approve to merge and deploy; or iterate, or discard.
+- **Promote when ready**: approve to merge and deploy, iterate, or discard.
 
 This keeps the virtues of shipped software — repeatability, versioning, stability — while lowering the cost of small, local changes.
 
@@ -70,7 +70,7 @@ These are not showstoppers. They are product and platform work, the kind we alre
 
 ## The evolution of the engineering role
 
-These technical challenges point to something more fundamental: a shift in what software engineers deliver. We would move from shipping “finished features” to building “systems that allow to safely produce features on demand.”
+These technical challenges point to something more fundamental: a shift in what software engineers deliver. We would move from shipping “finished features” to building “systems that allow us to safely produce features on demand.”
 
 This isn’t entirely new. We already build meta‑software:
 
