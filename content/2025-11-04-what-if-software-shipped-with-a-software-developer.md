@@ -2,7 +2,7 @@
 date: 2025-11-04T00:00:01+02:00
 lastmod: 2025-11-04T00:00:01+02:00
 title: "What if software shipped with a software engineer?"
-description: ""
+description: "Ship software with an embedded AI engineer: a governed Develop mode that safely implements features on demand while preserving versioning, tests, and stability."
 authors: ["manuelkiessling"]
 slug: 2025/11/04/what-if-software-shipped-with-a-software-engineer
 lang: en
@@ -17,7 +17,7 @@ My answer is a middle path, where AI can extend and modify a running application
 
 ## The third way
 
-The experiment shows that we could think about software development and delivery in two extremes:
+The experiment presented on Hacker News shows that we could think about software development and delivery in two extremes:
 
 - **Classical delivery**: developers write code, deploy, and hand you the result. Changes require a ticket, a sprint, and a release.
 - **LLM-as-runtime**: the model “is” the app. Every request becomes a design/build/execute cycle. Novel, but brittle.
