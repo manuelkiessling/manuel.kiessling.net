@@ -8,6 +8,12 @@ slug: 2026/01/25/introducing-sitebuilder
 lang: en
 ---
 
+![SiteBuilder: content editor, landing page result, and GitHub PR for the changes.](https://dx-tooling.org/sitebuilder-assets/webapp-screenshots/web-versions/SiteBuilder-content-editor-landing-page-preview-and-GitHub-PR-for-changes-1600x987.png)
+
+*Describe in chat → see the result → changes land in a GitHub PR. The full loop.*
+
+*SiteBuilder is the content management tool that creators love to use and engineering loves to support.*
+
 # The Problem
 
 Here's a situation that will sound familiar to many engineering teams: the marketing department needs to change a headline on the website. Or update a phone number. Or tweak some copy before a campaign goes live.
@@ -17,7 +23,6 @@ What happens next? A ticket is filed. An engineer context-switches away from act
 Meanwhile, the marketing team waits. The engineer feels like an overpaid text editor. And everyone agrees there must be a better way — but CMS platforms either lack the control engineers need, or they're so complex that the cure becomes worse than the disease.
 
 I built SiteBuilder to solve this.
-
 
 # What SiteBuilder Does
 

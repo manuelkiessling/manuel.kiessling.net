@@ -8,6 +8,14 @@ slug: 2026/01/26/sitebuilder-agent-architecture-insights
 lang: en
 ---
 
+![SiteBuilder: content editor, landing page result, and GitHub PR for the changes.](https://dx-tooling.org/sitebuilder-assets/webapp-screenshots/web-versions/SiteBuilder-content-editor-landing-page-preview-and-GitHub-PR-for-changes-1600x987.png)
+
+*Describe in chat → see the result → changes land in a GitHub PR. The full loop.*
+
+*SiteBuilder is the content management tool that creators love to use and engineering loves to support.*
+
+[SiteBuilder](https://dx-tooling.org/sitebuilder/) is an open-source tool that lets non-technical teams edit web content through chat while engineers keep Git workflows and full control. Marketing describes changes in plain language; an AI agent makes the edits; every change goes through a pull request for review. This post is a technical follow-up — if you're new to SiteBuilder, the [introductory post](/2026/01/25/introducing-sitebuilder) covers the problem it solves and how it works.
+
 # Introduction
 
 I've been working on several improvements to [SiteBuilder](https://dx-tooling.org/sitebuilder/) this week, and while implementing them, I encountered some interesting architectural decisions worth sharing. The features themselves are straightforward — better commit messages, preview URL sharing, conversation history viewing — but the implementation patterns illustrate how the system's boundaries work together.
