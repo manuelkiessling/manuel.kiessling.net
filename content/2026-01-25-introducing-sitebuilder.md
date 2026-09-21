@@ -5,6 +5,7 @@ title: "Introducing SiteBuilder: Edit Web Content with Natural Language"
 description: "An open-source tool that lets non-technical teams update websites through chat while engineers keep Git workflows and full control."
 authors: ["manuelkiessling"]
 slug: 2026/01/25/introducing-sitebuilder
+aliases: ["/introducing-sitebuilder/"]
 lang: en
 ---
 

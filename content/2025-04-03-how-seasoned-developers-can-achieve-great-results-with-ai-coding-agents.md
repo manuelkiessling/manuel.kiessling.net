@@ -5,6 +5,7 @@ title: "Senior Developer Skills in the AI Age: Leveraging Experience for Better 
 description: "How time-tested software engineering practices amplify the effectiveness of AI coding assistants."
 authors: ["manuelkiessling"]
 slug: 2025/03/31/how-seasoned-developers-can-achieve-great-results-with-ai-coding-agents
+aliases: ["/ai-and-senior-devs/"]
 lang: en
 ---
 
